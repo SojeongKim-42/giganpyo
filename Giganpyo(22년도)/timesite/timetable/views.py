@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import SubjectEval, SubjectInfo, Subject_add, Evaluation
+from .models import SubjectInfo, Subject_add
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 from django.shortcuts import render, get_object_or_404
@@ -46,43 +46,6 @@ def main(request):
     return render(request, 'timetable/main.html', context)
 
 
-# @login_required(login_url='common:login')
-# def mytable(request, user_id):
-#     page = request.GET.get('page', '1')  # 페이지
-#
-#     drop1 = request.GET.get('drop1', '') #요일
-#     subject_list = SubjectInfo.objects.order_by('id')
-#     subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values('subject_add_id').distinct().order_by('subject_add_id')
-#     subject_selected_list = []
-#     sum = 0
-#     for i in range(len(subject_add_list)):
-#         subject_selected_list.append(SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id')))
-#         #subject_add_list는 list형태인 것 같고, i는 정수형태로 받았어.
-#         #처음에 for i in subject_add_list 로 했었는데 i를 딕셔너리 형태로 받더라... 그래서 정수형으로 바꿔주고
-#         #이제 subject_add_list[i]가 딕셔너리 형태로 되어있을 건데 --> { 'subject_add_id' = 188 } 이런 식으로
-#         #나는 188의 값만 필요하니깐 subject_add_id를 키값으로 하는 값을 출력했어. 그게 get함수야
-#         #이렇게 subject_selected_list를 만들었고, 결국 얘네를 main.html에 집어넣으면서 끝나
-#
-#     for i in range(len(subject_selected_list)):
-#         sum += subject_selected_list[i].credit
-#
-#     if kw:
-#         subject_list = subject_list.filter(
-#             Q(name__icontains=kw) |
-#             Q(professor1__icontains=kw)|
-#             Q(id__icontains=kw)|
-#             Q(code__icontains=kw)
-#         )
-#
-#     paginator = Paginator(subject_list, 10)
-#     page_obj = paginator.get_page(page)
-#
-#
-#     context = {'subject_list': page_obj, 'page': page, 'kw': kw, 'subject_selected_list': subject_selected_list,
-#                'sum':sum, 'drop1':drop1}
-#     return render(request, 'timetable/main.html', context)
-
-
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
@@ -97,16 +60,6 @@ def mytable(request, user_id):
     time = request.GET.get('time')  # 시간
     department = request.GET.get('department')  # 부서
     so = request.GET.get('so')  # 정렬기준
-
-    # 과목을 선택한 사람의 수 계산하기(처음)
-    # subject_add_all_list = Subject_add.objects.all().values('subject_add_id').order_by('subject_add_id')
-    # qs = SubjectInfo.objects.all()
-    # for i in range(len(list(qs))):
-    #     tmp_sub = SubjectInfo.objects.get(id=i+1)
-    #     for j in range(len(list(subject_add_all_list))):
-    #         if subject_add_all_list[j].get('subject_add_id') == i+1:
-    #             tmp_sub.select_person += 1
-    #     tmp_sub.save()
 
     subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values('subject_add_id').distinct().order_by(
         '-id')
@@ -167,61 +120,8 @@ def mytable(request, user_id):
     else:
         qs = qs.all()
 
-    """
-    평가 한 사람 처리
-    """
-    sub_eval_user_all_list = SubjectEval.objects.all().filter(user_id=request.user.id).order_by('id')
-    sub_eval_write_list = []
-
-    # 지난 학기 과목 보내주기!
-    for i in range(len(subject_add_list)):
-        try:
-            sub_eval_write_list.append(
-                SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=2021, session='spring'))
-        except SubjectInfo.DoesNotExist:
-            continue
-
-    for i in range(len(list(sub_eval_user_all_list))):
-        for j in range(len(list(sub_eval_write_list))):
-            if sub_eval_user_all_list[i].subject_id == sub_eval_write_list[j].id:
-                del sub_eval_write_list[j]
-                break
-
-    """
-    과목 평가
-    """
-    eval = pd.DataFrame(list(Evaluation.objects.all().values()))
-    subject = pd.DataFrame(list(SubjectInfo.objects.all().values()))
-    subject_eval = subject.merge(eval, left_on='id', right_on='subject_id').loc[:,
-                   ['name', 'professor1', 'professor2', 'year', 'session', 'test', 'assignment', 'grade', 'comment',
-                    'subject_id']]
-    subject_eval = subject_eval.groupby(['name', 'professor1']).mean().reset_index()
-    subject_eval_list = []
-    eval_list = []
-    subject_eval_comment = subject.merge(eval, left_on='id', right_on='subject_id').loc[:,
-                           ['name', 'professor1', 'professor2', 'year', 'session', 'test', 'assignment', 'grade',
-                            'comment', 'subject_id']]
-
-    for i in range(subject_eval.shape[0]):
-        subject_eval_list.append(subject_eval.iloc[i].to_dict())
-    for i in range(subject_eval_comment.shape[0]):
-        eval_list.append(subject_eval_comment.iloc[i].to_dict())
-
-    """
-    내가 쓴 수강평
-    """
-    my_eval = SubjectEval.objects.filter(user_id=request.user.id).values('subject_id').distinct()
-    my_eval_list = []
-
-    for i in range(len(my_eval)):
-        try:
-            my_eval_list.append(SubjectInfo.objects.get(id=my_eval[i].get('subject_id'), year=2021, session='spring'))
-        except SubjectInfo.DoesNotExist:
-            continue
-
     context = {'subject_list': qs, 'subject_selected_list': subject_selected_list,
-               'sum': sum, 'eval_list': eval_list, 'subject_eval_list': subject_eval_list,
-               'sub_eval_write': sub_eval_write_list, 'my_eval_list': my_eval_list}
+               'sum': sum}
     return render(request, 'timetable/main.html', context)
 
 
@@ -910,39 +810,6 @@ def delete(request, subject_id):
     else:
         tmp_delete.select_person -= 1
         tmp_delete.save()
-    return redirect('timetable:mytable', user_id=request.user.id)
-
-
-def eval_add(request, subject_id):
-    """
-    평가 등록
-    """
-    user = request.user
-    subeval = SubjectEval.objects.filter(user_id=user.id, subject_id=subject_id)
-    gr_ade = "grade-" + str(subject_id)
-    assign_ment = "homework-" + str(subject_id)
-    t_est = "exam-" + str(subject_id)
-    sub_ject = SubjectInfo.objects.get(id=subject_id)
-    evaluation = Evaluation(subject=sub_ject, comment=request.POST.get('content'),
-                            grade=request.POST.get(gr_ade),
-                            assignment=request.POST.get(assign_ment),
-                            test=request.POST.get(t_est))
-    if len(subeval) != 0:
-        return redirect('timetable:mytable', user_id=request.user.id)
-    else:
-        evaluation.save()
-        subject_eval = SubjectEval(evaluation=evaluation, subject=sub_ject, user=user)
-        subject_eval.save()
-        return redirect('timetable:mytable', user_id=request.user.id)
-
-
-def eval_del(request, subject_id):
-    """
-    평가 삭제
-    """
-    subjecteval = SubjectEval.objects.get(subject_id=subject_id)
-    evaluation = Evaluation.objects.get(id=subjecteval.evaluation_id)
-    evaluation.delete()
     return redirect('timetable:mytable', user_id=request.user.id)
 
 # def data_save(request):
