@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'css/main_phone.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/main_desktop.css' %}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
     <script>
       var bag_counts = 0;
       var day1_g = [400];
@@ -32,20 +34,35 @@
       var start_timem4_g = [400];
       var finish_timeh4_g =[400];
       var finish_timem4_g = [400];
-                              
+      var subject_list_before_save = [];
+      var subject_number=0;           
       var s_time = [400];
       var f_time = [400];
 
-      window.onload = function determines(i) {
+      
+      window.onload = function determines2(i) {
+
+        var ctx3 = document.getElementById("myCanvas4").getContext("2d");
+        ctx3.mozImageSmoothingEnabled = false;
+        ctx3.imageSmoothingEnabled = false;
+       
+        var image = '{% static 'image/table1.png' %}';
+        
+        var img = new Image;
+        img.src = image;
+        img.onload = function() {
+          ctx3.drawImage(img,-10,-5,2420,2240);
+         
+        }
         rect();
-      }
+      };
 
       function clean() {
         var ctx4 = document.getElementById("myCanvas3").getContext("2d");
         ctx4.clearRect(0, 0,myCanvas1.width, myCanvas1.height);
       }
 
-       function rect() {
+      setTimeout( function rect() {
         var Acolor = new Array(
           "#75ca87",
           "#70a5e9",
@@ -58,8 +75,9 @@
         );
         var holizantal = 30;
         var vertical = 6;
-
+        var ctx3 = document.getElementById("myCanvas4").getContext("2d");
         {% for subject in subject_selected_list %}
+        ctx3.scale(4, 4);
         day1 = "{{ subject.day1 }}"
         start_timeh1 = "{{ subject.start_h1 }}"
         start_timem1 = "{{ subject.start_m1 }}"
@@ -83,12 +101,10 @@
         name = '{{subject.name}}';
         pro = '{{ subject.professor1 }}';
         code = "{{subject.code}}";
-
         var ctx = document.getElementById("myCanvas1").getContext("2d");
         ctx.mozImageSmoothingEnabled = false;
         ctx.imageSmoothingEnabled = false;
         ctx.scale(4, 4);
-
         if (day1 === "월") {
           day1= 1;
         } else if (day1 === "화") {
@@ -197,6 +213,71 @@
         ctx.fillText(code,100 * day4+5, 20 * s_time+32,90);
         }
         ctx.scale(0.25, 0.25);
+
+        var s_time = 0;
+        var f_time = 0;
+
+        var color = Acolor[bag_counts % 8];
+
+        s_time = (start_timeh1 - 9) * 2 + start_timem1 / 30 + 1;
+
+        f_time = (finish_timeh1 - 9) * 2 + finish_timem1 / 30 + 1;
+
+
+        ctx3.fillStyle = color;
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillRect(100 * day1, 20 * s_time+20, 100, 20 * (f_time - s_time));
+        ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day1+5, 20 * s_time+46,90);
+
+        ctx3.fillText(code,100 * day1+5, 20 * s_time+32,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day1+5, 20 * s_time+58,90);
+
+        {
+          s_time = (start_timeh2 - 9) * 2 + start_timem2 / 30 + 1;
+          f_time = (finish_timeh2 - 9) * 2 + finish_timem2 / 30 + 1;
+          ctx3.fillStyle = color;
+          ctx3.fillRect(100 * day2, 20 * s_time+20, 100, 20 * (f_time - s_time));
+          ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day2+5, 20 * s_time+46,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day2+5, 20 * s_time+58,90);
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillText(code,100 * day2+5, 20 * s_time+32,90);
+        }
+        {
+          s_time = (start_timeh3 - 9) * 2 + start_timem3 / 30 + 1;
+
+          f_time = (finish_timeh3 - 9) * 2 + finish_timem3 / 30 + 1;
+        ctx3.font = '12px Arial';
+
+          ctx3.fillStyle = color;
+          ctx3.fillRect(100 * day3, 20 * s_time+20, 100, 20 * (f_time - s_time));
+          ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day3+5, 20 * s_time+46,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day3+5, 20 * s_time+58,90);
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillText(code,100 * day3+5, 20 * s_time+32,90);
+        }
+        {
+          s_time = (start_timeh4 - 9) * 2 + start_timem4 / 30 + 1;
+
+          f_time = (finish_timeh4 - 9) * 2 + finish_timem4 / 30 + 1;
+        ctx3.font = '12px Arial';
+          ctx3.fillStyle = color;
+          ctx3.fillRect(100 * day4, 20 * s_time+20, 100, 20 * (f_time - s_time));
+          ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day4+5, 20 * s_time+46,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day4+5, 20 * s_time+58,90);
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillText(code,100 * day4+5, 20 * s_time+32,90);
+        }
+        ctx3.scale(0.25, 0.25);
+        
         var ctx2 = document.getElementById("myCanvas2").getContext("2d");
         ctx2.mozImageSmoothingEnabled = false;
         ctx2.fontSmoothingEnabled = false;
@@ -260,7 +341,51 @@
         ctx2.scale(1/4, 1/4);
         bag_counts++;
         {% endfor %}
+      },500);
+    
+    /* function save_before_add(subject_id){
+        subject_number++;
+        subject_list_before_save[subject_number]=subject_id;
+
+        var subject_input = document.createElement( 'input' );
+        subject_input.setAttribute("type", "text");
+        subject_input.setAttribute("value", subject_id);
+        subject_input.id = 'subject_input'+subject_id;//id
+        subject_input.name= "subject_input"; //name 
+        subject_input.className = 'count_box';
+        document.getElementById('input_bag').appendChild(subject_input);
+     */
+      
+     function save_image(){
+      var canvas = document.getElementById('myCanvas4');
+      //var image = '{% static 'image/table1.png' %}';
+      // addToCanvas(ctx, image,0,0,600,560);
+      //const canvas = document.getElementById('myCanvas1');
+      //ctx.drawImage(canvas);
+      if (canvas.msToBlob) {
+        var blob = canvas.msToBlob();
+        window.navigator.msSaveBlob(blob, "giganpyo.png");
+      } else {
+      saveAs( canvas.toDataURL(), "giganpyo.png");
+      }  
+      function saveAs(uri, filename) {
+        
+        var link = document.createElement('a');
+
+        if (typeof link.download === 'string') {
+
+          link.href = uri; link.download = filename;
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+        } else {
+          window.open(uri);
+        }
       }
+        
+       }
 </script>
 <script src="{% static 'javascript/main.js' %}"></script>
 </head>
@@ -285,11 +410,11 @@
         <div id="clickToView2" style="display:none; position: absolute;">
           <div id= "alarms" ><br>
             1. pc에서 사용하는것을 권장합니다!<br>
-            2. 아이폰,아이패드에서는 오류가 날 수 있어요 ㅜ<br>
+            2. 아이폰,아이패드에서는 오류가 날 수 있어요 ㅜㅜ<br>
             3. 크롬에서 사용하기를 권장합니다!<br>
-            4. [시간 변경] 전략경영 / 기술벤처창업론 / 일반생물학 실험 / 컴퓨터프로그래밍 2분반<br> 
-            5.수강신청 전에 꼭 제우스와 비교해주세요! 공지 없이 시간이 바뀌어 반영이 안 되었을 수 있습니다.
-
+            4.수강신청 전에 꼭 제우스와 비교해주세요! 공지 없이 시간이 바뀌어 반영이 안 되었을 수 있습니다.
+            {% comment %} <div id="input_bag"></div>
+            <button type="button"> 저장 </button> {% endcomment %}
           </div>
         </div>
 
@@ -310,7 +435,12 @@
                     style="position: absolute"
             >
             </canvas>
-
+            <canvas
+            id="myCanvas4"
+            width="2400px" height="2240px"
+            style="width : 600px; height : 560px; visibility: hidden; position: absolute;"
+            >
+            </canvas>
             {% include "table1.html" %}
             <canvas
                     id="myCanvas2"
@@ -321,8 +451,9 @@
             >
             </canvas>
             {% include "table2.html" %}
-            <div style="  text-align: right;">
-                <div id="sum">총 {{ sum }}  학점</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr;">
+                <button id="save_button" style="text-align:center; width:160px;border:none;background-color:white;color:#57af4c;" onclick="save_image();">시간표 사진 저장하기</button>
+                <div id="sum" style="text-align:right;">총 {{ sum }}  학점</div>
             </div>
 
             {% if messages %}
@@ -394,36 +525,7 @@
             </div>
             <br>
             <div id="no_show">
-            <div id="result_bag">
-              <div id="result_back">
-
-                  <div id="result">내가 쓴 강의평</div></div>
-              <table class = "table">
-                  <tbody>
-                    
-                    {% if my_eval_list %}
-                    {% for subject in my_eval_list %}
-                    <tr id="tr_noline" class="text-center">
-                      <td class = "text-left">
-                          <div  class="subject_button2">
-                            <div id="result_bag1">
-                              <strong>{{subject.code}}</strong>  
-                              {{ subject.name }} - {{ subject.professor1 }}  / {{ subject.credit }} 학점
-                          </div>
-                          <button id="view_review-{{ subject.id }}" class="select_review_button" onclick=location.href="javascript:viewDisplay3({{ subject.id }});">수강평보기</button>
-                          <button id="view_review-{{ subject.id }}" class="select_review_button2" onclick=location.href="javascript:viewDisplay3({{ subject.id }});">수강평보기</button>
-                          <a href="{% url 'timetable:eval_del' subject.id %}"><button method="get" id="button_subject_table" onclick="del">  DEL  </button></a>
-                    {% endfor %}
-                    {% else %}
-                    <tr id="tr_noline">
-                        <td colspan="3">강의가 없습니다.</td>
-                    </tr>
-                    {% endif %}
-
-
-                  </tbody>
-              </table>
-          </div>
+           
           </div>
             <div id="light_down">
               <div id="result">검색창</div>
@@ -634,8 +736,8 @@
                                           {{ subject.name }}
                                         </div>
                                         <div id="subject_table3">
-
-                                            <button method="get" id="button_subject_table" class="btn btn-outline-secondary" > <a href="{% url 'timetable:add' subject.id %}"> ADD </a> </button></div>
+                                          <!--<button method="get" id="button_subject_table" class="btn btn-outline-secondary" onclick="save_before_add({{ subject.id }})"  > ADD </button></div>--> 
+                                         <button method="get" id="button_subject_table" class="btn btn-outline-secondary"  > <a href="{% url 'timetable:add' subject.id %}"> ADD </a> </button></div> 
                                     </div>
                                     <div id="subject_table2">
                                       <strong>
@@ -798,283 +900,9 @@
                     </div>
                 </div>
             </div>
-            <div id="result_bag_0">
-                <div id="result_back_0">
-
-                  <div id="result">강의평 보기 </div></div>
-                <div id="review_bag">
-
-                <table class = "table4">
-                  <tbody>
-                    {% if my_eval_list %}
-                    {% for subject in my_eval_list %}
-                  <tr id="tr_noline" class="text-center">
-                      <td class = "text-left" id="view-{{ subject.id }}"style="display:none;">
-                        <div>
-                          <div id="result_bag0" class="subject_button5" style="background: rgb(240, 240, 240)">
-                            <div style="text-align: left; margin: 8px 10px 0px 10px;">
-                                  <span style="font-size: 18px;font-weight: 1000; color: rgb(53, 53, 53);">{{ subject.name }}</span>
-                                  <span> {{ subject.professor1 }}  </span>
-                              </div>
-                            </div>
-                            <div  class="subject_button6" style="margin: 0 0 15px 0">
-                              {% for subject_eval in subject_eval_list %}
-                              {% if subject.name == subject_eval.name %}
-                              {% if subject.professor1 == subject_eval.professor1 %}
-                                <div class="review_mean_score">
-                                    <div>
-                                      <div style="font-size: 15px;"><strong>{{ subject_eval.grade }}</strong></div>
-                                        <div>성적</div>
-                                    </div>
-                                    {% if subject_eval.grade <= 5.0 and subject_eval.grade > 4.5 %}
-                                        <div style="font-size: 20px;">A+</div>
-                                        {% elif subject_eval.grade <= 4.5 and subject_eval.grade > 4.0 %}
-                                        <div style="font-size: 20px;">A</div>
-                                        {% elif subject_eval.grade <= 4.0 and subject_eval.grade > 3.5 %}
-                                        <div style="font-size: 20px;">B+</div>
-                                        {% elif subject_eval.grade <= 3.5 and subject_eval.grade > 3.0 %}
-                                        <div style="font-size: 20px;">B</div>
-                                        {% elif subject_eval.grade <= 3.0 and subject_eval.grade > 2.5 %}
-                                        <div style="font-size: 20px;">C+</div>
-                                        {% elif subject_eval.grade <= 2.5 and subject_eval.grade > 2.0 %}
-                                        <div style="font-size: 20px;">C</div>
-                                        {% elif subject_eval.grade <= 2.0 and subject_eval.grade > 1.5 %}
-                                        <div style="font-size: 20px;">D+</div>
-                                        {% elif subject_eval.grade <= 1.5 and subject_eval.grade > 1.0 %}
-                                        <div style="font-size: 20px;">D</div>
-                                        {% else %}
-                                        <div style="font-size: 20px;">F</div>
-                                    {% endif %}
-                                    <div style="border-right: solid 2px #57AF4CFF;"></div>
-                                    <div>
-                                      <div style="font-size: 15px;"><strong>{{ subject_eval.assignment }}</strong></div>
-                                        <div>과제</div>
-                                    </div>
-                                    {% if subject_eval.assignment <= 5.0 and subject_eval.assignment > 4.5 %}
-                                        <div style="font-size: 20px;">A+</div>
-                                        {% elif subject_eval.assignment <= 4.5 and subject_eval.assignment > 4.0 %}
-                                        <div style="font-size: 20px;">A</div>
-                                        {% elif subject_eval.assignment <= 4.0 and subject_eval.assignment > 3.5 %}
-                                        <div style="font-size: 20px;">B+</div>
-                                        {% elif subject_eval.assignment <= 3.5 and subject_eval.assignment > 3.0 %}
-                                        <div style="font-size: 20px;">B</div>
-                                        {% elif subject_eval.assignment <= 3.0 and subject_eval.assignment > 2.5 %}
-                                        <div style="font-size: 20px;">C+</div>
-                                        {% elif subject_eval.assignment <= 2.5 and subject_eval.assignment > 2.0 %}
-                                        <div style="font-size: 20px;">C</div>
-                                        {% elif subject_eval.assignment <= 2.0 and subject_eval.assignment > 1.5 %}
-                                        <div style="font-size: 20px;">D+</div>
-                                        {% elif subject_eval.assignment <= 1.5 and subject_eval.assignment > 1.0 %}
-                                        <div style="font-size: 20px;">D</div>
-                                        {% else %}
-                                        <div style="font-size: 20px;">F</div>
-                                    {% endif %}
-                                    <div style="border-right: solid 2px #57AF4CFF;"></div>
-                                    <div>
-                                      <div style="font-size: 15px;"><strong>{{ subject_eval.test }}</strong></div>
-                                        <div>시험</div>
-                                    </div>
-                                    {% if subject_eval.test <= 5.0 and subject_eval.test > 4.5 %}
-                                    <div style="font-size: 20px;">A+</div>
-                                    {% elif subject_eval.test <= 4.5 and subject_eval.test > 4.0 %}
-                                    <div style="font-size: 20px;">A</div>
-                                    {% elif subject_eval.test <= 4.0 and subject_eval.test > 3.5 %}
-                                    <div style="font-size: 20px;">B+</div>
-                                    {% elif subject_eval.test <= 3.5 and subject_eval.test > 3.0 %}
-                                    <div style="font-size: 20px;">B</div>
-                                    {% elif subject_eval.test <= 3.0 and subject_eval.test > 2.5 %}
-                                    <div style="font-size: 20px;">C+</div>
-                                    {% elif subject_eval.test <= 2.5 and subject_eval.test > 2.0 %}
-                                    <div style="font-size: 20px;">C</div>
-                                    {% elif subject_eval.test <= 2.0 and subject_eval.test > 1.5 %}
-                                    <div style="font-size: 20px;">D+</div>
-                                    {% elif subject_eval.test <= 1.5 and subject_eval.test > 1.0 %}
-                                    <div style="font-size: 20px;">D</div>
-                                    {% else %}
-                                    <div style="font-size: 20px;">F</div>
-                                {% endif %}
-                                </div>
-                                {% endif %}
-                              {% endif %}
-                              {% endfor %}
-                          <button id="view_review-{{ subject.id }}" class="all_review_button" onclick=location.href="javascript:viewDisplay({{ subject.id }});">수강평 전체</button>
-                          </div>
-
-
-                                        <div id="clickToView-{{ subject.id }}" style="display:none;">
-                                          {% for eval in eval_list %}
-                                          {% if subject.name == eval.name %}
-                                          {% if subject.professor1 == eval.professor1 %}
-
-
-                                            <div class = "text-left" id = "text-{{ subject.id }}">
-                                                <div id="review_table0">
-                                                    <div id="review_table1">
-                                                        {{ eval.comment }}
-                                                    </div>
-                                                    <div id="review_table2">
-                                                        <div class="review_all_score">
-                                                            <div>
-                                                                <span>성적 </span><span><strong>{{ eval.grade }}</strong></span>
-                                                            </div>
-                                                            <div>
-                                                                <span>과제 </span><span><strong>{{ eval.assignment }}</strong></span>
-                                                            </div>
-                                                            <div>
-                                                                <span>시험 </span><span><strong>{{ eval.test }}</strong></span>
-                                                            </div>
-                                                        </div>
-                                                    <!-- TEMP -->
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {% endif %}
-                                          {% endif %}
-                                          {% endfor %}
-                                          </div>
-
-                      </td>
-
-                  </tr>
-                  {% endfor %}
-                  {% else %}
-                  <tr id="tr_noline">
-                      <td colspan="3">강의가 없습니다.</td>
-                  </tr>
-                  {% endif %}
-                  </tbody>
-              </table>
-                </div>
-          </div>
+            
     </div>
-        <div id="no_show">
-          <button id="view_write_review" onclick=location.href="javascript:viewDisplay2();">수강평 작성</button>
-          <div id="clickToView"  style="visibility:hidden;">
-              <div id="write_review" style="position :absolute; right: 0;top :100px;">
-                  <table id="review_table">
-                      <tbody>
-                      {% if sub_eval_write %}
-                      {% for subject in sub_eval_write %}
-  
-                      <tr id="tr_noline" class="text-center">
-                          <td class = "text-left" style="width: 200px;">
-                              <div id="review_subject">
-                                <div id="result_bag1">
-                                  <span style="font-size: 13px;"><strong>{{ subject.name }}</strong></span> {{ subject.professor1 }}
-                                <br>
-                                  {% if subject.count == 1 %}
-                                  {{ subject.day1 }} {{ subject.start_time1 }}~{{ subject.finish_time1 }}/
-                                  {% elif subject.count == 2 %}
-                                  {{ subject.day1 }} {{ subject.start_time1 }}~{{ subject.finish_time1 }}/
-                                  {{ subject.day2 }} {{ subject.start_time2 }}~{{ subject.finish_time2 }}/
-                                  {% elif subject.count == 3 %}
-                                  {{ subject.day1 }} {{ subject.start_time1 }}~{{ subject.finish_time1 }}/
-                                  {{ subject.day2 }} {{ subject.start_time2 }}~{{ subject.finish_time2 }}/
-                                  {{ subject.day3 }} {{ subject.start_time3 }}~{{ subject.finish_time3 }}/
-                                  {% elif subject.count == 4 %}
-                                  {{ subject.day1 }} {{ subject.start_time1 }}~{{ subject.finish_time1 }}/
-                                  {{ subject.day2 }} {{ subject.start_time2 }}~{{ subject.finish_time2 }}/
-                                  {{ subject.day3 }} {{ subject.start_time3 }}~{{ subject.finish_time3 }}/
-                                  {{ subject.day4 }} {{ subject.start_time4 }}~{{ subject.finish_time4 }}/
-                                  {% endif %}
-                                  {{ subject.credit }} 학점
-  
-                              <form action="{% url 'timetable:eval_add' subject.id %}" method="post">
-                                  {% csrf_token %} 
-                                  <textarea placeholder="한줄평을 남겨주세요.(교수님이 성적을 잘 주시는 편인가요? 과제와 시험의 난이도와 양은 어떤가요?)." name="content" id="content" rows="5"></textarea>
-                                  <div>
-                                      <div style="margin: 3px;">
-                                          <span style="font-size: 12px;">성적</span>
-                                          <label class="select_score-{{ subject.id }}" for="grade_5-{{ subject.id }}">
-                                              <input id="grade_5-{{ subject.id }}" type="radio" name="grade-{{ subject.id }}" value="5">
-                                              <span>A</span>
-                                          </label>
-                                          <label class="select_score-{{ subject.id }}" for="grade_4-{{ subject.id }}">
-                                              <input id="grade_4-{{ subject.id }}" type="radio" name="grade-{{ subject.id }}" value="4">
-                                              <span>B</span>
-                                          </label>
-                                          <label class="select_score-{{ subject.id }}" for="grade_3-{{ subject.id }}">
-                                              <input id="grade_3-{{ subject.id }}" type="radio" name="grade-{{ subject.id }}" value="3">
-                                              <span>C</span>
-                                          </label>
-                                          <label class="select_score-{{ subject.id }}" for="grade_2-{{ subject.id }}">
-                                              <input id="grade_2-{{ subject.id }}" type="radio" name="grade-{{ subject.id }}" value="2">
-                                              <span>D</span>
-                                          </label>
-                                          <label class="select_score-{{ subject.id }}" for="grade_1-{{ subject.id }}">
-                                              <input id="grade_1-{{ subject.id }}" type="radio" name="grade-{{ subject.id }}" value="1">
-                                              <span>F</span>
-                                          </label>
-                                      </div>
-  
-                                      <div style="margin: 3px;">
-                                          <span style="font-size: 12px;">과제</span>
-                                          <label class="select_homework-{{ subject.id }}" for="work_5-{{ subject.id }}">
-                                              <input id="work_5-{{ subject.id }}" type="radio" name="homework-{{ subject.id }}" value="5">
-                                              <span>A</span>
-                                          </label>
-                                          <label class="select_homework-{{ subject.id }}" for="work_4-{{ subject.id }}">
-                                              <input id="work_4-{{ subject.id }}" type="radio" name="homework-{{ subject.id }}" value="4">
-                                              <span>B</span>
-                                          </label>
-                                          <label class="select_homework-{{ subject.id }}" for="work_3-{{ subject.id }}">
-                                              <input id="work_3-{{ subject.id }}" type="radio" name="homework-{{ subject.id }}" value="3">
-                                              <span>C</span>
-                                          </label>
-                                          <label class="select_homework-{{ subject.id }}" for="work_2-{{ subject.id }}">
-                                              <input id="work_2-{{ subject.id }}" type="radio" name="homework-{{ subject.id }}" value="2">
-                                              <span>D</span>
-                                          </label>
-                                          <label class="select_homework-{{ subject.id }}" for="work_1-{{ subject.id }}">
-                                              <input id="work_1-{{ subject.id }}" type="radio" name="homework-{{ subject.id }}" value="1">
-                                              <span>F</span>
-                                          </label>
-                                      </div>
-  
-                                      <div style="margin: 3px;">
-                                          <span style="font-size: 12px;">시험</span>
-                                          <label class="select_exam" for="exam_5-{{ subject.id }}">
-                                              <input id="exam_5-{{ subject.id }}" type="radio" name="exam-{{ subject.id }}" value="5">
-                                              <span>A</span>
-                                          </label>
-                                          <label class="select_exam" for="exam_4-{{ subject.id }}">
-                                              <input id="exam_4-{{ subject.id }}" type="radio" name="exam-{{ subject.id }}" value="4">
-                                              <span>B</span>
-                                          </label>
-                                          <label class="select_exam" for="exam_3-{{ subject.id }}">
-                                              <input id="exam_3-{{ subject.id }}" type="radio" name="exam-{{ subject.id }}" value="3">
-                                              <span>C</span>
-                                          </label>
-                                          <label class="select_exam" for="exam_2-{{ subject.id }}">
-                                              <input id="exam_2-{{ subject.id }}" type="radio" name="exam-{{ subject.id }}" value="2">
-                                              <span>D</span>
-                                          </label>
-                                          <label class="select_exam" for="exam_1-{{ subject.id }}">
-                                              <input id="exam_1-{{ subject.id }}" type="radio" name="exam-{{ subject.id }}" value="1">
-                                              <span>F</span>
-                                          </label>
-                                      </div>
-                                  </div>
-                                  <input type="submit" value="평가등록" id="write_finish_button">
-                              </form>
-                              </div>
-                              </div>
-                          </td>
-                      </tr>
-                      </div>
-                      {% endfor %}
-                      {% else %}
-                      <tr id="tr_noline">
-                          <td colspan="3">강의가 없습니다.</td>
-                      </tr>
-                      {% endif %}
-                      </tbody>
-                  </table>
-              </div></div>
-
-    </div>
+        
 </div>
 {% if user.is_authenticated %}
 <form id="searchForm" method="get" action="{% url 'timetable:mytable' request.user.id %}">
