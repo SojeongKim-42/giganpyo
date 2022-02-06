@@ -1,0 +1,284 @@
+{% load static %}
+
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>login</title>
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'style_login.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">-->
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+}
+@font-face { font-family: 'NanumBarunGothic';
+src: url('/fonts/NanumBarunGothic.eot');
+src: url('/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
+url('/fonts/NanumBarunGothic.woff') format('woff');}
+
+input {
+  border: 0px solid;
+  background: rgb(70, 70, 161);
+  width: 250px;
+  font-size: 20px;
+  padding: 12px;
+  margin-top: 10px;
+  color: white;
+  text-transform: capitalize;
+  font-size: 15px;
+  border-radius: 3px;
+}
+
+body {
+  background: #f5f6f7;
+}
+#login_title {
+ font-family: 'NanumBarunGothic';
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  font-size: 40px;
+  text-transform: uppercase;
+  color:#57af4c;
+  font-weight:1000;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 10px;
+}
+#login_back {
+  position: center;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.line {
+  display: grid;
+  grid-template-columns: 1fr 620px 1fr;
+}
+#login {
+  text-align: center;
+}
+button[type="submit"] {
+  margin: 0px auto;
+  border: 0px;
+  background: #57af4c;
+  width: 480px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 10px;
+  text-transform: capitalize;
+  margin: 60px;
+  margin-top: 30px;
+  color: white;
+  font-size: 20px;
+}
+#signup_go{
+
+  border: 0px;
+  background: #57af4c;
+  height:100px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 20px;
+  padding-top:10px;
+  padding-bottom:10px;
+  margin: 160px;
+  color: white;
+  font-size: 15px;
+}
+p {
+  text-align: center;
+  padding: 20px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+#login_copyright {
+  text-align: center;
+  padding-top: 150px;
+  font-size: 10px;
+}
+
+input[type="text"] {
+  border: 0px solid;
+  background: white!important;
+  width: 480px;
+  font-size: 15px!important;
+  padding: 10px;
+  margin: 10px;
+  text-transform: none;
+  color: black;
+}
+
+input[type="password"] {
+  border: 0px solid;
+  background: white!important;
+  width: 480px;
+  font-size: 15px!important;
+  padding: 10px;
+  margin: 10px;
+  text-transform: none;
+  color: black;
+}
+#signup_go_center{
+ margin: 20px;
+ padding: 50px;
+ padding-top: 0px;
+}
+    </style>
+    <style>
+
+@media  only screen and (max-width:650px) {
+
+input {
+  border: 0px solid;
+  background: rgb(70, 70, 161);
+  width: 125px;
+  font-size: 10px;
+  padding: 6px;
+  margin-top: 5px;
+  color: white;
+  text-transform: capitalize;
+  font-size: 7px;
+  border-radius: 2px;
+}
+
+body {
+  background: #f5f6f7;
+}
+#login_title {
+ font-family: 'NanumBarunGothic';
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: 30px;
+  text-transform: uppercase;
+  color:#57af4c;
+  font-weight:500;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 1fr 320px 1fr;
+}
+#login {
+  text-align: center;
+}
+button[type="submit"] {
+  margin: 0px auto;
+  border: 0px;
+  background: #57af4c;
+  width: 240px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  text-transform: capitalize;
+  margin: 30px;
+  margin-top: 15px;
+  color: white;
+  font-size: 10px;
+}
+#signup_go{
+
+  border: 0px;
+  background: #57af4c;
+  height:25px;
+  text-align: center;
+  border-radius: 3px;
+  padding:15px 10px;
+  padding-top:10px;
+  padding-bottom:10px;
+  margin: 75px;
+  color: white;
+  font-size:7px;
+}
+.form-group{
+font-size:10px;
+}
+p {
+  text-align: center;
+  padding: 20px;
+  font-size:7px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+#login_copyright {
+  text-align: center;
+  padding-top: 150px;
+  font-size: 5px;
+}
+
+input[type="text"] {
+  border: 0px solid;
+  background: white!important;
+  width: 240px;
+  font-size: 8px!important;
+  padding: 5px;
+  margin: 5px;
+  text-transform: none;
+  color: black;
+}
+
+input[type="password"] {
+  border: 0px solid;
+  background: white!important;
+  width: 240px;
+  font-size: 8px!important;
+  padding: 5px;
+  margin: 5px;
+  text-transform: none;
+  color: black;
+}
+#signup_go_center{
+ margin: 10px;
+ padding: 25px;
+ padding-top: 0px;
+}
+}
+</style>
+</head>
+<body>
+<script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+<div class=line>
+    <div>&nbsp</div>
+    <div id="login_back">
+        <div id="login_title">GI간표</div>
+        <div id="login">
+            <form method='post' class = "post-form" action="{% url 'common:login' %}">
+                {% csrf_token %}
+                <input type = "hidden" name="text" value="{{ next }}">
+                {% include "form_errors.html" %}
+                <div class = "form-group">
+                    <label for="username">사용자ID</label>
+                    <input type="text" class="form-control" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}">
+                </div>
+                <div class = "form-group">
+                    <label for="password">비밀번호</label>
+                    <input type = "password" class="form-control" name="password" id="password" value="{{ form.password.value|default_if_none:'' }}">
+                </div>
+                <button type="submit" class="btn btn-primary">로그인</button>
+            </form>
+        </div>
+        <hr>
+        <p>혹시 처음 이용하시나요?</p>
+        <div id="signup_go_center"><a id="signup_go" href="{% url 'common:signup' %}">계정을 만드세요.</a></div>
+        <div id="login_copyright">
+            Copyright © 주찬쓰 Corp. All Rights Reserved.
+        </div>
+    </div>
+    <div>&nbsp</div>
+</div>
+</body>
