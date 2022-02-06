@@ -1,0 +1,335 @@
+{% load static %}
+
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <style>
+    * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f5f6f7;
+}
+#login_title {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-family: "Nanum Gothic Coding", monospace;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 10px;
+}
+#login_back {
+  position: relative;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.line {
+  display: grid;
+  grid-template-columns: 1fr 620px 1fr;
+}
+
+select {
+  width: 500px;
+  padding-left: 50px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border: 1px solid white;
+  font-size: 15px;
+  background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+    no-repeat 97% 50%;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#signup_question {
+  font-size: 20px;
+  color: #f5f6f7;
+  margin: 0px auto;
+  border: 0px;
+  background: rgb(138, 138, 138);
+  width: 460px;
+  border-radius: 5px 5px 0px 0px;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+  margin-top: 30px;
+}
+#signup_select {
+  border-radius: 0px 0px 3px 3px;
+  margin: 0px auto;
+  width: 500px;
+  border: 0px;
+  background: white;
+}
+
+option {
+  display: block;
+  white-space: pre;
+  background: rgb(232, 232, 245);
+  min-height: 1.5em;
+  max-height: 10em;
+}
+
+select:focus {
+  background: rgb(232, 232, 245);
+}
+#invisible {
+  min-height: 0;
+  font-size: 0;
+}
+
+table {
+  border: 2px solid #d2d2d2;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+th,
+td {
+  border: 1px solid #d2d2d2;
+  border-collapse: collapse;
+}
+th {
+  height: 5px;
+  background-color: rgb(138, 138, 138);
+  color: white;
+}
+td {
+  width: 100px;
+  height: 10px;
+  text-align: center;
+}
+#result {
+  color: #f5f6f7;
+  margin: 0px auto;
+  border: 0px;
+  font-size: 13px;
+}
+#result_back {
+  font-size: 15px;
+  margin: 0px auto;
+  border: 0px;
+  width: 460px;
+  padding: 20px;
+  background: rgb(83, 83, 85);
+}
+option:focus {
+  background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+    no-repeat 97% 50%;
+}
+button[type="submit"] {
+  margin: 0px auto;
+  border: 0px;
+  background: #57af4c;
+  width: 480px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 10px;
+  text-transform: capitalize;
+  margin: 55px;
+  margin-top: 30px;
+  color: white;
+  font-size: 20px;
+}
+.btn-primary:hover {
+    background-color:#376930;
+    border-color: #376930;
+}
+#login_title {
+  font-family: none;
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  font-size: 40px;
+  text-transform: uppercase;
+  color:#57af4c;
+  font-weight:1000;
+
+}
+</style>
+    <style>
+
+@media  only screen and (max-width:650px) {
+.line {
+  display: grid;
+  grid-template-columns: 1fr 320px 1fr;
+}
+
+select {
+  width: 200px;
+  padding-left: 50px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border: 1px solid white;
+  font-size: 7px;
+  background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+    no-repeat 97% 50%;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#signup_question {
+  font-size: 10px;
+  color: #f5f6f7;
+  margin: 0px auto;
+  border: 0px;
+  background: rgb(138, 138, 138);
+  width: 230px;
+  border-radius: 5px 5px 0px 0px;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+  margin-top: 30px;
+}
+#signup_select {
+  border-radius: 0px 0px 3px 3px;
+  margin: 0px auto;
+  width: 200px;
+  border: 0px;
+  background: white;
+}
+
+option {
+  display: block;
+  white-space: pre;
+  background: rgb(232, 232, 245);
+  min-height: 1.5em;
+  max-height: 10em;
+}
+
+select:focus {
+  background: rgb(232, 232, 245);
+}
+#invisible {
+  min-height: 0;
+  font-size: 0;
+}
+
+
+
+#result {
+  color: #f5f6f7;
+  margin: 0px auto;
+  border: 0px;
+  font-size: 7px;
+}
+#result_back {
+  font-size: 8px;
+  margin: 0px auto;
+  border: 0px;
+  width: 230px;
+  padding: 20px;
+  background: rgb(83, 83, 85);
+}
+option:focus {
+  background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+    no-repeat 97% 50%;
+}
+button[type="submit"] {
+  margin: 0px auto;
+  border: 0px;
+  background: #57af4c;
+  width: 290px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 10px;
+  text-transform: capitalize;
+
+  color: white;
+  font-size: 10px;
+}
+.btn-primary:hover {
+    background-color:#376930;
+    border-color: #376930;
+}
+#login_title {
+  font-family: none;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  font-size: 30px;
+  text-transform: uppercase;
+  color:#57af4c;
+  font-weight:1000;
+
+}
+h4{
+font-size: 15px;
+}
+.alert {
+font-size:10px;
+    position: relative;
+    padding: 10px 10px;
+    margin:5px!important;
+    border-radius: .25rem;
+}
+}
+</style>
+</head>
+<body>
+<div class=line>
+    <div>&nbsp</div>
+    <div id="login_back">
+        <a href="{% url 'timetable:index' %}"><div id="login_title">GI간표</div></a>
+
+
+
+        <div class="container my-3">
+            <div class="row my-3">
+                <div class="col-4">
+                    <h4>계정생성</h4>
+                </div>
+                <div class="col-8 text-right">
+                    <span>또는 <a href="{% url 'common:login' %}">로그인 하세요.</a></span>
+                </div>
+            </div>
+            <form method="post" class="post-form">
+                {% csrf_token %}
+                {% include "form_errors.html" %}
+                <div class="form-group">
+                    <label for="username">사용자 이름</label>
+                    <input type="text" class="form-control" name="username" id="username"
+                           value="{{ form.username.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="password1">비밀번호</label>
+                    <input type="password" class="form-control" name="password1" id="password1"
+                           value="{{ form.password1.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="password2">비밀번호 확인</label>
+                    <input type="password" class="form-control" name="password2" id="password2"
+                           value="{{ form.password2.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="text" class="form-control" name="email" id="email"
+                           value="{{ form.email.value|default_if_none:'' }}">
+                </div>
+                <button type="submit" class="btn btn-primary">생성하기</button>
+            </form>
+        </div>
+    </div>
+    <div>&nbsp</div>
+</div>
+</body>
+</html>
