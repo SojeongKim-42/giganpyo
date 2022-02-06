@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import SubjectInfo, Subject_add
+from .models import SubjectEval, SubjectInfo, Subject_add, Evaluation
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 from django.shortcuts import render, get_object_or_404
@@ -25,6 +25,7 @@ def index(request):
     else:
         return redirect('common:login')
 
+
 def main(request):
     """
         강의 목록 출력
@@ -43,6 +44,7 @@ def main(request):
 
     context = {'subject_list': page_obj, 'page': page, 'kw': kw}
     return render(request, 'timetable/main.html', context)
+
 
 # @login_required(login_url='common:login')
 # def mytable(request, user_id):
@@ -84,36 +86,50 @@ def main(request):
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
+
 @login_required(login_url='common:login')
 def mytable(request, user_id):
-    name = request.GET.get('name') # 과목이름
+    name = request.GET.get('name')  # 과목이름
     professor = request.GET.get('professor')
-    id = request.GET.get('id') # 과목ID
-    code = request.GET.get('code') # 과목코드
-    day = request.GET.get('day') # 요일
-    time = request.GET.get('time') # 시간
-    department = request.GET.get('department') # 부서
-    subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values('subject_add_id').distinct().order_by('subject_add_id')
+    id = request.GET.get('id')  # 과목ID
+    code = request.GET.get('code')  # 과목코드
+    day = request.GET.get('day')  # 요일
+    time = request.GET.get('time')  # 시간
+    department = request.GET.get('department')  # 부서
+    so = request.GET.get('so')  # 정렬기준
+
+    # 과목을 선택한 사람의 수 계산하기(처음)
+    # subject_add_all_list = Subject_add.objects.all().values('subject_add_id').order_by('subject_add_id')
+    # qs = SubjectInfo.objects.all()
+    # for i in range(len(list(qs))):
+    #     tmp_sub = SubjectInfo.objects.get(id=i+1)
+    #     for j in range(len(list(subject_add_all_list))):
+    #         if subject_add_all_list[j].get('subject_add_id') == i+1:
+    #             tmp_sub.select_person += 1
+    #     tmp_sub.save()
+
+    subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values('subject_add_id').distinct().order_by(
+        '-id')
     subject_selected_list = []
     sum = 0
+    
     for i in range(len(subject_add_list)):
-        subject_selected_list.append(SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id')))
-        #subject_add_list는 list형태인 것 같고, i는 정수형태로 받았어.
-        #처음에 for i in subject_add_list 로 했었는데 i를 딕셔너리 형태로 받더라... 그래서 정수형으로 바꿔주고
-        #이제 subject_add_list[i]가 딕셔너리 형태로 되어있을 건데 --> { 'subject_add_id' = 188 } 이런 식으로
-        #나는 188의 값만 필요하니깐 subject_add_id를 키값으로 하는 값을 출력했어. 그게 get함수야
-        #이렇게 subject_selected_list를 만들었고, 결국 얘네를 main.html에 집어넣으면서 끝나
-
+        try:
+            subject_selected_list.append(
+            SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=2021, session='fall'))
+        except SubjectInfo.DoesNotExist:
+            continue
+   
     for i in range(len(subject_selected_list)):
         sum += subject_selected_list[i].credit
 
-    qs = SubjectInfo.objects.all()
+    qs = SubjectInfo.objects.filter(year=2021, session='fall')
     if is_valid_queryparam(name):
         qs = qs.filter(name__icontains=name)
     if is_valid_queryparam(professor):
         qs = qs.filter(
-            Q(professor1__icontains = professor)|
-            Q(professor2__icontains = professor)
+            Q(professor1__icontains=professor) |
+            Q(professor2__icontains=professor)
         )
     if is_valid_queryparam(code):
         qs = qs.filter(code=code)
@@ -122,10 +138,10 @@ def mytable(request, user_id):
     if is_valid_queryparam(day):
         if is_valid_queryparam(time):
             qs = qs.filter(
-                Q(day1 = day, start_time1 = time)|
-                Q(day2 = day, start_time2 = time)|
-                Q(day3 = day, start_time3 = time)|
-                Q(day4 = day, start_time4 = time)
+                Q(day1=day, start_time1=time) |
+                Q(day2=day, start_time2=time) |
+                Q(day3=day, start_time3=time) |
+                Q(day4=day, start_time4=time)
             )
         else:
             qs = qs.filter(
@@ -136,18 +152,76 @@ def mytable(request, user_id):
             )
     elif is_valid_queryparam(time):
         qs = qs.filter(
-            Q(start_time1 = time)|
-            Q(start_time2 = time)|
-            Q(start_time3 = time)|
-            Q(start_time4 = time)
+            Q(start_time1=time) |
+            Q(start_time2=time) |
+            Q(start_time3=time) |
+            Q(start_time4=time)
         )
     if is_valid_queryparam(department):
         qs = qs.filter(department=department)
 
+    if so == 'select':
+        qs = qs.order_by('-select_person', 'name')
+    elif so == 'name':
+        qs = qs.order_by('name')
+    else:
+        qs = qs.all()
 
+    """
+    평가 한 사람 처리
+    """
+    sub_eval_user_all_list = SubjectEval.objects.all().filter(user_id=request.user.id).order_by('id')
+    sub_eval_write_list = []
+
+    # 지난 학기 과목 보내주기!
+    for i in range(len(subject_add_list)):
+        try:
+            sub_eval_write_list.append(
+                SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=2021, session='spring'))
+        except SubjectInfo.DoesNotExist:
+            continue
+
+    for i in range(len(list(sub_eval_user_all_list))):
+        for j in range(len(list(sub_eval_write_list))):
+            if sub_eval_user_all_list[i].subject_id == sub_eval_write_list[j].id:
+                del sub_eval_write_list[j]
+                break
+
+    """
+    과목 평가
+    """
+    eval = pd.DataFrame(list(Evaluation.objects.all().values()))
+    subject = pd.DataFrame(list(SubjectInfo.objects.all().values()))
+    subject_eval = subject.merge(eval, left_on='id', right_on='subject_id').loc[:,
+                   ['name', 'professor1', 'professor2', 'year', 'session', 'test', 'assignment', 'grade', 'comment',
+                    'subject_id']]
+    subject_eval = subject_eval.groupby(['name', 'professor1']).mean().reset_index()
+    subject_eval_list = []
+    eval_list = []
+    subject_eval_comment = subject.merge(eval, left_on='id', right_on='subject_id').loc[:,
+                           ['name', 'professor1', 'professor2', 'year', 'session', 'test', 'assignment', 'grade',
+                            'comment', 'subject_id']]
+
+    for i in range(subject_eval.shape[0]):
+        subject_eval_list.append(subject_eval.iloc[i].to_dict())
+    for i in range(subject_eval_comment.shape[0]):
+        eval_list.append(subject_eval_comment.iloc[i].to_dict())
+
+    """
+    내가 쓴 수강평
+    """
+    my_eval = SubjectEval.objects.filter(user_id=request.user.id).values('subject_id').distinct()
+    my_eval_list = []
+
+    for i in range(len(my_eval)):
+        try:
+            my_eval_list.append(SubjectInfo.objects.get(id=my_eval[i].get('subject_id'), year=2021, session='spring'))
+        except SubjectInfo.DoesNotExist:
+            continue
 
     context = {'subject_list': qs, 'subject_selected_list': subject_selected_list,
-               'sum':sum}
+               'sum': sum, 'eval_list': eval_list, 'subject_eval_list': subject_eval_list,
+               'sub_eval_write': sub_eval_write_list, 'my_eval_list': my_eval_list}
     return render(request, 'timetable/main.html', context)
 
 
@@ -157,19 +231,26 @@ def add(request, subject_id):
     """
     if request.method == 'GET':
         tmp_subject = SubjectInfo.objects.get(id=subject_id)
-        subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values('subject_add_id').distinct()
+        subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values(
+            'subject_add_id').distinct().order_by(
+            '-id')
         subject_selected_list = []
-        for i in range(len(subject_add_list)):
-            subject_selected_list.append(SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id')))
+        try:
+            for i in range(len(subject_add_list)):
+                subject_selected_list.append(
+                    SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=2021, session='fall'))
+        except SubjectInfo.DoesNotExist:
+            pass
         overlap = False
         is_same_subject = False
         for subject in subject_selected_list:
             if tmp_subject.id == subject.id:
-                messages.error(request, '이미 같은 강의가 장바구니에 있습니다.', ['선택한 강의 -> ID:', tmp_subject.id, 'Name:', tmp_subject.name])
+                messages.error(request, '이미 같은 강의가 장바구니에 있습니다.',
+                               ['선택한 강의 -> ID:', tmp_subject.id, 'Name:', tmp_subject.name])
                 return redirect('timetable:mytable', user_id=request.user.id)
             else:
                 continue
-        #1일짜리 강의 겹치는지 체크
+        # 1일짜리 강의 겹치는지 체크
         if tmp_subject.count == 1:
             for subject in subject_selected_list:
                 if subject.count == 1:
@@ -182,7 +263,7 @@ def add(request, subject_id):
 
                 elif subject.count == 2:
                     if tmp_subject.day1 == subject.day1:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
@@ -208,32 +289,32 @@ def add(request, subject_id):
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day3:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
                             pass
                         else:
                             overlap = True
                             break
                 elif subject.count == 4:
                     if tmp_subject.day1 == subject.day1:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day2:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day3:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day4:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h4 * 60 + subject.fin_m4 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h4 * 60 + subject.start_m4:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h4 * 60 + subject.fin_m4 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h4 * 60 + subject.start_m4:
                             pass
                         else:
                             overlap = True
@@ -257,111 +338,111 @@ def add(request, subject_id):
 
                 elif subject.count == 2:
                     if tmp_subject.day1 == subject.day1:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day2:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day1:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day2:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                 elif subject.count == 3:
                     if tmp_subject.day1 == subject.day1:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day2:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day3:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day1:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day2:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day3:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h3 * 60 + subject.start_m3:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h3 * 60 + subject.start_m3:
                             pass
                         else:
                             overlap = True
                             break
                 elif subject.count == 4:
                     if tmp_subject.day1 == subject.day1:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day2:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day3:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h3 * 60 + subject.start_m3:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day1 == subject.day4:
-                        if  tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h4 * 60 + subject.fin_m4 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h4 * 60 + subject.start_m4:
+                        if tmp_subject.start_h1 * 60 + tmp_subject.start_m1 >= subject.fin_h4 * 60 + subject.fin_m4 or tmp_subject.fin_h1 * 60 + tmp_subject.fin_m1 <= subject.start_h4 * 60 + subject.start_m4:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day1:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h1 * 60 + subject.start_m1:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h1 * 60 + subject.fin_m1 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h1 * 60 + subject.start_m1:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day2:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h2 * 60 + subject.start_m2:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h2 * 60 + subject.fin_m2 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h2 * 60 + subject.start_m2:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day3:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h3 * 60 + subject.start_m3:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h3 * 60 + subject.fin_m3 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h3 * 60 + subject.start_m3:
                             pass
                         else:
                             overlap = True
                             break
                     if tmp_subject.day2 == subject.day4:
-                        if  tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h4 * 60 + subject.fin_m4 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h4 * 60 + subject.start_m4:
+                        if tmp_subject.start_h2 * 60 + tmp_subject.start_m2 >= subject.fin_h4 * 60 + subject.fin_m4 or tmp_subject.fin_h2 * 60 + tmp_subject.fin_m2 <= subject.start_h4 * 60 + subject.start_m4:
                             pass
                         else:
                             overlap = True
@@ -804,14 +885,17 @@ def add(request, subject_id):
                             break
 
         if overlap:
-            messages.error(request, '시간표가 겹칩니다!!', ['선택한 강의 -> ID:' , tmp_subject.id, 'Name:', tmp_subject.name])
+            messages.error(request, '시간표가 겹칩니다!!', ['선택한 강의 -> ID:', tmp_subject.id, 'Name:', tmp_subject.name])
         else:
             tmp = Subject_add()
             tmp.subject_add = tmp_subject
             tmp.user = request.user
             tmp.save()
+            tmp_subject.select_person += 1
+            tmp_subject.save()
 
         return redirect('timetable:mytable', user_id=request.user.id)
+
 
 def delete(request, subject_id):
     """
@@ -819,10 +903,47 @@ def delete(request, subject_id):
     """
     if request.method == 'GET':
         tmp_delete = SubjectInfo.objects.get(id=subject_id)
-        temp = Subject_add.objects.filter(subject_add_id=subject_id, user_id = request.user.id)
+        temp = Subject_add.objects.filter(subject_add_id=subject_id, user_id=request.user.id)
         temp.delete()
+    if tmp_delete.select_person == 0:
+        tmp_delete.save()
+    else:
+        tmp_delete.select_person -= 1
+        tmp_delete.save()
     return redirect('timetable:mytable', user_id=request.user.id)
 
+
+def eval_add(request, subject_id):
+    """
+    평가 등록
+    """
+    user = request.user
+    subeval = SubjectEval.objects.filter(user_id=user.id, subject_id=subject_id)
+    gr_ade = "grade-" + str(subject_id)
+    assign_ment = "homework-" + str(subject_id)
+    t_est = "exam-" + str(subject_id)
+    sub_ject = SubjectInfo.objects.get(id=subject_id)
+    evaluation = Evaluation(subject=sub_ject, comment=request.POST.get('content'),
+                            grade=request.POST.get(gr_ade),
+                            assignment=request.POST.get(assign_ment),
+                            test=request.POST.get(t_est))
+    if len(subeval) != 0:
+        return redirect('timetable:mytable', user_id=request.user.id)
+    else:
+        evaluation.save()
+        subject_eval = SubjectEval(evaluation=evaluation, subject=sub_ject, user=user)
+        subject_eval.save()
+        return redirect('timetable:mytable', user_id=request.user.id)
+
+
+def eval_del(request, subject_id):
+    """
+    평가 삭제
+    """
+    subjecteval = SubjectEval.objects.get(subject_id=subject_id)
+    evaluation = Evaluation.objects.get(id=subjecteval.evaluation_id)
+    evaluation.delete()
+    return redirect('timetable:mytable', user_id=request.user.id)
 
 # def data_save(request):
 #     # 엑셀파일 받기
@@ -974,4 +1095,3 @@ def delete(request, subject_id):
 #         subject.save()
 #
 #     return render(request, 'timetable/main.html')
-

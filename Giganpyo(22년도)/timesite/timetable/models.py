@@ -67,17 +67,3 @@ class Subject_add(models.Model):
     # name = models.CharField(max_length=100)
     subject_add = models.ForeignKey(SubjectInfo, blank=True, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='user_add')
-
-
-class Evaluation(models.Model):
-    subject = models.ForeignKey(SubjectInfo, blank=True, null=True, on_delete=models.CASCADE)
-    test = models.PositiveSmallIntegerField(blank=True, null=True)
-    assignment = models.PositiveSmallIntegerField(blank=True, null=True)
-    grade = models.PositiveSmallIntegerField(blank=True, null=True)
-    comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-class SubjectEval(models.Model):
-    subject = models.ForeignKey(SubjectInfo, blank=True, null=True, on_delete=models.CASCADE)
-    evaluation = models.ForeignKey(Evaluation, blank=True, null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
