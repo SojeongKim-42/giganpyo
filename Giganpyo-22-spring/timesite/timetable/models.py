@@ -49,6 +49,7 @@ class SubjectInfo(models.Model):
     department = models.CharField(max_length=100, blank=True, null=True)
     is_required = models.CharField(max_length=100, blank=True, null=True)
     is_major = models.CharField(max_length=100, blank=True, null=True)
+    is_offline = models.CharField(max_length=100, blank=True, null=True)
 
     year = models.PositiveSmallIntegerField(blank=True, null=True)
     session = models.CharField(max_length=100, blank=True, null=True)

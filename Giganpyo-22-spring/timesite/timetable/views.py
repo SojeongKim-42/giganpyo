@@ -18,6 +18,8 @@ from django.http import HttpResponse
 
 
 # ---------------------------------------------------------------------------- #
+year = 2022
+session = 'spring'
 
 def index(request):
     if is_valid_queryparam(request.user.id):
@@ -69,14 +71,14 @@ def mytable(request, user_id):
     for i in range(len(subject_add_list)):
         try:
             subject_selected_list.append(
-            SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=2021, session='fall'))
+            SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=year, session=session))
         except SubjectInfo.DoesNotExist:
             continue
    
     for i in range(len(subject_selected_list)):
         sum += subject_selected_list[i].credit
 
-    qs = SubjectInfo.objects.filter(year=2021, session='fall')
+    qs = SubjectInfo.objects.filter(year=year, session=session)
     if is_valid_queryparam(name):
         qs = qs.filter(name__icontains=name)
     if is_valid_queryparam(professor):
@@ -138,7 +140,7 @@ def add(request, subject_id):
         try:
             for i in range(len(subject_add_list)):
                 subject_selected_list.append(
-                    SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=2021, session='fall'))
+                    SubjectInfo.objects.get(id=subject_add_list[i].get('subject_add_id'), year=year, session=session))
         except SubjectInfo.DoesNotExist:
             pass
         overlap = False
@@ -814,29 +816,30 @@ def delete(request, subject_id):
 
 # def data_save(request):
 #     # 엑셀파일 받기
-#     Location = 'C:/Users/이주찬/Desktop/rmathing/mop_rm/juchan_time/timesite(0206_save_at_database)'
+#     Location = 'C:/Users/이주찬/Desktop/mop_rm/Giganpyo-22-spring/timesite'
 #     # 이거 바꿔줄 필요 있음
-#     File = 'Excel_Timetable.xls'
+#     File = '2022-spring.xls'
 #
 #     data_pd = pd.read_excel('{}/{}'.format(Location, File),
 #                             header=None, index_col=None, names=None)
 #     time = []
 #
+#     print(data_pd[27])
 #     # 시간정보 읽어오기
 #     for i in range(1, len(data_pd)):
-#         time.append(re.findall("\d+", str(data_pd[11][i])))
+#         time.append(re.findall("\d+", str(data_pd[13][i])))
 #     for i in range(len(time)):
 #         time[i] = numpy.array(time[i]).reshape(len(time[i]) // 4, 2, 2)
 #
 #     # 요일정보 읽어오기
 #     day = []
 #     for i in range(1, len(data_pd)):
-#         day.append(re.compile("[가-힣]+").findall(str(data_pd[11][i])))
+#         day.append(re.compile("[가-힣]+").findall(str(data_pd[13][i])))
 #
 #     # 교수님정보 읽어오기
 #     prof = []
 #     for i in range(1, len(data_pd)):
-#         prof.append(re.compile("[가-힣]+").findall(str(data_pd[8][i])))
+#         prof.append(re.compile("[가-힣]+").findall(str(data_pd[9][i])))
 #
 #     # 과목명 읽어오기
 #     sub = []
@@ -866,11 +869,14 @@ def delete(request, subject_id):
 #     #교양, 전공
 #     is_major = []
 #     for i in range(1, len(data_pd)):
-#         is_major.append(data_pd[7][i])
+#         is_major.append(data_pd[8][i])
 #
+#     is_offline = []
+#     for i in range(1, len(data_pd)):
+#         is_offline.append(data_pd[26][i])
 #
 #     for i in range(len(data_pd) - 1):
-#         subject = SubjectInfo(name=sub[i], code=code[i], credit=credit[i], department=department[i], is_required=is_required[i], is_major=is_major[i])
+#         subject = SubjectInfo(name=sub[i], code=code[i], credit=credit[i], department=department[i], is_required=is_required[i], is_major=is_major[i], is_offline=is_offline[i], year=year, session=session)
 #         if (len(prof[i]) == 1):
 #             subject.professor1 = prof[i][0]
 #         elif (len(prof[i]) == 2):
