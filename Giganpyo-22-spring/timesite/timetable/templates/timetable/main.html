@@ -587,7 +587,8 @@
                     <div class = "table">
                         <div id="result_back">
 
-                            <div id="result">수업목록 </div></div>
+                            <div id="result">수업목록 - {{department}} </div>
+                        </div>
                         <div class="table_body">
                           {% if subject_list %}
                           {% for subject in subject_list %}
@@ -721,7 +722,9 @@
                 <div class = "table1">
                     <div id="result_back">
 
-                        <div id="result">수업목록 </div></div>
+                        <div id="result">수업목록 - {{department}}</div>
+
+                    </div>
                     <div class="table_body">
                         {% if subject_list %}
                         {% for subject in subject_list %}
