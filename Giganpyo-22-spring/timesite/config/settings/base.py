@@ -26,7 +26,7 @@ SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['15.165.24.147']
+ALLOWED_HOSTS = ['15.165.225.220', 'Giganpyo.co.kr']
 
 
 # Application definition
