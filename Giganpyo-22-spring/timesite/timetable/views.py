@@ -125,7 +125,7 @@ def mytable(request, user_id):
         qs = qs.all()
 
     context = {'subject_list': qs, 'subject_selected_list': subject_selected_list,
-               'sum': sum, 'department':department}
+               'sum': sum, 'department': department}
     return render(request, 'timetable/main.html', context)
 
 

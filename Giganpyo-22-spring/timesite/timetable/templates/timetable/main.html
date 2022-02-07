@@ -58,7 +58,7 @@
         
         setTimeout( function time_1sec() {
           rect2();
-        },200);
+        },1000);
       };
       
       function clean() {
@@ -733,7 +733,7 @@
               <div id="result">검색창</div>
               <form method="get" action="{% url 'timetable:mytable' request.user.id %}">
               <select id= "department" name = "department" >
-                  <option disabled selected value>---select department----</option>
+                  <option disabled selected value>부서를 선택해주세요(기본 : 기초교육학부)</option>
                   <option value="생명과학부">생명과학부</option>
                   <option value="화학과">화학과</option>
                   <option value="전기전자컴퓨터공학부">전기전자컴퓨터공학부</option>
@@ -751,7 +751,7 @@
                   <option value="대학공통">대학공통</option>
               </select>
               <select id= "day" name = "day" >
-                  <option disabled selected value>---select day----</option>
+                  <option disabled selected value>요일을 선택해주세요</option>
                   <option value="월">월</option>
                   <option value="화">화</option>
                   <option value="수">수</option>
@@ -759,7 +759,7 @@
                   <option value="금">금</option>
               </select>
               <select id= "time" name = "time" >
-                  <option disabled selected value>---select time----</option>
+                  <option disabled selected value>시간을 선택해주세요</option>
                   <option value="09:00">09:00~10:30</option>
                   <option value="10:30">10:30~12:00</option>
                   <option value="13:00">13:00~14:30</option>
@@ -768,10 +768,10 @@
               </select>
 
               <select id="so" name="so">
-                <option value="">정렬 옵션</option>
+                <option value="">정렬 방식</option>
+                  <option value="select">담은 사람 순 정렬</option>
                 <option value="default">기본 정렬</option>
                 <option value="name">이름순 정렬</option>
-                <option value="select">담은 사람 순 정렬</option>
               </select>
 
                   <input class="form-control py-2 border-right-0 border" type="search" name="name" placeholder="Subject name contains..." />
@@ -864,7 +864,7 @@
                   <div id="result1">검색창 </div>
                   <div id="select_box">
                       <select name = "department" >
-                        <option disabled selected value>---select department----</option>
+                        <option disabled selected value>부서를 선택해주세요(기본 : 기초교육학부)</option>
                         <option value="생명과학부">생명과학부</option>
                         <option value="화학과">화학과</option>
                         <option value="전기전자컴퓨터공학부">전기전자컴퓨터공학부</option>
@@ -882,7 +882,7 @@
                         <option value="대학공통">대학공통</option>
                       </select>
                       <select name = "day" >
-                          <option disabled selected value>---select day----</option>
+                          <option disabled selected value>요일을 선택해주세요</option>
                           <option value="월">월</option>
                           <option value="화">화</option>
                           <option value="수">수</option>
@@ -890,7 +890,7 @@
                           <option value="금">금</option>
                       </select>
                       <select name = "time" >
-                          <option disabled selected value>---select time----</option>
+                          <option disabled selected value>시간을 선택해주세요</option>
                           <option value="09:00">09:00~10:30</option>
                           <option value="10:30">10:30~12:00</option>
                           <option value="13:00">13:00~14:30</option>
@@ -898,10 +898,10 @@
                           <option value="16:00">16:00~17:30</option>
                       </select>
                       <select name="so">
-                        <option value="">정렬 옵션</option>
-                        <option value="default">기본 정렬</option>
-                        <option value="name">이름순 정렬</option>
-                        <option value="select">담은 사람 순 정렬</option>
+                          <option value="">정렬 방식</option>
+                          <option value="select">담은 사람 순 정렬</option>
+                          <option value="default">기본 정렬</option>
+                          <option value="name">이름순 정렬</option>
                       </select>
                   </div>
 
@@ -924,7 +924,7 @@
                 <div class = "table1">
                     <div id="result_back">
 
-                        <div id="result">수업목록 - {{department}}</div>
+                        <div id="result">수업목록 - {{ department }}</div>
 
                     </div>
                     <div class="table_body">
