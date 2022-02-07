@@ -510,7 +510,7 @@
                                 /  총 {{subject.select_person}} 명 선택
                             </div>
                             
-                            <a href="{% url 'timetable:del' subject.id %}"><button method="get" id="button_subject_table" onclick="del">  DEL  </button></a>
+                            <a href="{% url 'timetable:del' subject.id %}?next={{ request.get_full_path }}"><button method="get" id="button_subject_table" onclick="del">  DEL  </button></a>
 
                     {% endfor %}
                     {% else %}
@@ -602,7 +602,7 @@
                                           </div>
                                           <div id="subject_table3">
 
-                                              <button method="get" id="button_subject_table" class="btn btn-outline-secondary" > <a href="{% url 'timetable:add' subject.id %}"> ADD </a> </button></div>
+                                              <button method="get" id="button_subject_table" class="btn btn-outline-secondary" > <a href="{% url 'timetable:add' subject.id %}?next={{ request.get_full_path }}"> ADD </a> </button></div>
                                       </div>
                                       <div id="subject_table2">
                                           <strong>
@@ -737,7 +737,7 @@
                                         </div>
                                         <div id="subject_table3">
                                           <!--<button method="get" id="button_subject_table" class="btn btn-outline-secondary" onclick="save_before_add({{ subject.id }})"  > ADD </button></div>--> 
-                                         <button method="get" id="button_subject_table" class="btn btn-outline-secondary"  > <a href="{% url 'timetable:add' subject.id %}"> ADD </a> </button></div> 
+                                         <button method="get" id="button_subject_table" class="btn btn-outline-secondary"  > <a href="{% url 'timetable:add' subject.id %}?next={{ request.get_full_path }}"> ADD </a> </button></div>
                                     </div>
                                     <div id="subject_table2">
                                       <strong>

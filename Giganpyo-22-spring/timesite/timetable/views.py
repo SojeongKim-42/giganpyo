@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
@@ -60,7 +62,7 @@ def mytable(request, user_id):
     code = request.GET.get('code')  # 과목코드
     day = request.GET.get('day')  # 요일
     time = request.GET.get('time')  # 시간
-    department = request.GET.get('department')  # 부서
+    department = request.GET.get('department', '기초교육학부')  # 부서
     so = request.GET.get('so')  # 정렬기준
 
     subject_add_list = Subject_add.objects.filter(user_id=request.user.id).values('subject_add_id').distinct().order_by(
@@ -796,7 +798,8 @@ def add(request, subject_id):
             tmp_subject.select_person += 1
             tmp_subject.save()
 
-        return redirect('timetable:mytable', user_id=request.user.id)
+        next = request.GET.get('next', '/')
+        return redirect(next, user_id=request.user.id)
 
 
 def delete(request, subject_id):
@@ -812,7 +815,8 @@ def delete(request, subject_id):
     else:
         tmp_delete.select_person -= 1
         tmp_delete.save()
-    return redirect('timetable:mytable', user_id=request.user.id)
+    next = request.GET.get('next', '/')
+    return redirect(next, user_id=request.user.id)
 
 # def data_save(request):
 #     # 엑셀파일 받기
