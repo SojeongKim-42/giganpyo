@@ -14,34 +14,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
     <script>
       var bag_counts = 0;
-      var day1_g = [400];
-      var start_timeh1_g = [400];
-      var start_timem1_g =[400];
-      var finish_timeh1_g =[400];
-      var finish_timem1_g = [400];
-      var day2_g = [400];
-      var start_timeh2_g = [400];
-      var start_timem2_g = [400];
-      var finish_timeh2_g =[400];
-      var finish_timem2_g = [400];
-      var day3_g = [400];
-      var start_timeh3_g = [400];
-      var start_timem3_g = [400];
-      var finish_timeh3_g =[400];
-      var finish_timem3_g = [400];
-      var day4_g = [400];
-      var start_timeh4_g = [400];
-      var start_timem4_g = [400];
-      var finish_timeh4_g =[400];
-      var finish_timem4_g = [400];
+      var bag_counts2 = 0;
+      var day1_g = [500];
+      var start_timeh1_g = [500];
+      var start_timem1_g =[500];
+      var finish_timeh1_g =[500];
+      var finish_timem1_g = [500];
+      var day2_g = [500];
+      var start_timeh2_g = [500];
+      var start_timem2_g = [500];
+      var finish_timeh2_g =[500];
+      var finish_timem2_g = [500];
+      var day3_g = [500];
+      var start_timeh3_g = [500];
+      var start_timem3_g = [500];
+      var finish_timeh3_g =[500];
+      var finish_timem3_g = [500];
+      var day4_g = [500];
+      var start_timeh4_g = [500];
+      var start_timem4_g = [500];
+      var finish_timeh4_g =[500];
+      var finish_timem4_g = [500];
       var subject_list_before_save = [];
       var subject_number=0;           
-      var s_time = [400];
-      var f_time = [400];
+      var s_time = [500];
+      var f_time = [500];
 
       
       window.onload = function determines2(i) {
-
+        rect();
         var ctx3 = document.getElementById("myCanvas4").getContext("2d");
         ctx3.mozImageSmoothingEnabled = false;
         ctx3.imageSmoothingEnabled = false;
@@ -54,15 +55,173 @@
           ctx3.drawImage(img,-10,-5,2420,2240);
          
         }
-        rect();
+        
+        setTimeout( function time_1sec() {
+          rect2();
+        },200);
       };
-
+      
       function clean() {
         var ctx4 = document.getElementById("myCanvas3").getContext("2d");
         ctx4.clearRect(0, 0,myCanvas1.width, myCanvas1.height);
       }
+      
+      function rect2() {
+        var Acolor2 = new Array(
+          "#75ca87",
+          "#70a5e9",
+          "#f08676",
+          "#ecc369",
+          "#a6c96f",
+          "#7ad1c0",
+          "#d397ed",
+          "#9d86e0",
+        );
+        var holizantal = 30;
+        var vertical = 6;
+        
+        {% for subject in subject_selected_list %}
+       
+        day1 = "{{ subject.day1 }}"
+        start_timeh1 = "{{ subject.start_h1 }}"
+        start_timem1 = "{{ subject.start_m1 }}"
+        finish_timeh1 = "{{ subject.fin_h1 }}"
+        finish_timem1 = "{{ subject.fin_m1 }}"
+        day2 = "{{ subject.day2 }}"
+        start_timeh2 = "{{ subject.start_h2 }}"
+        start_timem2 = "{{ subject.start_m2 }}"
+        finish_timeh2 = " {{ subject.fin_h2 }}"
+        finish_timem2 = "{{ subject.fin_m2 }}"
+        day3 = "{{ subject.day3 }}"
+        start_timeh3 = " {{ subject.start_h3 }}"
+        start_timem3 = "{{ subject.start_m3 }}"
+        finish_timeh3 = "{{ subject.fin_h3 }}"
+        finish_timem3 = "{{ subject.fin_m3 }}"
+        day4 = "{{ subject.day4 }}"
+        start_timeh4 = "{{ subject.start_h4 }}"
+        start_timem4 = "{{ subject.start_m4 }}"
+        finish_timeh4 = "{{ subject.fin_h4 }}"
+        finish_timem4 = "{{ subject.fin_m4 }}"
+        name = '{{subject.name}}';
+        pro = '{{ subject.professor1 }}';
+        code = "{{subject.code}}";
 
-      setTimeout( function rect() {
+        var ctx3 = document.getElementById("myCanvas4").getContext("2d");
+        ctx3.mozImageSmoothingEnabled = false;
+        ctx3.imageSmoothingEnabled = false;
+        ctx3.scale(4, 4);
+        if (day1 === "월") {
+          day1= 1;
+        } else if (day1 === "화") {
+          day1= 2;
+        } else if (day1 === "수") {
+          day1 = 3;
+        } else if (day1 === "목") {
+          day1= 4;
+        } else {
+          day1 = 5;
+        }
+        if (day2 === "월") {
+          day2 = 1;
+        } else if (day2=== "화") {
+          day2 = 2;
+        } else if (day2 === "수") {
+          day2= 3;
+        } else if (day2 === "목") {
+          day2= 4;
+        } else {
+          day2 = 5;
+        }
+        if (day3 === "월") {
+          day3 = 1;
+        } else if (day3 === "화") {
+          day3 = 2;
+        } else if (day3 === "수") {
+          day3 = 3;
+        } else if (day3 === "목") {
+          day3= 4;
+        } else {
+          day3 = 5;
+        }
+        if (day4 === "월") {
+          day4 = 1;
+        } else if (day4 === "화") {
+          day4 = 2;
+        } else if (day4 === "수") {
+          day4 = 3;
+        } else if (day4 === "목") {
+          day4= 4;
+        } else {
+          day4 = 5;
+        }
+        
+        var s_time = 0;
+        var f_time = 0;
+
+        var color = Acolor2[bag_counts2 % 8];
+
+        s_time = (start_timeh1 - 9) * 2 + start_timem1 / 30 + 1;
+
+        f_time = (finish_timeh1 - 9) * 2 + finish_timem1 / 30 + 1;
+
+        
+        ctx3.fillStyle = color;
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillRect(100 * day1, 20 * s_time+20, 100, 20 * (f_time - s_time));
+        ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day1+5, 20 * s_time+46,90);
+
+        ctx3.fillText(code,100 * day1+5, 20 * s_time+32,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day1+5, 20 * s_time+58,90);
+
+        {
+          s_time = (start_timeh2 - 9) * 2 + start_timem2 / 30 + 1;
+          f_time = (finish_timeh2 - 9) * 2 + finish_timem2 / 30 + 1;
+          ctx3.fillStyle = color;
+          ctx3.fillRect(100 * day2, 20 * s_time+20, 100, 20 * (f_time - s_time));
+          ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day2+5, 20 * s_time+46,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day2+5, 20 * s_time+58,90);
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillText(code,100 * day2+5, 20 * s_time+32,90);
+        }
+        {
+          s_time = (start_timeh3 - 9) * 2 + start_timem3 / 30 + 1;
+
+          f_time = (finish_timeh3 - 9) * 2 + finish_timem3 / 30 + 1;
+        ctx3.font = '12px Arial';
+
+          ctx3.fillStyle = color;
+          ctx3.fillRect(100 * day3, 20 * s_time+20, 100, 20 * (f_time - s_time));
+          ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day3+5, 20 * s_time+46,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day3+5, 20 * s_time+58,90);
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillText(code,100 * day3+5, 20 * s_time+32,90);
+        }
+        {
+          s_time = (start_timeh4 - 9) * 2 + start_timem4 / 30 + 1;
+
+          f_time = (finish_timeh4 - 9) * 2 + finish_timem4 / 30 + 1;
+        ctx3.font = '12px Arial';
+          ctx3.fillStyle = color;
+          ctx3.fillRect(100 * day4, 20 * s_time+20, 100, 20 * (f_time - s_time));
+          ctx3.fillStyle = "white";
+        ctx3.fillText(name,100 * day4+5, 20 * s_time+46,90);
+        ctx3.font = '10px NanumBarunGothic';
+        ctx3.fillText("  - "+pro,100 * day4+5, 20 * s_time+58,90);
+        ctx3.font = '12px NanumBarunGothic';
+        ctx3.fillText(code,100 * day4+5, 20 * s_time+32,90);
+        }
+        ctx3.scale(0.25, 0.25);
+        bag_counts2++;
+        {% endfor %}
+      }
+      function rect() {
         var Acolor = new Array(
           "#75ca87",
           "#70a5e9",
@@ -75,9 +234,9 @@
         );
         var holizantal = 30;
         var vertical = 6;
-        var ctx3 = document.getElementById("myCanvas4").getContext("2d");
+        
         {% for subject in subject_selected_list %}
-        ctx3.scale(4, 4);
+       
         day1 = "{{ subject.day1 }}"
         start_timeh1 = "{{ subject.start_h1 }}"
         start_timem1 = "{{ subject.start_m1 }}"
@@ -214,78 +373,12 @@
         }
         ctx.scale(0.25, 0.25);
 
-        var s_time = 0;
-        var f_time = 0;
-
-        var color = Acolor[bag_counts % 8];
-
-        s_time = (start_timeh1 - 9) * 2 + start_timem1 / 30 + 1;
-
-        f_time = (finish_timeh1 - 9) * 2 + finish_timem1 / 30 + 1;
-
-
-        ctx3.fillStyle = color;
-        ctx3.font = '12px NanumBarunGothic';
-        ctx3.fillRect(100 * day1, 20 * s_time+20, 100, 20 * (f_time - s_time));
-        ctx3.fillStyle = "white";
-        ctx3.fillText(name,100 * day1+5, 20 * s_time+46,90);
-
-        ctx3.fillText(code,100 * day1+5, 20 * s_time+32,90);
-        ctx3.font = '10px NanumBarunGothic';
-        ctx3.fillText("  - "+pro,100 * day1+5, 20 * s_time+58,90);
-
-        {
-          s_time = (start_timeh2 - 9) * 2 + start_timem2 / 30 + 1;
-          f_time = (finish_timeh2 - 9) * 2 + finish_timem2 / 30 + 1;
-          ctx3.fillStyle = color;
-          ctx3.fillRect(100 * day2, 20 * s_time+20, 100, 20 * (f_time - s_time));
-          ctx3.font = '12px NanumBarunGothic';
-        ctx3.fillStyle = "white";
-        ctx3.fillText(name,100 * day2+5, 20 * s_time+46,90);
-        ctx3.font = '10px NanumBarunGothic';
-        ctx3.fillText("  - "+pro,100 * day2+5, 20 * s_time+58,90);
-        ctx3.font = '12px NanumBarunGothic';
-        ctx3.fillText(code,100 * day2+5, 20 * s_time+32,90);
-        }
-        {
-          s_time = (start_timeh3 - 9) * 2 + start_timem3 / 30 + 1;
-
-          f_time = (finish_timeh3 - 9) * 2 + finish_timem3 / 30 + 1;
-        ctx3.font = '12px Arial';
-
-          ctx3.fillStyle = color;
-          ctx3.fillRect(100 * day3, 20 * s_time+20, 100, 20 * (f_time - s_time));
-          ctx3.fillStyle = "white";
-        ctx3.fillText(name,100 * day3+5, 20 * s_time+46,90);
-        ctx3.font = '10px NanumBarunGothic';
-        ctx3.fillText("  - "+pro,100 * day3+5, 20 * s_time+58,90);
-        ctx3.font = '12px NanumBarunGothic';
-        ctx3.fillText(code,100 * day3+5, 20 * s_time+32,90);
-        }
-        {
-          s_time = (start_timeh4 - 9) * 2 + start_timem4 / 30 + 1;
-
-          f_time = (finish_timeh4 - 9) * 2 + finish_timem4 / 30 + 1;
-        ctx3.font = '12px Arial';
-          ctx3.fillStyle = color;
-          ctx3.fillRect(100 * day4, 20 * s_time+20, 100, 20 * (f_time - s_time));
-          ctx3.fillStyle = "white";
-        ctx3.fillText(name,100 * day4+5, 20 * s_time+46,90);
-        ctx3.font = '10px NanumBarunGothic';
-        ctx3.fillText("  - "+pro,100 * day4+5, 20 * s_time+58,90);
-        ctx3.font = '12px NanumBarunGothic';
-        ctx3.fillText(code,100 * day4+5, 20 * s_time+32,90);
-        }
-        ctx3.scale(0.25, 0.25);
-        
         var ctx2 = document.getElementById("myCanvas2").getContext("2d");
         ctx2.mozImageSmoothingEnabled = false;
         ctx2.fontSmoothingEnabled = false;
         ctx2.scale(4, 4);
         s_time = 0;
         f_time = 0;
-
-        var color = Acolor[bag_counts % 8];
 
         s_time = (start_timeh1 - 9) * 2 + start_timem1 / 30 + 1;
         f_time = (finish_timeh1 - 9) * 2 + finish_timem1 / 30 + 1;
@@ -341,7 +434,8 @@
         ctx2.scale(1/4, 1/4);
         bag_counts++;
         {% endfor %}
-      },500);
+      }
+      
     
     /* function save_before_add(subject_id){
         subject_number++;
@@ -384,9 +478,117 @@
           window.open(uri);
         }
       }
-        
-       }
+  }
+  
 </script>
+
+<script>
+  
+  function draw(selected_id){
+
+    {% if subject_list %}
+          {% for subject in subject_list %}
+              if( selected_id == {{subject.id}}){
+              day1_g [{{ subject.id }}] = "{{ subject.day1 }}";
+              day2_g [{{ subject.id }}] = "{{ subject.day2 }}";
+              day3_g [{{ subject.id }}] = "{{ subject.day3 }}";
+              day4_g [{{ subject.id }}] = "{{ subject.day4 }}";
+              {% if subject.count >= 1 %}
+              if (day1_g[{{ subject.id }}] === "월") {
+                day1_g[{{ subject.id }}]= 1;
+              } else if (day1_g[{{ subject.id }}] === "화") {
+                day1_g[{{ subject.id }}]= 2;
+              } else if (day1_g[{{ subject.id }}] === "수") {
+                day1_g[{{ subject.id }}] = 3;
+              } else if (day1_g[{{ subject.id }}] === "목") {
+                day1_g[{{ subject.id }}]= 4;
+              } else {
+                day1_g[{{ subject.id }}] = 5;
+              }
+              
+              {% if subject.count >= 2 %}
+              if (day2_g[{{ subject.id }}] === "월") {
+                day2_g[{{ subject.id }}]= 2;
+              } else if (day2_g[{{ subject.id }}] === "화") {
+                day2_g[{{ subject.id }}]= 2;
+              } else if (day2_g[{{ subject.id }}] === "수") {
+                day2_g[{{ subject.id }}] = 3;
+              } else if (day2_g[{{ subject.id }}] === "목") {
+                day2_g[{{ subject.id }}]= 4;
+              } else {
+                day2_g[{{ subject.id }}] = 5;
+              }
+             
+              {% if subject.count >= 3 %}
+              if (day3_g[{{ subject.id }}] === "월") {
+                day3_g[{{ subject.id }}]= 3;
+              } else if (day3_g[{{ subject.id }}] === "화") {
+                day3_g[{{ subject.id }}]= 2;
+              } else if (day3_g[{{ subject.id }}] === "수") {
+                day3_g[{{ subject.id }}] = 3;
+              } else if (day3_g[{{ subject.id }}] === "목") {
+                day3_g[{{ subject.id }}]= 4;
+              } else {
+                day3_g[{{ subject.id }}] = 5;
+              }
+              
+              {% if subject.count >= 4 %}
+              if (day4_g[{{ subject.id }}] === "월") {
+                day4_g[{{ subject.id }}]= 4;
+              } else if (day4_g[{{ subject.id }}] === "화") {
+                day4_g[{{ subject.id }}]= 2;
+              } else if (day4_g[{{ subject.id }}] === "수") {
+                day4_g[{{ subject.id }}] = 3;
+              } else if (day4_g[{{ subject.id }}] === "목") {
+                day4_g[{{ subject.id }}]= 4;
+              } else {
+                day4_g[{{ subject.id }}] = 5;
+              }
+              {% endif %}
+              {% endif %}
+              {% endif %}
+              {% endif %}
+          var ctx5 = document.getElementById("myCanvas3").getContext("2d");
+          ctx5.mozImageSmoothingEnabled = false;
+          ctx5.imageSmoothingEnabled = false;
+          ctx5.scale(4, 4);
+          var color = "#000000";
+          ctx5.globalAlpha = 0.5;
+
+          {% if subject.count >= 1 %}
+          s_time[selected_id] = ({{ subject.start_h1 }} - 9) * 2 + {{ subject.start_m1 }} / 30 + 1;
+          f_time[selected_id] = ({{ subject.fin_h1 }} - 9) * 2 + {{ subject.fin_m1 }} / 30 + 1;
+          ctx5.fillStyle = color;
+          ctx5.fillRect(100 * day1_g[selected_id], 20 * s_time[selected_id]+20, 100, 20 * (f_time[selected_id] - s_time[selected_id]));
+            
+          {% if subject.count >= 2 %}
+            s_time[selected_id] = ({{ subject.start_h2 }} - 9) * 2 + {{ subject.start_m2 }}  / 30 + 1;
+            f_time[selected_id] = ({{ subject.fin_h2 }} - 9) * 2 + {{ subject.fin_m2 }} / 30 + 1;
+            ctx5.fillStyle = color;
+            ctx5.fillRect(100 * day2_g[selected_id], 20 * s_time[selected_id]+20, 100, 20 * (f_time[selected_id] - s_time[selected_id]));
+              {% if subject.count >= 3 %}
+              s_time[selected_id] = ({{ subject.start_h3 }} - 9) * 2 + {{ subject.start_m3 }} / 30 + 1;
+              f_time[selected_id] = ({{ subject.fin_h3 }} - 9) * 2 + {{ subject.fin_m3 }} / 30 + 1;
+              ctx5.fillStyle = color;
+              ctx5.fillRect(100 * day3_g[selected_id], 20 * s_time[selected_id]+20, 100, 20 * (f_time[selected_id] - s_time[selected_id]));
+                {% if subject.count >= 4 %}
+                s_time[selected_id] = ({{ subject.start_h4 }} - 9) * 2 + {{ subject.start_m4 }} / 30 + 1;
+                f_time[selected_id] = ({{ subject.fin_h4 }} - 9) * 2 + {{ subject.fin_m4 }} / 30 + 1;
+                ctx5.fillStyle = color;
+                ctx5.fillRect(100 * day4_g[selected_id], 20 * s_time[selected_id]+20, 100, 20 * (f_time[selected_id] - s_time[selected_id]));
+                {% endif %}
+              {% endif %} 
+            {% endif %}
+          {% endif %}
+          ctx5.scale(1/4, 1/4);
+          ctx5.globalAlpha = 1;
+            }
+        {% endfor %}
+    {% endif %}
+  }
+  
+</script>
+
 <script src="{% static 'javascript/main.js' %}"></script>
 </head>
 <body>
@@ -725,7 +927,6 @@
                     <div class="table_body">
                         {% if subject_list %}
                         {% for subject in subject_list %}
-
                         
                         <div class="text-center">
                           <div class = "text-left" id = "text-{{ subject.id }}">
@@ -773,121 +974,17 @@
                                         / {{ subject.credit }} 학점
                                                 <!-- TEMP -->
                                             / 총 {{subject.select_person}} 명 선택
-                                                <!-- TEMP -->
-
                                         {% endif %}
                                     </div>
                                 </div>
-
                             </div>
-                            <script>      
-                              
-                              
-                              day1_g [{{ subject.id }}] = "{{ subject.day1 }}";
-                              start_timeh1_g [{{ subject.id }}] = "{{ subject.start_h1 }}";
-                              start_timem1_g[{{ subject.id }}] = "{{ subject.start_m1 }}";
-                              finish_timeh1_g[{{ subject.id }}] ="{{ subject.fin_h1 }}";
-                              finish_timem1_g[{{ subject.id }}] ="{{ subject.fin_m1 }}";
-                              day2_g [{{ subject.id }}] = "{{ subject.day2 }}";
-                              start_timeh2_g [{{ subject.id }}] = "{{ subject.start_h2 }}";
-                              start_timem2_g[{{ subject.id }}] = "{{ subject.start_m2 }}";
-                              finish_timeh2_g[{{ subject.id }}] ="{{ subject.fin_h2 }}";
-                              finish_timem2_g[{{ subject.id }}] ="{{ subject.fin_m2 }}";
-                              day3_g [{{ subject.id }}] = "{{ subject.day3 }}";
-                              start_timeh3_g [{{ subject.id }}] = "{{ subject.start_h3 }}";
-                              start_timem3_g[{{ subject.id }}] = "{{ subject.start_m3 }}";
-                              finish_timeh3_g[{{ subject.id }}] ="{{ subject.fin_h3 }}";
-                              finish_timem3_g[{{ subject.id }}] ="{{ subject.fin_m3 }}";
-                              day4_g [{{ subject.id }}] = "{{ subject.day4 }}";
-                              start_timeh4_g [{{ subject.id }}] = "{{ subject.start_h4 }}";
-                              start_timem4_g[{{ subject.id }}] = "{{ subject.start_m4 }}";
-                              finish_timeh4_g[{{ subject.id }}] ="{{ subject.fin_h4 }}";
-                              finish_timem4_g[{{ subject.id }}] ="{{ subject.fin_m4 }}";
-                             
-                                             if (day1_g[{{ subject.id }}] === "월") {
-    
-                                              day1_g[{{ subject.id }}]= 1;
-                                            } else if (day1_g[{{ subject.id }}] === "화") {
-                                              day1_g[{{ subject.id }}]= 2;
-                                            } else if (day1_g[{{ subject.id }}] === "수") {
-                                              day1_g[{{ subject.id }}] = 3;
-                                            } else if (day1_g[{{ subject.id }}] === "목") {
-                                              day1_g[{{ subject.id }}]= 4;
-                                            } else {
-                                              day1_g[{{ subject.id }}] = 5;
-                                            }
-    
-                                            if (day2_g[{{ subject.id }}] === "월") {
-                                              day2_g[{{ subject.id }}]= 2;
-                                            } else if (day2_g[{{ subject.id }}] === "화") {
-                                              day2_g[{{ subject.id }}]= 2;
-                                            } else if (day2_g[{{ subject.id }}] === "수") {
-                                              day2_g[{{ subject.id }}] = 3;
-                                            } else if (day2_g[{{ subject.id }}] === "목") {
-                                              day2_g[{{ subject.id }}]= 4;
-                                            } else {
-                                              day2_g[{{ subject.id }}] = 5;
-          
-                                            }if (day3_g[{{ subject.id }}] === "월") {
-                                              day3_g[{{ subject.id }}]= 3;
-                                            } else if (day3_g[{{ subject.id }}] === "화") {
-                                              day3_g[{{ subject.id }}]= 2;
-                                            } else if (day3_g[{{ subject.id }}] === "수") {
-                                              day3_g[{{ subject.id }}] = 3;
-                                            } else if (day3_g[{{ subject.id }}] === "목") {
-                                              day3_g[{{ subject.id }}]= 4;
-                                            } else {
-                                              day3_g[{{ subject.id }}] = 5;
-                                            }
-          
-                                            if (day4_g[{{ subject.id }}] === "월") {
-                                              day4_g[{{ subject.id }}]= 4;
-                                            } else if (day4_g[{{ subject.id }}] === "화") {
-                                              day4_g[{{ subject.id }}]= 2;
-                                            } else if (day4_g[{{ subject.id }}] === "수") {
-                                              day4_g[{{ subject.id }}] = 3;
-                                            } else if (day4_g[{{ subject.id }}] === "목") {
-                                              day4_g[{{ subject.id }}]= 4;
-                                            } else {
-                                              day4_g[{{ subject.id }}] = 5;
-                                            }
-                              
-                              var box = document.getElementById("text-{{ subject.id }}");
+                            <script>   
+                                        var box = document.getElementById("text-{{ subject.id }}");
                                         box.addEventListener('mouseover',function(){
-                                        
-                                        var ctx3 = document.getElementById("myCanvas3").getContext("2d");
-                                        ctx3.mozImageSmoothingEnabled = false;
-                                        ctx3.imageSmoothingEnabled = false;
-                                        ctx3.scale(4, 4);
-                                        var color = "#000000";
-                                        ctx3.globalAlpha = 0.5;
-                                        s_time[{{ subject.id }}] = (start_timeh1_g[{{ subject.id }}] - 9) * 2 + start_timem1_g[{{ subject.id }}] / 30 + 1;
-                                        f_time[{{ subject.id }}] = (finish_timeh1_g[{{ subject.id }}] - 9) * 2 + finish_timem1_g[{{ subject.id }}] / 30 + 1;
-                                        ctx3.fillStyle = color;
-                                        ctx3.fillRect(100 * day1_g[{{ subject.id }}], 20 * s_time[{{ subject.id }}]+20, 100, 20 * (f_time[{{ subject.id }}] - s_time[{{ subject.id }}]));
-      
-                                        s_time[{{ subject.id }}] = (start_timeh2_g[{{ subject.id }}] - 9) * 2 + start_timem2_g[{{ subject.id }}] / 30 + 1;
-                                        f_time[{{ subject.id }}] = (finish_timeh2_g[{{ subject.id }}] - 9) * 2 + finish_timem2_g[{{ subject.id }}] / 30 + 1;
-                                        ctx3.fillStyle = color;
-                                        ctx3.fillRect(100 * day2_g[{{ subject.id }}], 20 * s_time[{{ subject.id }}]+20, 100, 20 * (f_time[{{ subject.id }}] - s_time[{{ subject.id }}]));
-                                          
-                                        s_time[{{ subject.id }}] = (start_timeh3_g[{{ subject.id }}] - 9) * 2 + start_timem3_g[{{ subject.id }}] / 30 + 1;
-                                        f_time[{{ subject.id }}] = (finish_timeh3_g[{{ subject.id }}] - 9) * 2 + finish_timem3_g[{{ subject.id }}] / 30 + 1;
-                                        ctx3.fillStyle = color;
-                                        ctx3.fillRect(100 * day3_g[{{ subject.id }}], 20 * s_time[{{ subject.id }}]+20, 100, 20 * (f_time[{{ subject.id }}] - s_time[{{ subject.id }}]));
-      
-                                        s_time[{{ subject.id }}] = (start_timeh4_g[{{ subject.id }}] - 9) * 2 + start_timem4_g[{{ subject.id }}] / 30 + 1;
-                                        f_time[{{ subject.id }}] = (finish_timeh4_g[{{ subject.id }}] - 9) * 2 + finish_timem4_g[{{ subject.id }}] / 30 + 1;
-                                        ctx3.fillStyle = color;
-                                        ctx3.fillRect(100 * day4_g[{{ subject.id }}], 20 * s_time[{{ subject.id }}]+20, 100, 20 * (f_time[{{ subject.id }}] - s_time[{{ subject.id }}]));
-      
-                                        ctx3.scale(1/4, 1/4);
-                                        ctx3.globalAlpha = 1;
-                                      });
+                                          draw({{ subject.id }});
+                                        });
                                         box.addEventListener('mouseout',function(){
                                           clean();
-                                          
-
                                         });
                               </script>
                         </div>
@@ -925,6 +1022,7 @@
 
 
 </div>
+
 </body>
 
 {% endif %}
