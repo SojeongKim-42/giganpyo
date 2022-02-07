@@ -475,4 +475,9 @@
         float: left;
         margin-right: 4px;
     }
+    #save_button {
+        font-size: 5px;
+        width: 110px;
+    }
+
 }
