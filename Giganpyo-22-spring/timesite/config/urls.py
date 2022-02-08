@@ -25,6 +25,7 @@ urlpatterns = [
     path('timetable/', include('timetable.urls')),
     path('common/', include('common.urls')),
     path('', views.index),
+    path('accounts/', include('allauth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'common.views.page_not_found'
