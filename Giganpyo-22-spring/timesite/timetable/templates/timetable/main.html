@@ -692,7 +692,20 @@
                             <div  class="subject_button7">
                               <div id="result_bag1">
                                 <strong>{{subject.code}}</strong>  
-                                {{ subject.name }} - {{ subject.professor1 }}<br>
+                                {{ subject.name }} - {{ subject.professor1 }} 
+                                {% if subject.is_offline == "혼합" %}
+                                <p style="color:green">
+                                -{{subject.is_offline}}
+                                </p>
+                                {% elif subject.is_offline == "대면" %}
+                                <p style="color:blue">
+                                -{{subject.is_offline}}
+                                </p>
+                                {% elif subject.is_offline == "비대면" %}
+                                <p style="color:red">
+                                -{{subject.is_offline}}
+                                </p>
+                                {% endif %}<br>
                                 {% if subject.count == 1 %}
                                 &nbsp;&nbsp;-&nbsp;{{ subject.day1 }} {{ subject.start_time1 }}~{{ subject.finish_time1 }}
                                 {% elif subject.count == 2 %}
@@ -801,6 +814,19 @@
                                           <div id="subject_table1_1">
                                             <strong>{{subject.code}} </strong>
                                               {{ subject.name }}
+                                          {% if subject.is_offline == "혼합" %}
+                                          <p style="color:green">
+                                          -{{subject.is_offline}}
+                                          </p>
+                                          {% elif subject.is_offline == "대면" %}
+                                          <p style="color:blue">
+                                          -{{subject.is_offline}}
+                                          </p>
+                                          {% elif subject.is_offline == "비대면" %}
+                                          <p style="color:red">
+                                          -{{subject.is_offline}}
+                                          </p>
+                                          {% endif %}
 
                                           </div>
                                           <div id="subject_table3">
@@ -937,7 +963,20 @@
                                     <div id="subject_table1" class="subject_button">
                                         <div id="subject_table1_1">
                                           <strong> {{subject.code}} </strong>
-                                          {{ subject.name }}
+                                          {{ subject.name }} 
+                                          {% if subject.is_offline == "혼합" %}
+                                          <p style="color:green">
+                                          -{{subject.is_offline}}
+                                          </p>
+                                          {% elif subject.is_offline == "대면" %}
+                                          <p style="color:blue">
+                                          -{{subject.is_offline}}
+                                          </p>
+                                          {% elif subject.is_offline == "비대면" %}
+                                          <p style="color:red">
+                                          -{{subject.is_offline}}
+                                          </p>
+                                          {% endif %}
                                         </div>
                                         <div id="subject_table3">
                                           <!--<button method="get" id="button_subject_table" class="btn btn-outline-secondary" onclick="save_before_add({{ subject.id }})"  > ADD </button></div>--> 
