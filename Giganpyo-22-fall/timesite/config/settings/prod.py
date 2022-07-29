@@ -1,6 +1,8 @@
 from .base import *
+from ... import my_settings
 
-ALLOWED_HOSTS = ['15.165.24.147', 'giganpyo.co.kr']
-STATIC_ROOT = BASE_DIR / 'static/'
-STATICFILES_DIRS = []
+ALLOWED_HOSTS = ['15.165.225.220', 'giganpyo.co.kr']
+
+SITE_ID = my_settings.SITE_ID
+
 DEBUG = False
