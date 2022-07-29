@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+input {
+  border: 0px solid;
+  background: rgb(70, 70, 161);
+  width: 250px;
+  font-size: 20px;
+  padding: 12px;
+  margin-top: 10px;
+  color: white;
+  text-transform: capitalize;
+  font-size: 15px;
+  border-radius: 3px;
+}
+input[type="text"] {
+  border: 0px solid;
+  background: white;
+  width: 480px;
+  font-size: 20px;
+  padding: 10px;
+  margin: 10px;
+  text-transform: none;
+  color: black;
+}
+
+body {
+  background: #f5f6f7;
+}
+#login_title {
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  font-size: 40px;
+  text-transform: uppercase;
+  font-family: "Nanum Gothic Coding", monospace;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 10px;
+}
+#login_back {
+  position: center;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.line {
+  display: grid;
+  grid-template-columns: 1fr 620px 1fr;
+}
+#login {
+  text-align: center;
+}
+#login_signup {
+  margin: 0px auto;
+  border: 0px;
+  background: rgb(70, 70, 161);
+  width: 480px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 10px;
+  text-transform: capitalize;
+  margin: 60px;
+  margin-top: 30px;
+}
+
+p {
+  text-align: center;
+  padding: 20px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+#login_copyright {
+  text-align: center;
+  padding-top: 150px;
+  font-size: 10px;
+}

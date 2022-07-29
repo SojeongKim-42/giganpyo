@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f5f6f7;
+}
+#login_title {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-family: "Nanum Gothic Coding", monospace;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 10px;
+}
+#login_back {
+  position: relative;
+}
+hr {
+  color: black;
+  size: 1;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.line {
+  display: grid;
+  grid-template-columns: 1fr 620px 1fr;
+}
+
+select {
+  width: 500px;
+  padding-left: 50px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border: 1px solid white;
+  font-size: 15px;
+  background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+    no-repeat 97% 50%;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#signup_question {
+  font-size: 20px;
+  color: #f5f6f7;
+  margin: 0px auto;
+  border: 0px;
+  background: rgb(138, 138, 138);
+  width: 460px;
+  border-radius: 5px 5px 0px 0px;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+  margin-top: 30px;
+}
+#signup_select {
+  border-radius: 0px 0px 3px 3px;
+  margin: 0px auto;
+  width: 500px;
+  border: 0px;
+  background: white;
+}
+
+option {
+  display: block;
+  white-space: pre;
+  background: rgb(232, 232, 245);
+  min-height: 1.5em;
+  max-height: 10em;
+}
+
+select:focus {
+  background: rgb(232, 232, 245);
+}
+#invisible {
+  min-height: 0;
+  font-size: 0;
+}
+
+table {
+  border: 2px solid #d2d2d2;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+th,
+td {
+  border: 1px solid #d2d2d2;
+  border-collapse: collapse;
+}
+th {
+  height: 5px;
+  background-color: rgb(138, 138, 138);
+  color: white;
+}
+td {
+  width: 100px;
+  height: 10px;
+  text-align: center;
+}
+#result {
+  color: #f5f6f7;
+  margin: 0px auto;
+  border: 0px;
+  font-size: 13px;
+}
+#result_back {
+  font-size: 15px;
+  margin: 0px auto;
+  border: 0px;
+  width: 460px;
+  padding: 20px;
+  background: rgb(83, 83, 85);
+}
+option:focus {
+  background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+    no-repeat 97% 50%;
+}
