@@ -16,7 +16,14 @@
 <a class="nav-link" href="{% url 'timetable:create_table' user_id=user.id %}">테이블 만들기</a>
     <ul>
         {% for table in all_table_list %}
-        <li><a href="{% url 'timetable:get_table_all_subjects' user_id=user.id table_id=table.id %}">table {{ table.id }}</a></li>
+        <li>
+            <a href="{% url 'timetable:table' user_id=user.id table_id=table.id %}">
+                table {{ table.id }}
+                <a href="{% url 'timetable:delete_table' user_id=user.id table_id=table.id %}">
+                    삭제
+                </a>
+            </a>
+        </li>
         {% endfor %}
     </ul>
 

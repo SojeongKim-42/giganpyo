@@ -11,45 +11,61 @@ import numpy
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
+
 def index(request):
     if is_valid_queryparam(request.user.id):
         return redirect('timetable:main', user_id=request.user.id)
     else:
         return redirect('common:login')
 
+
 def main(request, user_id):
-    all_subject_list=SubjectInfo.objects.order_by('name')
-    all_table_list=Table.objects.filter(user_id=request.user.id)
-    context ={'all_subject_list': all_subject_list, 'all_table_list':all_table_list}
+    all_table_list = Table.objects.filter(user_id=request.user.id)
+    context = {'all_table_list': all_table_list}
     return render(request, 'timetable/main.html', context)
 
-def getTableAllSubjects(request, user_id, table_id):
-    carts=Cart.objects.filter(table_id=table_id)
-    table_subject_list=[]
-    for cart in carts:
-        table_subject=SubjectInfo.objects.get(id=cart.subject_id)
-        table_subject_list.append(table_subject)
+
+def table(request, user_id, table_id):
     all_subject_list = SubjectInfo.objects.order_by('name')
-    table=Table.objects.get(id=table_id)
-    context = {'all_subject_list': all_subject_list, 'table_subject_list': table_subject_list, 'table':table}
-    return render(request, 'timetable/table_subject_list.html', context)
+    table = Table.objects.get(id=table_id)
+    carts = Cart.objects.filter(table_id=table_id)
+    table_subject_list = []
+    for cart in carts:
+        table_subject_list.append(SubjectInfo.objects.get(id=cart.subject_id))
+    context = {'all_subject_list': all_subject_list,
+               'table': table, 'table_subject_list': table_subject_list, }
+    return render(request, 'timetable/table.html', context)
 
 
-def addTableOneSubject(request, user_id, table_id, subject_id):
+def add_table_one_subject(request, user_id, table_id, subject_id):
     cart = Cart()
-    cart.subject=SubjectInfo.objects.get(id=subject_id)
-    cart.table_id=table_id
+    cart.subject = SubjectInfo.objects.get(id=subject_id)
+    cart.table_id = table_id
     cart.save()
-    return redirect('timetable:get_table_all_subjects', user_id=user_id, table_id=table_id)
+    return redirect('timetable:table', user_id=user_id, table_id=table_id)
+    
+    
+def del_table_one_subject(request, user_id, table_id, subject_id):
+    cart=Cart.objects.get(subject_id=subject_id, table_id=table_id)
+    cart.delete()
+    return redirect('timetable:table', user_id=user_id, table_id=table_id)
+
 
 def create_table(request, user_id):
-    table=Table()
+    table = Table()
     table.user = User.objects.get(id=request.user.id)
     table.save()
     return redirect('timetable:main', user_id=request.user.id)
 
 
+def delete_table(request, user_id, table_id):
+    table = Table.objects.get(id=table_id)
+    table.delete()
+    return redirect('timetable:main', user_id=request.user.id)
+
 # 과목 저장
+
+
 def data_save(request):
     # 엑셀파일 받기
     Location = 'C:/Users/pc/Desktop/Giganpyo_new'
@@ -172,4 +188,3 @@ def data_save(request):
             subject_time.save()
 
     return render(request, 'timetable/subject_list.html')
-
