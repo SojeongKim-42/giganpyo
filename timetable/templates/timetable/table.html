@@ -4,6 +4,7 @@
 <ol>
     {% for tablesubject in table_subject_list %}
     <li>
+        {{ tablesubject.id }}
         {{ tablesubject.name }}
         <a href="{% url 'timetable:del_table_one_subject' user_id=user.id table_id=table.id subject_id=tablesubject.id %}">
             삭제하기!!
@@ -20,7 +21,10 @@
 {% if all_subject_list %}
 <ul>
     {% for subject in all_subject_list %}
-    <li>{{ subject.name }}</li>
+    <li>
+        {{ subject.id }}
+        {{ subject.name }}
+    </li>
     <a href="{% url 'timetable:add_table_one_subject' user_id=user.id table_id=table.id subject_id=subject.id %}">
         ADD
     </a>
