@@ -1,0 +1,26 @@
+
+
+<h1>장바구니에 있는 과목</h1>
+{% if table_subject_list %}
+    <ol>
+        {% for tablesubject in table_subject_list %}
+        <li>{{ tablesubject.name }}</li>
+        {% endfor %}
+    </ol>
+
+{% else %}
+<p>장바구니: 과목 없음</p>
+{% endif %}
+
+<h1>전체 과목</h1>
+{% if all_subject_list %}
+<ul>
+    {% for subject in all_subject_list %}
+    <li>{{ subject.name }}</li>
+    <a href="{% url 'timetable:add_table_one_subject' user_id=user.id table_id=table.id subject_id=subject.id %}">ADD</a>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>전체: 과목 없음</p>
+{% endif %}
