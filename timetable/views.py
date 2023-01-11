@@ -1,8 +1,8 @@
 
 from parse import *
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
-from timetable.forms import SubjectInfoForm
 from .models import *
 import pandas as pd
 import re
@@ -28,83 +28,64 @@ def main(request, user_id):
 
 def table(request, user_id, table_id):
     all_subject_list = SubjectInfo.objects.order_by('name')
+    all_subject_time_list = []
+    for cnt in range(len(all_subject_list)):
+        subject = all_subject_list[cnt]
+        time_id_list = SubjectTime.objects.filter(
+            subject_id=subject.id).values_list('time_id', flat=True)
+        time_list = Time.objects.filter(id__in=time_id_list)
+        all_subject_time_list.append([])
+        all_subject_time_list[cnt].append(subject)
+        all_subject_time_list[cnt].append(time_list)
+
     table = Table.objects.get(id=table_id)
     carts = Cart.objects.filter(table_id=table_id)
     table_subject_list = []
     for cart in carts:
         table_subject_list.append(SubjectInfo.objects.get(id=cart.subject_id))
-    context = {'all_subject_list': all_subject_list,
-               'table': table, 'table_subject_list': table_subject_list, }
+        time_id_list = SubjectTime.objects.filter(
+            subject_id=subject.id).values_list('time_id', flat=True)
+
+    table_subject_time_list = []
+    for cnt in range(len(table_subject_list)):
+        subject = table_subject_list[cnt]
+        time_id_list = SubjectTime.objects.filter(
+            subject_id=subject.id).values_list('time_id', flat=True)
+        time_list = Time.objects.filter(id__in=time_id_list)
+        table_subject_time_list.append([])
+        table_subject_time_list[cnt].append(subject)
+        table_subject_time_list[cnt].append(time_list)
+
+    context = {'all_subject_time_list': all_subject_time_list,
+               'table': table, 'table_subject_time_list': table_subject_time_list}
     return render(request, 'timetable/table.html', context)
 
 
 def add_table_one_subject(request, user_id, table_id, subject_id):
+    cart_is_not_empty = Cart.objects.filter(table_id=table_id)
 
-    carts = Cart.objects.filter(table_id=table_id)
+    # 카트가 비어있지 않다면 중복 체크
+    if cart_is_not_empty:
+        adding_times = SubjectTime.objects.filter(subject_id=subject_id)
+        cart_subject_ids = Cart.objects.filter(
+            table_id=table_id).values_list('subject_id', flat=True)
+        cart_times = SubjectTime.objects.filter(
+            subject_id__in=cart_subject_ids)
 
-    # cart가 비었을 때는 중복 체크 없이 바로 save
-    if not carts:
-        cart = Cart()
-        cart.subject = SubjectInfo.objects.get(id=subject_id)
-        cart.table_id = table_id
-        cart.save()
+        for adding_time in adding_times:
+            for cart_time in cart_times:
+                if adding_time.time.day == cart_time.time.day:
+                    if (adding_time.time.start_time >= cart_time.time.start_time and adding_time.time.start_time < cart_time.time.fin_time):
+                        return HttpResponse("The Subject Time Overlaps")
+                    elif (adding_time.time.fin_time > cart_time.time.start_time and adding_time.time.fin_time <= cart_time.time.fin_time):
+                        return HttpResponse("The Subject Time Overlaps")
 
-    else:
-        #중복 체크
-        duplication=False
-        for cart in carts:
-            if subject_id == cart.subject_id:
-                duplication = True
-
-        #시간이 겹치는지 확인
-        time_overlap=False
-
-        # 추가할 time 가져오기
-        subjectTime_to_add_list = SubjectTime.objects.filter(subject_id=subject_id)
-        time_to_add_list = []
-        for subjectTime_to_add in subjectTime_to_add_list:
-            time_to_add_list.append(Time.objects.get(id=subjectTime_to_add.time_id))
-
-        # cart에 담겨 있는 time 모두 가져와 정리하기
-        cart_time_list = []
-        for cart in carts:
-            cart_subjectTime_list = SubjectTime.objects.filter(subject_id=cart.subject_id)
-            for subjectTime in cart_subjectTime_list:
-                cart_time_list.append(Time.objects.get(id=subjectTime.time_id))
-
-        cart_start_time_list = []
-        cart_fin_time_list = []
-        for cart_time in cart_time_list:
-            start_time = parse("{}:{}", cart_time.start_time)  # ['13', '00']
-            start_time = int(start_time[0]+start_time[1])
-            cart_start_time_list.append(start_time)
-
-            fin_time = parse("{}:{}", cart_time.fin_time)  # ['14', '30']
-            fin_time = int(fin_time[0]+fin_time[1])
-            cart_fin_time_list.append(fin_time)
-
-        # 추가할 time과 cart의 time 비교하기
-        for time_to_add in time_to_add_list:
-            new_st = parse("{}:{}", time_to_add.start_time)
-            new_st = int(new_st[0]+new_st[1])
-            new_ft = parse("{}:{}", time_to_add.fin_time)
-            new_ft = int(new_ft[0]+new_ft[1])
-            for old_st, old_ft in cart_start_time_list, cart_fin_time_list:
-                if ((new_st>=old_st) and (old_ft>=new_st)) or ((old_st>=new_st) and (new_ft>=old_st)):
-                    time_overlap=True
-                    break
-
-        # cart에 없는 과목이고 시간이 겹치지 않을 때만 저장
-        if (not duplication) and (not time_overlap):
-            cart = Cart()
-            cart.subject = SubjectInfo.objects.get(id=subject_id)
-            cart.table_id = table_id
-            cart.save()
+    Cart(subject=SubjectInfo.objects.get(id=subject_id), table_id=table_id).save()
     return redirect('timetable:table', user_id=user_id, table_id=table_id)
-    
-    
+
+
 def del_table_one_subject(request, user_id, table_id, subject_id):
-    cart=Cart.objects.get(subject_id=subject_id, table_id=table_id)
+    cart = Cart.objects.get(subject_id=subject_id, table_id=table_id)
     cart.delete()
     return redirect('timetable:table', user_id=user_id, table_id=table_id)
 
