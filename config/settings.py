@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'timetable.apps.TimetableConfig',
     'common.apps.CommonConfig',  
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

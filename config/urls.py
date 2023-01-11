@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from timetable import views
+from timetable.views import *
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('common.urls')),
     path('timetable/user/', include('timetable.urls')),
+    path('api/timetable/', SubjectInfoAPI.as_view()),
     path('', views.index, name='index')
 ]

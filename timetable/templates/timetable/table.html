@@ -7,6 +7,7 @@
     <li>
         {{ tablesubject.0.id }}
         {{ tablesubject.0.name }}
+        {{ tablesubject.0.select_person }}
         <div>
             {% for time in tablesubject.1 %}
             {{ time.day }} {{ time.start_time }}~{{ time.fin_time }}
@@ -30,6 +31,7 @@
     <li>
         {{ subject.0.id }}
         {{ subject.0.name }}
+        {{ subject.0.select_person }}명 선택
         <div>
             {% for time in subject.1 %}
                 {{ time.day }} {{ time.start_time }}~{{ time.fin_time }}

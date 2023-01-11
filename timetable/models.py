@@ -39,6 +39,7 @@ class Time(models.Model):
         else:
             return False
 
+
 class Table(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True, related_name='table_user')

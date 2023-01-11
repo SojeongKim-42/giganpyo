@@ -2,6 +2,10 @@
 from parse import *
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import *
 
 from .models import *
 import pandas as pd
@@ -81,12 +85,35 @@ def add_table_one_subject(request, user_id, table_id, subject_id):
                         return HttpResponse("The Subject Time Overlaps")
 
     Cart(subject=SubjectInfo.objects.get(id=subject_id), table_id=table_id).save()
+
+    # 선택한 사람 추가하기: 다른 테이블에 해당 subject가 없다면 +1 (처음 과목 추가하는 경우)
+    other_table_ids = Table.objects.filter(user_id=request.user.id).exclude(
+        id=table_id).values_list('id', flat=True)
+    other_table_subject_ids = SubjectInfo.objects.filter(id__in=Cart.objects.filter(
+        table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('id', flat=True)
+    
+    if subject_id not in other_table_subject_ids:
+        adding_subject = SubjectInfo.objects.get(id=subject_id)
+        adding_subject.select_person += 1
+        adding_subject.save()
     return redirect('timetable:table', user_id=user_id, table_id=table_id)
 
 
 def del_table_one_subject(request, user_id, table_id, subject_id):
     cart = Cart.objects.get(subject_id=subject_id, table_id=table_id)
     cart.delete()
+
+    # 선택한 사람 삭제하기: 다른 테이블에 해당 subject가 없다면 -1 ()
+    other_table_ids = Table.objects.filter(user_id=request.user.id).exclude(
+        id=table_id).values_list('id', flat=True)
+    other_table_subject_ids = SubjectInfo.objects.filter(id__in=Cart.objects.filter(
+        table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('id', flat=True)
+
+    if subject_id not in other_table_subject_ids:
+        adding_subject = SubjectInfo.objects.get(id=subject_id)
+        adding_subject.select_person -= 1
+        adding_subject.save()
+
     return redirect('timetable:table', user_id=user_id, table_id=table_id)
 
 
@@ -102,6 +129,14 @@ def delete_table(request, user_id, table_id):
     table.delete()
     return redirect('timetable:main', user_id=request.user.id)
 
+
+# API
+class SubjectInfoAPI(APIView):
+    def get(self, request):
+        queryset = SubjectInfo.objects.all()
+        print(queryset)
+        serializer = SubjectInfoSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 # 과목 저장
 def data_save(request):
@@ -226,3 +261,4 @@ def data_save(request):
             subject_time.save()
 
     return render(request, 'timetable/subject_list.html')
+
