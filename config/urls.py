@@ -24,5 +24,7 @@ urlpatterns = [
     path('user/', include('common.urls')),
     path('timetable/user/', include('timetable.urls')),
     path('api/timetable/', SubjectInfoAPI.as_view()),
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path("api/user/<int:user_id>/table", include('tableapp.urls')),
+
 ]
