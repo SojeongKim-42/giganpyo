@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from tableapp.models import Table
+
 
 class SubjectInfo(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
@@ -40,9 +42,9 @@ class Time(models.Model):
             return False
 
 
-class Table(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True, related_name='table_user')
+# class Table(models.Model):
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, blank=True, null=True, related_name='table_user')
 
 
 class Cart(models.Model):

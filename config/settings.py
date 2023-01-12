@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'timetable.apps.TimetableConfig',
     'common.apps.CommonConfig',  
+    
+    # Giganpyo app
+    'tableapp',
+    # Rest frame work    
     'rest_framework',
+
+    
 ]
 
 MIDDLEWARE = [
