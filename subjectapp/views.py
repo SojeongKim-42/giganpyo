@@ -25,6 +25,8 @@ class SubjectViewSets(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
+
+         
         return Response(serializer.data)
 
         # def create_table(request, user_id):
@@ -42,6 +44,7 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
     def get_queryset(self):
         return Cart.objects.all()
 
+
     def get_object(self):
         queryset = self.get_queryset()
         queryset = self.filter_queryset(queryset)  # Apply any filter backends
@@ -53,10 +56,13 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
                 pass
         return get_object_or_404(queryset, **filter)  # Lookup the object
 
+
     def list(self, request, table_id, *args, **kwargs):
-        queryset = Cart.objects.filter(table_id=table_id)
-        serializer = self.get_serializer(queryset, many=True)
+        carts = Cart.objects.filter(table_id=table_id).values_list('subject_id', flat=True)
+        queryset=Subject.objects.filter(id__in=carts)
+        serializer = SubjectSerializer(queryset, many=True)
         return Response(serializer.data)
+    
     
     def create(self, request, table_id, subject_id, *args, **kwargs):
 
@@ -272,4 +278,4 @@ def data_save(request):
             subject_time = SubjectTime(subject=subjectInfo, time=time)
             subject_time.save()
 
-    return render(request, 'timetable/subject_list.html')
+    return Response(status=status.HTTP_200_OK)

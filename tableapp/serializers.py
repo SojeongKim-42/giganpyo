@@ -9,12 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 class TableSerializer(serializers.ModelSerializer):
     user_info = UserSerializer(read_only=True)
-    custom = serializers.SerializerMethodField()
+    # custom = serializers.SerializerMethodField()
 
-    def get_custom(self, obj):
-        obj_id = obj.user.username
-        # return obj.start_time + "~" + obj.end_time
-        return f'custom_{obj_id}'
+    # def get_custom(self, obj):
+    #     obj_id = obj.user.username
+    #     # return obj.start_time + "~" + obj.end_time
+    #     return f'custom_{obj_id}'
     
     """
     Time
