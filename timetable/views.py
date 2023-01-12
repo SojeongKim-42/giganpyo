@@ -11,134 +11,39 @@ from .models import *
 import pandas as pd
 import re
 import numpy
+from tableapp.models import *
+from subjectapp.models import *
 
 
-def is_valid_queryparam(param):
-    return param != '' and param is not None
+# def is_valid_queryparam(param):
+#     return param != '' and param is not None
 
 
-def index(request):
-    if is_valid_queryparam(request.user.id):
-        return redirect('timetable:main', user_id=request.user.id)
-    else:
-        return redirect('common:login')
+# def index(request):
+#     if is_valid_queryparam(request.user.id):
+#         return redirect('timetable:main', user_id=request.user.id)
+#     else:
+#         return redirect('common:login')
 
 
-def main(request, user_id):
-    all_table_list = Table.objects.filter(user_id=request.user.id)
-    context = {'all_table_list': all_table_list}
-    return render(request, 'timetable/main.html', context)
+# def main(request, user_id):
+#     all_table_list = Table.objects.filter(user_id=request.user.id)
+#     context = {'all_table_list': all_table_list}
+#     return render(request, 'timetable/main.html', context)
+
+# # API
 
 
-def table(request, user_id, table_id):
-    all_subject_list = SubjectInfo.objects.order_by('name')
-    all_subject_time_list = []
-    for cnt in range(len(all_subject_list)):
-        subject = all_subject_list[cnt]
-        time_id_list = SubjectTime.objects.filter(
-            subject_id=subject.id).values_list('time_id', flat=True)
-        time_list = Time.objects.filter(id__in=time_id_list)
-        all_subject_time_list.append([])
-        all_subject_time_list[cnt].append(subject)
-        all_subject_time_list[cnt].append(time_list)
-
-    table = Table.objects.get(id=table_id)
-    carts = Cart.objects.filter(table_id=table_id)
-    table_subject_list = []
-    for cart in carts:
-        table_subject_list.append(SubjectInfo.objects.get(id=cart.subject_id))
-        time_id_list = SubjectTime.objects.filter(
-            subject_id=subject.id).values_list('time_id', flat=True)
-
-    table_subject_time_list = []
-    for cnt in range(len(table_subject_list)):
-        subject = table_subject_list[cnt]
-        time_id_list = SubjectTime.objects.filter(
-            subject_id=subject.id).values_list('time_id', flat=True)
-        time_list = Time.objects.filter(id__in=time_id_list)
-        table_subject_time_list.append([])
-        table_subject_time_list[cnt].append(subject)
-        table_subject_time_list[cnt].append(time_list)
-
-    context = {'all_subject_time_list': all_subject_time_list,
-               'table': table, 'table_subject_time_list': table_subject_time_list}
-    return render(request, 'timetable/table.html', context)
-
-
-def add_table_one_subject(request, user_id, table_id, subject_id):
-    cart_is_not_empty = Cart.objects.filter(table_id=table_id)
-
-    # 카트가 비어있지 않다면 중복 체크
-    if cart_is_not_empty:
-        adding_times = SubjectTime.objects.filter(subject_id=subject_id)
-        cart_subject_ids = Cart.objects.filter(
-            table_id=table_id).values_list('subject_id', flat=True)
-        cart_times = SubjectTime.objects.filter(
-            subject_id__in=cart_subject_ids)
-
-        for adding_time in adding_times:
-            for cart_time in cart_times:
-                if adding_time.time.day == cart_time.time.day:
-                    if (adding_time.time.start_time >= cart_time.time.start_time and adding_time.time.start_time < cart_time.time.fin_time):
-                        return HttpResponse("The Subject Time Overlaps")
-                    elif (adding_time.time.fin_time > cart_time.time.start_time and adding_time.time.fin_time <= cart_time.time.fin_time):
-                        return HttpResponse("The Subject Time Overlaps")
-
-    Cart(subject=SubjectInfo.objects.get(id=subject_id), table_id=table_id).save()
-
-    # 선택한 사람 추가하기: 다른 테이블에 해당 subject가 없다면 +1 (처음 과목 추가하는 경우)
-    other_table_ids = Table.objects.filter(user_id=request.user.id).exclude(
-        id=table_id).values_list('id', flat=True)
-    other_table_subject_ids = SubjectInfo.objects.filter(id__in=Cart.objects.filter(
-        table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('id', flat=True)
-    
-    if subject_id not in other_table_subject_ids:
-        adding_subject = SubjectInfo.objects.get(id=subject_id)
-        adding_subject.select_person += 1
-        adding_subject.save()
-    return redirect('timetable:table', user_id=user_id, table_id=table_id)
-
-
-def del_table_one_subject(request, user_id, table_id, subject_id):
-    cart = Cart.objects.get(subject_id=subject_id, table_id=table_id)
-    cart.delete()
-
-    # 선택한 사람 삭제하기: 다른 테이블에 해당 subject가 없다면 -1 ()
-    other_table_ids = Table.objects.filter(user_id=request.user.id).exclude(
-        id=table_id).values_list('id', flat=True)
-    other_table_subject_ids = SubjectInfo.objects.filter(id__in=Cart.objects.filter(
-        table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('id', flat=True)
-
-    if subject_id not in other_table_subject_ids:
-        adding_subject = SubjectInfo.objects.get(id=subject_id)
-        adding_subject.select_person -= 1
-        adding_subject.save()
-
-    return redirect('timetable:table', user_id=user_id, table_id=table_id)
-
-
-def create_table(request, user_id):
-    table = Table()
-    table.user = User.objects.get(id=request.user.id)
-    table.save()
-    return redirect('timetable:main', user_id=request.user.id)
-
-
-def delete_table(request, user_id, table_id):
-    table = Table.objects.get(id=table_id)
-    table.delete()
-    return redirect('timetable:main', user_id=request.user.id)
-
-
-# API
-class SubjectInfoAPI(APIView):
-    def get(self, request):
-        queryset = SubjectInfo.objects.all()
-        print(queryset)
-        serializer = SubjectInfoSerializer(queryset, many=True)
-        return Response(serializer.data)
+# class SubjectAPI(APIView):
+#     def get(self, request):
+#         queryset = Subject.objects.all()
+#         print(queryset)
+#         serializer = SubjectSerializer(queryset, many=True)
+#         return Response(serializer.data)
 
 # 과목 저장
+
+
 def data_save(request):
     # 엑셀파일 받기
     Location = 'C:/Users/pc/Desktop/Giganpyo_new'
@@ -234,17 +139,17 @@ def data_save(request):
     for i in range(len(unique_times)):
         unique_times[i].save()
 
-    # SubjectInfo, subject_prof, subject_time 채우기
+    # Subject, subject_prof, subject_time 채우기
     for i in range(len(data_pd) - 1):
-        subjectInfo = SubjectInfo(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
-                                  is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i], year=year, session=session)
+        subjectInfo = Subject(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
+                              is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i], year=year, session=session)
 
         subjectInfo.save()
 
     for i in range(len(data_pd) - 1):
-        subjectInfo = SubjectInfo.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
-                                              is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
-                                              year=year, session=session)
+        subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
+                                          is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
+                                          year=year, session=session)
 
         for j in range(len(profs[i])):
             professor = Professor.objects.get(name=profs[i][j])
@@ -261,4 +166,3 @@ def data_save(request):
             subject_time.save()
 
     return render(request, 'timetable/subject_list.html')
-

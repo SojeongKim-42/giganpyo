@@ -15,16 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from timetable import views
-from timetable.views import *
+from subjectapp.views import data_save
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('common.urls')),
-    path('timetable/user/', include('timetable.urls')),
-    path('api/timetable/', SubjectInfoAPI.as_view()),
-    path('', views.index, name='index'),
-    path("api/user/<int:user_id>/table", include('tableapp.urls')),
-
+    path('api/', include('subjectapp.urls')),
+    path('data/', data_save, name='data_save'),
+    path("api/user/<int:user_id>/table/", include('tableapp.urls')),
+    path('api/user/<int:user_id>/table/<int:table_id>/subject/', include('subjectapp.urls'))
 ]
