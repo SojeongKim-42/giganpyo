@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'timetable.apps.TimetableConfig',
     'common.apps.CommonConfig',  
     
     # Giganpyo app

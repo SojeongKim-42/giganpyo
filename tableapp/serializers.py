@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from timetable.models import Table
+from tableapp.models import Table
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

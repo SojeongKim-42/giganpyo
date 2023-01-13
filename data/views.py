@@ -1,47 +1,11 @@
-
-from parse import *
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.shortcuts import render
+from subjectapp.models import *
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import *
 
-from .models import *
 import pandas as pd
 import re
 import numpy
-from tableapp.models import *
-from subjectapp.models import *
-
-
-# def is_valid_queryparam(param):
-#     return param != '' and param is not None
-
-
-# def index(request):
-#     if is_valid_queryparam(request.user.id):
-#         return redirect('timetable:main', user_id=request.user.id)
-#     else:
-#         return redirect('common:login')
-
-
-# def main(request, user_id):
-#     all_table_list = Table.objects.filter(user_id=request.user.id)
-#     context = {'all_table_list': all_table_list}
-#     return render(request, 'timetable/main.html', context)
-
-# # API
-
-
-# class SubjectAPI(APIView):
-#     def get(self, request):
-#         queryset = Subject.objects.all()
-#         print(queryset)
-#         serializer = SubjectSerializer(queryset, many=True)
-#         return Response(serializer.data)
-
-# 과목 저장
 
 
 def data_save(request):
@@ -165,4 +129,4 @@ def data_save(request):
             subject_time = SubjectTime(subject=subjectInfo, time=time)
             subject_time.save()
 
-    return render(request, 'timetable/subject_list.html')
+    return Response(status=status.HTTP_200_OK)
