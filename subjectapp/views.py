@@ -15,9 +15,10 @@ class SubjectViewSets(viewsets.ModelViewSet):
     lookup_field = 'subject_id'
 
     def get_queryset(self):
-        return Subject.objects.all()
+        return Subject.objects.filter(department='기초교육학부')
 
     def list(self, request, *args, **kwargs):
+        
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)         
         return Response(serializer.data)
