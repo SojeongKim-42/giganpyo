@@ -49,7 +49,6 @@ class SubjectProfSerializer(serializers.ModelSerializer):
         return response
 
 
-
 class SubjectTimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubjectTime
@@ -62,14 +61,13 @@ class SubjectTimeSerializer(serializers.ModelSerializer):
         return response
 
 
-
 class SubjectSerializer(serializers.ModelSerializer):
     sub_prof_subject = SubjectProfSerializer(many=True, read_only=True)
     sub_time_subject = SubjectTimeSerializer(many=True, read_only=True)
     class Meta:
         model = Subject
-        fields = ['name', 'code', 'credit', 'department', 'is_required',
-                  'is_major', 'sub_prof_subject', 'sub_time_subject', 'select_person']
+        fields = ['id','name', 'code', 'credit', 'department', 'is_required',
+                  'is_major', 'location', 'sub_prof_subject', 'sub_time_subject', 'select_person']
 
 
 class TableSerializer(serializers.ModelSerializer):
@@ -82,5 +80,4 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = '__all__'
-        depth=1
-
+        depth = 1

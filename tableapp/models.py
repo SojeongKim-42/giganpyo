@@ -6,4 +6,4 @@ class Table(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='table_user')
-    name = models.CharField(max_length=100, null=True, default='시간표')
+    name = models.CharField(max_length=100, default='시간표')

@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from common.forms import UserForm
+from django.http import HttpResponse
 
 
 def signup(request):
@@ -13,7 +14,7 @@ def signup(request):
             user = authenticate(username=username,
                                 password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
-            return redirect('index')
+            return HttpResponse("User Created")
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
