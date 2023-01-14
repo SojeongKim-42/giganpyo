@@ -5,5 +5,5 @@ from tableapp.views import TableViewSets
 urlpatterns = [
     # table
     path('', TableViewSets.as_view({'get': 'list', 'post': 'create'})),
-    path('<int:id>/', TableViewSets.as_view({'delete': 'destroy'})),
+    path('<int:table_id>/', TableViewSets.as_view({'delete': 'destroy'})),
 ]

@@ -1,8 +1,9 @@
-from django.shortcuts import render
 from tableapp.models import Table
+from django.contrib.auth.models import User
+
 from tableapp.serializers import TableSerializer
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status, exceptions
 from rest_framework.response import Response
 
 # Create your views here.
@@ -10,9 +11,10 @@ class TableViewSets(viewsets.ModelViewSet):
     queryset = Table.objects.all()
     serializer_class = TableSerializer
     # permission_classes = (IsAuthenticated,)
-    lookup_field = 'id'
     
     def list(self, request, user_id, *args, **kwargs):
+        if request.user.id != user_id:
+            raise exceptions.ParseError("자신의 시간표만 볼 수 있습니다.")
         queryset = self.get_queryset().filter(user_id=user_id)
 
         # page = self.paginate_queryset(queryset)
@@ -22,7 +24,27 @@ class TableViewSets(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-    # def get_queryset(self):
-    #     return Table.objects.filter(user=self.request.user.id)
-    
+
+    def destroy(self, request, user_id, table_id, *args, **kwargs):
+        # 로그인 검증 필요
+        if user_id not in User.objects.all().values_list('id', flat=True):
+            raise exceptions.ParseError("존재하지 않는 유저입니다.")
+        if table_id not in Table.objects.all().values_list('id', flat=True):
+            raise exceptions.ParseError("존재하지 않는 시간표입니다.")
+        try:
+            instance = self.queryset.get(id=table_id, user_id=request.user.id)
+        except Exception:
+            raise exceptions.PermissionDenied("자신의 시간표만 수정할 수 있습니다.")
+
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def create(self, request, user_id, *args, **kwargs):
+        if request.user.id != int(request.data['user']):
+            raise exceptions.PermissionDenied("자신의 시간표만 수정할 수 있습니다.")
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
