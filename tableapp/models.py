@@ -5,5 +5,5 @@ from django.contrib.auth.models import User
 class Table(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True, related_name='table_user')
-    name = models.CharField(max_length=100, blank=True, null=True)
+        User, on_delete=models.CASCADE, related_name='table_user')
+    name = models.CharField(max_length=100, null=True, default='시간표')

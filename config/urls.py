@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from subjectapp.views import SubjectViewSets
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('common.urls')),
-    path('api/', include('subjectapp.urls')),
     path('data/', include('data.urls')),
+    path('api/subjects/', SubjectViewSets.as_view({'get': 'list'})),
     path("api/user/<int:user_id>/table/", include('tableapp.urls')),
     path('api/user/<int:user_id>/table/<int:table_id>/subject/', include('subjectapp.urls'))
 ]
