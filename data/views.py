@@ -1,7 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from subjectapp.models import *
-from rest_framework import status
-from rest_framework.response import Response
 
 import pandas as pd
 import re
@@ -94,6 +93,11 @@ def data_save(request):
     for i in range(1, len(data_pd)):
         is_offlines.append(data_pd[26][i])
 
+    # 강의실 위치 읽어오기
+    locations=[]
+    for i in range(1, len(data_pd)):
+        locations.append(data_pd[14][i])
+
     # Professor 채우기
     for i in range(len(unique_profs)):
         professor = Professor(name=unique_profs[i])
@@ -106,14 +110,14 @@ def data_save(request):
     # Subject, subject_prof, subject_time 채우기
     for i in range(len(data_pd) - 1):
         subjectInfo = Subject(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
-                              is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i], year=year, session=session)
-
+                              is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
+                              location=locations[i], year=year, session=session)
         subjectInfo.save()
 
     for i in range(len(data_pd) - 1):
         subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
                                           is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
-                                          year=year, session=session)
+                                          location=locations[i], year=year, session=session)
 
         for j in range(len(profs[i])):
             professor = Professor.objects.get(name=profs[i][j])
@@ -129,4 +133,4 @@ def data_save(request):
             subject_time = SubjectTime(subject=subjectInfo, time=time)
             subject_time.save()
 
-    return Response(status=status.HTTP_200_OK)
+    return HttpResponse("Created")
