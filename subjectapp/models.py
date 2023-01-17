@@ -16,7 +16,8 @@ class Subject(models.Model):
 
     year = models.PositiveSmallIntegerField()
     session = models.CharField(max_length=100)
-
+    times = models.ManyToManyField('Time', related_name='sub_time')
+    professors = models.ManyToManyField('Professor', related_name='sub_prof')
     select_person = models.PositiveSmallIntegerField(null=True, default=0)
 
     def __str__(self):
@@ -47,17 +48,3 @@ class Cart(models.Model):
         Subject, on_delete=models.CASCADE, related_name='cart_subject')
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE,  related_name='cart_table')
-
-
-class SubjectProf(models.Model):
-    subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE,  related_name='sub_prof_subject')
-    professor = models.ForeignKey(
-        Professor, on_delete=models.CASCADE, related_name='sub_prof_professor')
-
-
-class SubjectTime(models.Model):
-    subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, related_name='sub_time_subject')
-    time = models.ForeignKey(
-        Time, on_delete=models.CASCADE,  related_name='sub_time_time')

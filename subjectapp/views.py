@@ -15,7 +15,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
     lookup_field = 'subject_id'
 
     def get_queryset(self):
-        return Subject.objects.all()
+        return Subject.objects.filter(department='기초교육학부')
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -26,7 +26,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
 class TableSubjectViewSets(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     lookup_fields=('subject_id', 'table_id')
-
+    
     def get_queryset(self):
         return Cart.objects.all()
 
@@ -38,7 +38,7 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
         for field in self.lookup_fields:
             try:                                  # Get the result with one or more fields.
                 filter[field] = self.kwargs[field]
-            except Exception:
+            except KeyError:
                 pass
         return get_object_or_404(queryset, **filter)  # Lookup the object
 
@@ -49,7 +49,7 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
         if user_id not in User.objects.all().values_list('id', flat=True):
             raise exceptions.ParseError("존재하지 않는 유저입니다.")
         if table_id not in Table.objects.all().values_list('id', flat=True):
-            raise exceptions.ParseError("존재하지 않는 시간표입니다.")
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다.!!!!!!!!!!"})
         if request.user.id != user_id:
             raise exceptions.PermissionDenied("자신의 시간표만 확인할 수 있습니다.")
         try:

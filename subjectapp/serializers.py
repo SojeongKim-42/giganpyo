@@ -37,39 +37,18 @@ class ProfessorSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 
-class SubjectProfSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubjectProf
-        fields = ['professor']
-
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        prof = Professor.objects.get(id=instance.professor_id)
-        response['professor'] = ProfessorSerializer(prof).data
-        return response
-
-
-class SubjectTimeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubjectTime
-        fields = ['time']
-
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        time= Time.objects.get(id=instance.time_id)
-        response['time'] = TimeSerializer(time).data
-        return response
-
-
 class SubjectSerializer(serializers.ModelSerializer):
-    sub_prof_subject = SubjectProfSerializer(many=True, read_only=True)
-    sub_time_subject = SubjectTimeSerializer(many=True, read_only=True)
+    times = serializers.SerializerMethodField(read_only=True)
+    
     class Meta:
         model = Subject
         fields = ['id','name', 'code', 'credit', 'department', 'is_required',
-                  'is_major', 'location', 'sub_prof_subject', 'sub_time_subject', 'select_person']
-
-
+                  'is_major', 'location', 'times', 'professors', 'select_person']
+    
+    def get_times(self, obj):
+        times = obj.times
+        return times.values('day', 'start_time', 'fin_time')
+        
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
