@@ -11,7 +11,7 @@ local_settings.py
 
 media
 
-/**/migrations/
+
 /db.sqlite3
 
 
