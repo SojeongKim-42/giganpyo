@@ -14,7 +14,7 @@ class TableViewSets(viewsets.ModelViewSet):
     
     def list(self, request, user_id, *args, **kwargs):
         if request.user.id != user_id:
-            raise exceptions.ParseError("자신의 시간표만 볼 수 있습니다.")
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "자신의 시간표만 볼 수 있습니다."})
         queryset = self.get_queryset().filter(user_id=user_id)
 
         # page = self.paginate_queryset(queryset)
@@ -28,20 +28,19 @@ class TableViewSets(viewsets.ModelViewSet):
     def destroy(self, request, user_id, table_id, *args, **kwargs):
         # 로그인 검증 필요
         if user_id not in User.objects.all().values_list('id', flat=True):
-            raise exceptions.ParseError("존재하지 않는 유저입니다.")
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
         if table_id not in Table.objects.all().values_list('id', flat=True):
-            raise exceptions.ParseError("존재하지 않는 시간표입니다.")
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         try:
             instance = self.queryset.get(id=table_id, user_id=request.user.id)
         except Exception:
-            raise exceptions.PermissionDenied("자신의 시간표만 수정할 수 있습니다.")
-
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, user_id, *args, **kwargs):
         if request.user.id != int(request.data['user']):
-            raise exceptions.PermissionDenied("자신의 시간표만 수정할 수 있습니다.")
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
