@@ -4,25 +4,6 @@ from tableapp.models import Table
 # Create your models here.
 
 
-class Subject(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=100)
-    credit = models.PositiveSmallIntegerField()
-    department = models.CharField(max_length=100, null=True)
-    is_required = models.CharField(max_length=100, null=True)
-    is_major = models.CharField(max_length=100, null=True)
-    is_offline = models.CharField(max_length=100, null=True)
-    location = models.CharField(max_length=100, null=True)
-
-    year = models.PositiveSmallIntegerField()
-    session = models.CharField(max_length=100)
-    times = models.ManyToManyField('Time', related_name='sub_time')
-    professors = models.ManyToManyField('Professor', related_name='sub_prof')
-    select_person = models.PositiveSmallIntegerField(null=True, default=0)
-
-    def __str__(self):
-        return self.name
-
 
 class Professor(models.Model):
     name = models.CharField(max_length=100)
@@ -43,8 +24,29 @@ class Time(models.Model):
             return False
 
 
+class Subject(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=100)
+    credit = models.PositiveSmallIntegerField()
+    department = models.CharField(max_length=100, null=True)
+    is_required = models.CharField(max_length=100, null=True)
+    is_major = models.CharField(max_length=100, null=True)
+    is_offline = models.CharField(max_length=100, null=True)
+    location = models.CharField(max_length=100, null=True)
+    times = models.ManyToManyField(Time)
+    professors = models.ManyToManyField(Professor)
+
+    year = models.PositiveSmallIntegerField()
+    session = models.CharField(max_length=100)
+
+    select_person = models.PositiveSmallIntegerField(null=True, default=0)
+
+    def __str__(self):
+        return self.name
+
 class Cart(models.Model):
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='cart_subject')
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE,  related_name='cart_table')
+    

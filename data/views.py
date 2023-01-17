@@ -101,36 +101,38 @@ def data_save(request):
     # Professor 채우기
     for i in range(len(unique_profs)):
         professor = Professor(name=unique_profs[i])
-        professor.save()
+        # professor.save()
 
     # Time 채우기
-    for i in range(len(unique_times)):
-        unique_times[i].save()
+    # for i in range(len(unique_times)):
+    #     unique_times[i].save()
 
     # Subject, subject_prof, subject_time 채우기
     for i in range(len(data_pd) - 1):
         subjectInfo = Subject(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
                               is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
                               location=locations[i], year=year, session=session)
-        subjectInfo.save()
+        # subjectInfo.save()
 
     for i in range(len(data_pd) - 1):
-        subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
-                                          is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
-                                          location=locations[i], year=year, session=session)
 
-        for j in range(len(profs[i])):
-            professor = Professor.objects.get(name=profs[i][j])
-            subject_prof = SubjectProf(
-                subject=subjectInfo, professor=professor)
-            subject_prof.save()
+        # for j in range(len(profs[i])):
+        #     subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
+        #                                   is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
+        #                                   location=locations[i], year=year, session=session)
+        #     professor = Professor.objects.get(name=profs[i][j])
+        #     subjectInfo.professors.add(professor)
+        #     subjectInfo.save()
 
         for j in range(len(days[i])):
+            subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
+                                              is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
+                                              location=locations[i], year=year, session=session)
             time = Time.objects.get(day=days[i][j],
                                     start_time=times[i][j][0][0] +
                                     ":" + times[i][j][0][1],
                                     fin_time=times[i][j][1][0] + ":" + times[i][j][1][1])
-            subject_time = SubjectTime(subject=subjectInfo, time=time)
-            subject_time.save()
+            subjectInfo.times.add(time)
+            subjectInfo.save()
 
     return HttpResponse("Created")
