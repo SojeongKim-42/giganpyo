@@ -36,8 +36,10 @@ def data_save(request):
     for i in range(len(data_pd)-1):
         for j in range(len(days[i])):
             time = Time(day=days[i][j],
+                        start_h=int(times[i][j][0][0]), start_m=int(times[i][j][0][1]),
+                        fin_h=int(times[i][j][1][0]), fin_m=int(times[i][j][1][1]),
                         start_time=times[i][j][0][0] + ":" + times[i][j][0][1],
-                        fin_time=times[i][j][1][0] + ":" + times[i][j][1][1])
+                        fin_time=times[i][j][1][0] + ":" + times[i][j][1][1],)
             all_times_days.append(time)
 
     unique_times = []
@@ -98,36 +100,41 @@ def data_save(request):
     for i in range(1, len(data_pd)):
         locations.append(data_pd[14][i])
 
+    # 강의실 위치 읽어오기
+    max_persons=[]
+    for i in range(1, len(data_pd)):
+        max_persons.append(data_pd[15][i])
+
     # Professor 채우기
     for i in range(len(unique_profs)):
         professor = Professor(name=unique_profs[i])
-        # professor.save()
+        professor.save()
 
     # Time 채우기
-    # for i in range(len(unique_times)):
-    #     unique_times[i].save()
+    for i in range(len(unique_times)):
+        unique_times[i].save()
 
     # Subject, subject_prof, subject_time 채우기
     for i in range(len(data_pd) - 1):
         subjectInfo = Subject(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
                               is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
-                              location=locations[i], year=year, session=session)
-        # subjectInfo.save()
+                              location=locations[i], max_person=max_persons[i], year=year, session=session)
+        subjectInfo.save()
 
     for i in range(len(data_pd) - 1):
 
-        # for j in range(len(profs[i])):
-        #     subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
-        #                                   is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
-        #                                   location=locations[i], year=year, session=session)
-        #     professor = Professor.objects.get(name=profs[i][j])
-        #     subjectInfo.professors.add(professor)
-        #     subjectInfo.save()
+        for j in range(len(profs[i])):
+            subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
+                                          is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
+                                          location=locations[i],max_person=max_persons[i], year=year, session=session)
+            professor = Professor.objects.get(name=profs[i][j])
+            subjectInfo.professors.add(professor)
+            subjectInfo.save()
 
         for j in range(len(days[i])):
             subjectInfo = Subject.objects.get(name=names[i], code=codes[i], credit=credits[i], department=departments[i],
                                               is_required=is_requireds[i], is_major=is_majors[i], is_offline=is_offlines[i],
-                                              location=locations[i], year=year, session=session)
+                                              location=locations[i], max_person=max_persons[i], year=year, session=session)
             time = Time.objects.get(day=days[i][j],
                                     start_time=times[i][j][0][0] +
                                     ":" + times[i][j][0][1],

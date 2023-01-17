@@ -4,7 +4,6 @@ from tableapp.models import Table
 # Create your models here.
 
 
-
 class Professor(models.Model):
     name = models.CharField(max_length=100)
 
@@ -12,7 +11,11 @@ class Professor(models.Model):
 class Time(models.Model):
     day = models.CharField(max_length=1)
     start_time = models.CharField(max_length=100)
+    start_h=models.PositiveSmallIntegerField()
+    start_m=models.PositiveSmallIntegerField()
     fin_time = models.CharField(max_length=100)
+    fin_h = models.PositiveSmallIntegerField()
+    fin_m = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.day + ' ' + self.start_time + ' ~ ' + self.fin_time
@@ -33,6 +36,7 @@ class Subject(models.Model):
     is_major = models.CharField(max_length=100, null=True)
     is_offline = models.CharField(max_length=100, null=True)
     location = models.CharField(max_length=100, null=True)
+    max_person = models.PositiveSmallIntegerField(null=True)
     times = models.ManyToManyField(Time)
     professors = models.ManyToManyField(Professor)
 
@@ -44,9 +48,9 @@ class Subject(models.Model):
     def __str__(self):
         return self.name
 
+
 class Cart(models.Model):
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='cart_subject')
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE,  related_name='cart_table')
-    

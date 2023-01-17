@@ -39,15 +39,20 @@ class ProfessorSerializer(serializers.ModelSerializer):
 
 class SubjectSerializer(serializers.ModelSerializer):
     times = serializers.SerializerMethodField(read_only=True)
+    professors=serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = Subject
         fields = ['id','name', 'code', 'credit', 'department', 'is_required',
-                  'is_major', 'location', 'times', 'professors', 'select_person']
+                  'is_major', 'location', 'times', 'professors', 'select_person', 'max_person']
     
     def get_times(self, obj):
-        times = obj.times
-        return times.values('day', 'start_time', 'fin_time')
+        times = obj.times.values('day', 'start_h','start_m')
+        return times.values('day', 'start_h', 'start_m', 'fin_h', 'fin_m')
+
+    def get_professors(self, obj):
+        professors=obj.professors
+        return professors.values('name')
         
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
