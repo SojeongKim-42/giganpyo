@@ -10,6 +10,7 @@ from rest_framework.response import Response
 class TableViewSets(viewsets.ModelViewSet):
     queryset = Table.objects.all()
     serializer_class = TableSerializer
+    lookup_field='table_id'
     # permission_classes = (IsAuthenticated,)
     
     def list(self, request, user_id, *args, **kwargs):
@@ -29,10 +30,10 @@ class TableViewSets(viewsets.ModelViewSet):
         # 로그인 검증 필요
         if user_id not in User.objects.all().values_list('id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
-        if table_id not in Table.objects.all().values_list('id', flat=True):
+        if table_id not in Table.objects.all().values_list('table_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         try:
-            instance = self.queryset.get(id=table_id, user_id=request.user.id)
+            instance = self.queryset.get(table_id=table_id, user_id=request.user.id)
         except Exception:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         self.perform_destroy(instance)
@@ -47,3 +48,23 @@ class TableViewSets(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
+    def update(self, request, user_id, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        data={}
+        data['user']=user_id
+        data['name']=request.data['name']
+        serializer = self.get_serializer(instance, data=data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
