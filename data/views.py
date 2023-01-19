@@ -9,7 +9,7 @@ import numpy
 
 def data_save(request):
     # 엑셀파일 받기
-    Location = 'C:/Users/pc/Desktop/Giganpyo_new'
+    Location = './'
     # 이거 바꿔줄 필요 있음
     File = '22_fall.xls'
 
