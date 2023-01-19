@@ -48,16 +48,16 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
             #     return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "유저 정보를 확인할 수 없습니다."})
         if user_id not in User.objects.all().values_list('id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
-        if table_id not in Table.objects.all().values_list('id', flat=True):
+        if table_id not in Table.objects.all().values_list('table_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         if request.user.id != user_id:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 확인할 수 있습니다."})
         try:
-            Table.objects.get(id=table_id, user_id=request.user.id)
+            Table.objects.get(table_id=table_id, user_id=request.user.id)
         except Exception:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "해당 유저에게 접근 권한이 없는 시간표입니다."})
         carts = Cart.objects.filter(table_id=table_id).values_list('subject_id', flat=True)
-        queryset=Subject.objects.filter(id__in=carts)
+        queryset=Subject.objects.filter(subject_id__in=carts)
         serializer = SubjectSerializer(queryset, many=True)
         return Response(serializer.data)
     
@@ -77,7 +77,7 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
             cart_times = Time.objects.filter(subject__in=cart_subject_ids)
             
             if subject_id in carts.values_list('subject_id', flat=True):
-                name=Subject.objects.get(id=subject_id).name
+                name=Subject.objects.get(subject_id=subject_id).name
                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "이미 담은 과목입니다.", "name": name, "id":subject_id })
 
             for adding_time in adding_times:
@@ -92,12 +92,14 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
 
         # 선택한 사람 추가하기: 다른 테이블에 해당 subject가 없다면 +1 (처음 과목 추가하는 경우)
         other_table_ids = Table.objects.filter(user_id=request.user.id).exclude(
-            id=table_id).values_list('id', flat=True)
-        other_table_subject_ids = Subject.objects.filter(id__in=Cart.objects.filter(
-            table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('id', flat=True)
+            table_id=table_id).values_list('table_id', flat=True)
+        other_table_subject_ids = Subject.objects.filter(
+            subject_id__in=Cart.objects.filter(
+                table_id__in=other_table_ids).values_list('subject_id', flat=True)
+        ).values_list('subject_id', flat=True)
 
         if subject_id not in other_table_subject_ids:
-            adding_subject = Subject.objects.get(id=subject_id)
+            adding_subject = Subject.objects.get(subject_id=subject_id)
             adding_subject.select_person += 1
             adding_subject.save()
 
@@ -117,21 +119,21 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         if user_id not in User.objects.all().values_list('id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
-        if table_id not in Table.objects.all().values_list('id', flat=True):
+        if table_id not in Table.objects.all().values_list('table_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
-        if subject_id not in Subject.objects.all().values_list('id', flat=True):
+        if subject_id not in Subject.objects.all().values_list('subject_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 과목입니다."})
         if subject_id not in Cart.objects.filter(table_id=table_id).values_list('subject_id', flat=True):
             return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "장바구니에 담기지 않은 과목입니다."})
 
         # 선택한 사람 삭제하기: 다른 테이블에 해당 subject가 없다면 -1 ()
         other_table_ids = Table.objects.filter(user_id=request.user.id).exclude(
-            id=table_id).values_list('id', flat=True)
-        other_table_subject_ids = Subject.objects.filter(id__in=Cart.objects.filter(
-            table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('id', flat=True)
+            table_id=table_id).values_list('table_id', flat=True)
+        other_table_subject_ids = Subject.objects.filter(subject_id__in=Cart.objects.filter(
+            table_id__in=other_table_ids).values_list('subject_id', flat=True)).values_list('subject_id', flat=True)
 
         if subject_id not in other_table_subject_ids:
-            adding_subject = Subject.objects.get(id=subject_id)
+            adding_subject = Subject.objects.get(subject_id=subject_id)
             adding_subject.select_person -= 1
             adding_subject.save()
         instance = self.get_object()

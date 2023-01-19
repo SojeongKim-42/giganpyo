@@ -5,10 +5,12 @@ from tableapp.models import Table
 
 
 class Professor(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
 
 class Time(models.Model):
+    id = models.AutoField(primary_key=True)
     day = models.CharField(max_length=1)
     start_time = models.CharField(max_length=100)
     start_h=models.PositiveSmallIntegerField()
@@ -28,6 +30,7 @@ class Time(models.Model):
 
 
 class Subject(models.Model):
+    subject_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
     credit = models.PositiveSmallIntegerField()
@@ -50,7 +53,8 @@ class Subject(models.Model):
 
 
 class Cart(models.Model):
+    id = models.AutoField(primary_key=True)
     subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, related_name='cart_subject')
+        Subject, on_delete=models.CASCADE, related_name='cart_subject', db_column='subject_id')
     table = models.ForeignKey(
-        Table, on_delete=models.CASCADE,  related_name='cart_table')
+        Table, on_delete=models.CASCADE,  related_name='cart_table', db_column='table_id')

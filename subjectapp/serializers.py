@@ -10,7 +10,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ['id', 'name', 'code', 'credit', 'department', 'is_required',
+        fields = ['subject_id', 'name', 'code', 'credit', 'department', 'is_required',
                   'is_major', 'location', 'times', 'professors', 'select_person', 'max_person']
 
     def get_times(self, obj):
