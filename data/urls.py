@@ -3,5 +3,5 @@ from data.views import data_save
 
 urlpatterns = [
     # table
-    path('', data_save)
+    #path('', data_save)
 ]
