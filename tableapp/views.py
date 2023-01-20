@@ -14,8 +14,8 @@ class TableViewSets(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated,)
     
     def list(self, request, user_id, *args, **kwargs):
-        if request.user.id != user_id:
-            return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "자신의 시간표만 볼 수 있습니다."})
+        # if request.user.id != user_id:
+        #     return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "자신의 시간표만 볼 수 있습니다."})
         queryset = self.get_queryset().filter(user_id=user_id)
 
         # page = self.paginate_queryset(queryset)

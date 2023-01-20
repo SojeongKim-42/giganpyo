@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'subjectapp',
     # Rest frame work    
     'rest_framework',
+    'corsheaders',
 
     
 ]
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -90,6 +92,11 @@ DATABASES = {
     }
 }
 
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ALLOW_CREDENTIALS = [
+    'ec2-54-180-104-168.ap-northeast-2.compute.amazonaws.com'
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
