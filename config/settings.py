@@ -92,9 +92,7 @@ DATABASES = {
     }
 }
 
-<<<<<<< Updated upstream
 CORS_ALLOWED_ORIGINS = [
-
     'ec2-54-180-104-168.ap-northeast-2.compute.amazonaws.com',
     'http://localhost:3000',
     'http://192.168.45.68:3000'
