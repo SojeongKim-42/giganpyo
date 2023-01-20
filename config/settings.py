@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,16 +38,93 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'common.apps.CommonConfig',  
     
-    # Giganpyo app
+    # Giganpyo app : pythona manage.py startapp accountapp / tableapp / subjectapp
+    'accountapp',
     'tableapp',
     'subjectapp',
-    # Rest frame work    
-    'rest_framework',
-
     
+    # Rest frame work : djangorestframework-simplejwt
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    
+    # Allauth : django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
+
+# Custom User
+AUTH_USER_MODEL = 'accountapp.User'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Email Setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' # 메일 호스트 서버
+EMAIL_PORT = '587' # gmail과 통신하는 포트
+EMAIL_HOST_USER = "giganpyo@gmail.com" # 발신할 이메일
+EMAIL_HOST_PASSWORD = "ujbsuobifsbaoymg" # 발신할 메일의 비밀번호
+EMAIL_USE_TLS = True # TLS 보안 방법
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # 사이트와 관련한 자동응답을 받을 이메일 주소
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True # 유저가 받은 링크를 클릭하면 회원가입 완료되게끔
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 0.1
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Giganpyo]"
+
+SITE_ID = 1
+
+# JWT Settings
+REST_USE_JWT = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'SIGNING_KEY': SECRET_KEY,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
+JWT_AUTH_COOKIE = 'giganpyo-app-auth'
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    # ],
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,15 +173,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
+        # username, first_name, last_name, email과 비슷한 password(유사도 0.7)는 validation error
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
+        # password가 8글자 보다 적으면 validation error
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
+        # 사람들이 가장 흔하게 사용하는 20000개의 password는 validation error
+        # https://gist.github.com/roycewilliams/281ce539915a947a23db17137d91aeb7
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
+        # password가 숫자로만 이루어져있을 경우 Validation Error
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
