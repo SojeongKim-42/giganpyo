@@ -92,11 +92,10 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_ALLOW_ALL = False
-
-CORS_ALLOW_CREDENTIALS = [
+CORS_ALLOWED_ORIGINS = [
     'ec2-54-180-104-168.ap-northeast-2.compute.amazonaws.com',
-    'localhost:3000'
+    'http://localhost:3000',
+    'http://192.168.45.68:3000'
 ]
 
 # Password validation
