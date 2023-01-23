@@ -3,35 +3,19 @@ from django.db import models
 from tableapp.models import Table
 # Create your models here.
 
-
-class Subject(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=100)
-    credit = models.PositiveSmallIntegerField()
-    department = models.CharField(max_length=100, null=True)
-    is_required = models.CharField(max_length=100, null=True)
-    is_major = models.CharField(max_length=100, null=True)
-    is_offline = models.CharField(max_length=100, null=True)
-    location = models.CharField(max_length=100, null=True)
-
-    year = models.PositiveSmallIntegerField()
-    session = models.CharField(max_length=100)
-    times = models.ManyToManyField('Time', related_name='sub_time')
-    professors = models.ManyToManyField('Professor', related_name='sub_prof')
-    select_person = models.PositiveSmallIntegerField(null=True, default=0)
-
-    def __str__(self):
-        return self.name
-
-
 class Professor(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-
 
 class Time(models.Model):
+    id = models.AutoField(primary_key=True)
     day = models.CharField(max_length=1)
     start_time = models.CharField(max_length=100)
+    start_h=models.PositiveSmallIntegerField(null=True)
+    start_m=models.PositiveSmallIntegerField(null=True)
     fin_time = models.CharField(max_length=100)
+    fin_h = models.PositiveSmallIntegerField(null=True)
+    fin_m = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return self.day + ' ' + self.start_time + ' ~ ' + self.fin_time
@@ -42,9 +26,31 @@ class Time(models.Model):
         else:
             return False
 
+class Subject(models.Model):
+    subject_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=100)
+    credit = models.PositiveSmallIntegerField()
+    department = models.CharField(max_length=100, null=True)
+    is_required = models.CharField(max_length=100, null=True)
+    is_major = models.CharField(max_length=100, null=True)
+    is_offline = models.CharField(max_length=100, null=True)
+    location = models.CharField(max_length=100, null=True)
+    max_person = models.PositiveSmallIntegerField(null=True)
+    times = models.ManyToManyField(Time)
+    professors = models.ManyToManyField(Professor)
+
+    year = models.PositiveSmallIntegerField()
+    session = models.CharField(max_length=100)
+    select_person = models.PositiveSmallIntegerField(null=True, default=0)
+
+    def __str__(self):
+        return self.name
 
 class Cart(models.Model):
+    id = models.AutoField(primary_key=True)
     subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, related_name='cart_subject')
+        Subject, on_delete=models.CASCADE, related_name='cart_subject', db_column='subject_id')
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE,  related_name='cart_table')
+
