@@ -1,0 +1,20 @@
+/* email.css */
+
+* {
+    box-sizing: border-box;
+}
+
+.mail_container{
+    margin: 0 auto;
+    width: 90%;
+}
+
+.label{
+    font-weight: bolder;
+    margin-bottom: 25px;
+}
+
+.output{
+    margin-bottom: 50px;
+    line-height: 150%;
+}

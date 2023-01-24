@@ -1,5 +1,4 @@
 from base64 import urlsafe_b64decode, urlsafe_b64encode
-from django.core.mail import EmailMessage
 from tokenize import TokenError
 from django.utils.encoding import force_str, force_bytes
 from django.shortcuts import redirect
@@ -8,6 +7,7 @@ import jwt
 
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
+from accountapp.tasks import send_verification_email
 from accountapp.text import message
 
 from giganpyo.settings import SECRET_KEY
@@ -46,17 +46,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
         except TokenError as e:
             raise jwt.InvalidTokenError(e.args[0])
 
-
-def send_verification_email(title="이메일 인증을 완료해주세요", data=None, to=None):
-    mail_title      = "이메일 인증을 완료해주세요"
-    mail_to         = to
-    email           = EmailMessage(
-        mail_title, 
-        data, 
-        to = [mail_to])
-    print(email.send())
-    return
-
 # 회원가입
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -77,7 +66,7 @@ class RegisterAPIView(APIView):
             message_data    = message(domain, uidb64, token)
             mail_title      = "이메일 인증을 완료해주세요"
             
-            send_verification_email(mail_title, message_data, request.data["email"])
+            send_verification_email.apply_async(args=(mail_title, message_data, request.data["email"]))
             
             return Response({"message": "register successs. Please"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
