@@ -10,7 +10,7 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from accountapp.text import message
 
-from config.settings import SECRET_KEY
+from giganpyo.settings import SECRET_KEY
 from accountapp.models import User
 from accountapp.serializers import MyTokenObtainPairSerializer, RegisterSerializer
 from rest_framework_simplejwt.views import (

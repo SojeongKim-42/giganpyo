@@ -140,7 +140,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'giganpyo.urls'
 
 TEMPLATES = [
     {
@@ -158,7 +158,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'giganpyo.wsgi.application'
 
 
 # Database

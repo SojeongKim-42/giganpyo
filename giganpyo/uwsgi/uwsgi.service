@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
  
 [Service]
-ExecStart=/home/ubuntu/giganpyo/bin/uwsgi -i /srv/giganpyo-server/config/uwsgi/giganpyo.ini
+ExecStart=/home/ubuntu/giganpyo/bin/uwsgi -i /srv/giganpyo-server/giganpyo/uwsgi/giganpyo.ini
 
 Restart=always
 KillSignal=SIGQUIT
