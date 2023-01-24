@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.cache import cache
 
 from tableapp.models import Table
 # Create your models here.
@@ -46,6 +47,14 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
+    
+    # def save(self, *args, **kwargs):
+    #     cache.delete('subjects')
+    #     super().save(*args, **kwargs)
+
+    # def delete(self, *args, **kwargs):
+    #     cache.delete('subjects')
+    #     super().delete(*args, **kwargs)
 
 class Cart(models.Model):
     id = models.AutoField(primary_key=True)

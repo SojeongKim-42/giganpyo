@@ -1,8 +1,11 @@
+import json
+import os
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from rest_framework import viewsets, exceptions
 from rest_framework.response import Response
+from giganpyo import settings
 from subjectapp.models import *
 from django.contrib.auth.models import User
 from subjectapp.serializers import *
@@ -15,12 +18,15 @@ class SubjectViewSets(viewsets.ModelViewSet):
     lookup_field = 'subject_id'
 
     def get_queryset(self):
-        return Subject.objects.filter(department='기초교육학부')
+        return Subject.objects.all()
 
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)         
-        return Response(serializer.data)
+        # queryset = self.get_queryset()
+        # serializer = self.get_serializer(queryset, many=True)
+        # subjects = cache.get_or_set('all_subjects', serializer.data, 60*60*24) 
+        with open(os.path.join(settings.BASE_DIR, 'static/subjects.json'), encoding='utf-8') as subjects_file:
+            subjects_file = json.load(subjects_file)   
+        return Response(subjects_file)
 
 
 class TableSubjectViewSets(viewsets.ModelViewSet):
