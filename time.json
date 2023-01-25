@@ -1,0 +1,794 @@
+[
+    {
+        "model": "subjectapp.time",
+        "pk": 1,
+        "fields": {
+            "day": "목",
+            "start_time": "16:00",
+            "fin_time": "17:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 2,
+        "fields": {
+            "day": "화",
+            "start_time": "10:30",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 3,
+        "fields": {
+            "day": "목",
+            "start_time": "10:30",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 4,
+        "fields": {
+            "day": "화",
+            "start_time": "13:00",
+            "fin_time": "15:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 5,
+        "fields": {
+            "day": "목",
+            "start_time": "13:00",
+            "fin_time": "15:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 6,
+        "fields": {
+            "day": "월",
+            "start_time": "10:30",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 7,
+        "fields": {
+            "day": "수",
+            "start_time": "10:30",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 8,
+        "fields": {
+            "day": "화",
+            "start_time": "13:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 9,
+        "fields": {
+            "day": "금",
+            "start_time": "13:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 10,
+        "fields": {
+            "day": "월",
+            "start_time": "14:30",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 11,
+        "fields": {
+            "day": "수",
+            "start_time": "14:30",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 12,
+        "fields": {
+            "day": "화",
+            "start_time": "09:00",
+            "fin_time": "10:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 13,
+        "fields": {
+            "day": "목",
+            "start_time": "09:00",
+            "fin_time": "10:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 14,
+        "fields": {
+            "day": "월",
+            "start_time": "16:00",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 15,
+        "fields": {
+            "day": "수",
+            "start_time": "16:00",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 16,
+        "fields": {
+            "day": "월",
+            "start_time": "09:00",
+            "fin_time": "10:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 17,
+        "fields": {
+            "day": "수",
+            "start_time": "09:00",
+            "fin_time": "10:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 18,
+        "fields": {
+            "day": "목",
+            "start_time": "14:30",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 19,
+        "fields": {
+            "day": "월",
+            "start_time": "17:30",
+            "fin_time": "19:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 20,
+        "fields": {
+            "day": "금",
+            "start_time": "10:30",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 21,
+        "fields": {
+            "day": "화",
+            "start_time": "16:00",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 22,
+        "fields": {
+            "day": "목",
+            "start_time": "16:00",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 23,
+        "fields": {
+            "day": "월",
+            "start_time": "19:00",
+            "fin_time": "20:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 24,
+        "fields": {
+            "day": "화",
+            "start_time": "13:00",
+            "fin_time": "17:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 25,
+        "fields": {
+            "day": "금",
+            "start_time": "13:00",
+            "fin_time": "17:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 26,
+        "fields": {
+            "day": "월",
+            "start_time": "13:00",
+            "fin_time": "14:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 27,
+        "fields": {
+            "day": "수",
+            "start_time": "13:00",
+            "fin_time": "14:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 28,
+        "fields": {
+            "day": "금",
+            "start_time": "09:00",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 29,
+        "fields": {
+            "day": "화",
+            "start_time": "13:00",
+            "fin_time": "14:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 30,
+        "fields": {
+            "day": "목",
+            "start_time": "13:00",
+            "fin_time": "14:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 31,
+        "fields": {
+            "day": "화",
+            "start_time": "14:30",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 32,
+        "fields": {
+            "day": "화",
+            "start_time": "10:30",
+            "fin_time": "11:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 33,
+        "fields": {
+            "day": "수",
+            "start_time": "13:00",
+            "fin_time": "17:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 34,
+        "fields": {
+            "day": "목",
+            "start_time": "17:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 35,
+        "fields": {
+            "day": "월",
+            "start_time": "13:00",
+            "fin_time": "15:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 36,
+        "fields": {
+            "day": "수",
+            "start_time": "13:00",
+            "fin_time": "15:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 37,
+        "fields": {
+            "day": "월",
+            "start_time": "16:00",
+            "fin_time": "19:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 38,
+        "fields": {
+            "day": "금",
+            "start_time": "13:00",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 39,
+        "fields": {
+            "day": "수",
+            "start_time": "14:30",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 40,
+        "fields": {
+            "day": "목",
+            "start_time": "13:00",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 41,
+        "fields": {
+            "day": "수",
+            "start_time": "14:30",
+            "fin_time": "18:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 42,
+        "fields": {
+            "day": "화",
+            "start_time": "13:00",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 43,
+        "fields": {
+            "day": "화",
+            "start_time": "19:00",
+            "fin_time": "21:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 44,
+        "fields": {
+            "day": "월",
+            "start_time": "17:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 45,
+        "fields": {
+            "day": "월",
+            "start_time": "19:00",
+            "fin_time": "21:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 46,
+        "fields": {
+            "day": "수",
+            "start_time": "19:00",
+            "fin_time": "21:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 47,
+        "fields": {
+            "day": "목",
+            "start_time": "19:00",
+            "fin_time": "21:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 48,
+        "fields": {
+            "day": "수",
+            "start_time": "17:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 49,
+        "fields": {
+            "day": "목",
+            "start_time": "17:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 50,
+        "fields": {
+            "day": "금",
+            "start_time": "17:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 51,
+        "fields": {
+            "day": "화",
+            "start_time": "17:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 52,
+        "fields": {
+            "day": "금",
+            "start_time": "09:00",
+            "fin_time": "10:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 53,
+        "fields": {
+            "day": "화",
+            "start_time": "19:00",
+            "fin_time": "20:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 54,
+        "fields": {
+            "day": "수",
+            "start_time": "19:00",
+            "fin_time": "20:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 55,
+        "fields": {
+            "day": "목",
+            "start_time": "19:00",
+            "fin_time": "20:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 56,
+        "fields": {
+            "day": "화",
+            "start_time": "16:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 57,
+        "fields": {
+            "day": "목",
+            "start_time": "16:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 58,
+        "fields": {
+            "day": "금",
+            "start_time": "10:30",
+            "fin_time": "12:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 59,
+        "fields": {
+            "day": "금",
+            "start_time": "13:00",
+            "fin_time": "15:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 60,
+        "fields": {
+            "day": "금",
+            "start_time": "16:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 61,
+        "fields": {
+            "day": "화",
+            "start_time": "17:30",
+            "fin_time": "19:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 62,
+        "fields": {
+            "day": "화",
+            "start_time": "10:30",
+            "fin_time": "12:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 63,
+        "fields": {
+            "day": "수",
+            "start_time": "10:30",
+            "fin_time": "12:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 64,
+        "fields": {
+            "day": "수",
+            "start_time": "16:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 65,
+        "fields": {
+            "day": "금",
+            "start_time": "10:00",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 66,
+        "fields": {
+            "day": "목",
+            "start_time": "10:30",
+            "fin_time": "12:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 67,
+        "fields": {
+            "day": "금",
+            "start_time": "10:00",
+            "fin_time": "11:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 68,
+        "fields": {
+            "day": "금",
+            "start_time": "11:00",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 69,
+        "fields": {
+            "day": "금",
+            "start_time": "13:00",
+            "fin_time": "14:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 70,
+        "fields": {
+            "day": "금",
+            "start_time": "14:00",
+            "fin_time": "15:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 71,
+        "fields": {
+            "day": "금",
+            "start_time": "15:00",
+            "fin_time": "16:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 72,
+        "fields": {
+            "day": "금",
+            "start_time": "16:00",
+            "fin_time": "17:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 73,
+        "fields": {
+            "day": "수",
+            "start_time": "09:00",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 74,
+        "fields": {
+            "day": "월",
+            "start_time": "17:30",
+            "fin_time": "18:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 75,
+        "fields": {
+            "day": "월",
+            "start_time": "18:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 76,
+        "fields": {
+            "day": "화",
+            "start_time": "17:30",
+            "fin_time": "18:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 77,
+        "fields": {
+            "day": "화",
+            "start_time": "18:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 78,
+        "fields": {
+            "day": "수",
+            "start_time": "17:30",
+            "fin_time": "18:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 79,
+        "fields": {
+            "day": "수",
+            "start_time": "18:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 80,
+        "fields": {
+            "day": "목",
+            "start_time": "17:30",
+            "fin_time": "18:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 81,
+        "fields": {
+            "day": "목",
+            "start_time": "18:30",
+            "fin_time": "19:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 82,
+        "fields": {
+            "day": "월",
+            "start_time": "16:00",
+            "fin_time": "17:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 83,
+        "fields": {
+            "day": "월",
+            "start_time": "16:00",
+            "fin_time": "18:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 84,
+        "fields": {
+            "day": "금",
+            "start_time": "09:00",
+            "fin_time": "11:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 85,
+        "fields": {
+            "day": "화",
+            "start_time": "13:00",
+            "fin_time": "17:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 86,
+        "fields": {
+            "day": "월",
+            "start_time": "09:00",
+            "fin_time": "12:00"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 87,
+        "fields": {
+            "day": "금",
+            "start_time": "09:00",
+            "fin_time": "10:30"
+        }
+    },
+    {
+        "model": "subjectapp.time",
+        "pk": 88,
+        "fields": {
+            "day": "토",
+            "start_time": "09:00",
+            "fin_time": "10:00"
+        }
+    }
+]

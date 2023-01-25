@@ -9,8 +9,11 @@
 __pycache__/
 local_settings.py
 
+static/
+
 media
 
+/**/migrations/
 
 /db.sqlite3
 

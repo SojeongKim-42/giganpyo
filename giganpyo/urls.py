@@ -14,14 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from subjectapp.views import SubjectViewSets
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('common.urls')),
     path('data/', include('data.urls')),
+    
+    path('api/user/', include('accountapp.urls')),
     path('api/subjects/', SubjectViewSets.as_view({'get': 'list'})),
     path("api/user/<int:user_id>/table/", include('tableapp.urls')),
-    path('api/user/<int:user_id>/table/<int:table_id>/subject/', include('subjectapp.urls'))
+    path('api/user/<int:user_id>/table/<int:table_id>/subject/', include('subjectapp.urls')),
+    
+    # re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+    # # 유저가 클릭한 이메일(=링크) 확인
+    # re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
 ]

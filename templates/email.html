@@ -1,0 +1,47 @@
+<!-- email.html -->
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+        
+        .mail_container{
+            margin: 0 auto;
+            width: 90%;
+        }
+        
+        .label{
+            font-weight: bolder;
+            margin-bottom: 25px;
+        }
+        
+        .output{
+            margin-bottom: 50px;
+            line-height: 150%;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="mail_container">
+            <div class="label">TITLE</div>
+            <div class="output">{{ title }}</div>
+            <div class="label">E-MAIL/PHONE NUMBER</div>
+            <div class="output">{{ email }}</div>
+            <div class="label">MESSAGE</div>
+            <div class="output">{{ message }}</div>
+            <div class="label">LINK</div>
+            <div class="output">
+                <a href="{{ link }}">{{ link }}</a>
+            </div>
+        </div>
+    </body>
+
+</html>
+
+

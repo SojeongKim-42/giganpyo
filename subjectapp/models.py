@@ -1,23 +1,22 @@
 from django.db import models
+from django.core.cache import cache
 
 from tableapp.models import Table
 # Create your models here.
-
 
 class Professor(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
-
 class Time(models.Model):
     id = models.AutoField(primary_key=True)
     day = models.CharField(max_length=1)
     start_time = models.CharField(max_length=100)
-    start_h=models.PositiveSmallIntegerField()
-    start_m=models.PositiveSmallIntegerField()
+    start_h=models.PositiveSmallIntegerField(null=True)
+    start_m=models.PositiveSmallIntegerField(null=True)
     fin_time = models.CharField(max_length=100)
-    fin_h = models.PositiveSmallIntegerField()
-    fin_m = models.PositiveSmallIntegerField()
+    fin_h = models.PositiveSmallIntegerField(null=True)
+    fin_m = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return self.day + ' ' + self.start_time + ' ~ ' + self.fin_time
@@ -27,7 +26,6 @@ class Time(models.Model):
             return True
         else:
             return False
-
 
 class Subject(models.Model):
     subject_id = models.AutoField(primary_key=True)
@@ -45,16 +43,23 @@ class Subject(models.Model):
 
     year = models.PositiveSmallIntegerField()
     session = models.CharField(max_length=100)
-
     select_person = models.PositiveSmallIntegerField(null=True, default=0)
 
     def __str__(self):
         return self.name
+    
+    # def save(self, *args, **kwargs):
+    #     cache.delete('subjects')
+    #     super().save(*args, **kwargs)
 
+    # def delete(self, *args, **kwargs):
+    #     cache.delete('subjects')
+    #     super().delete(*args, **kwargs)
 
 class Cart(models.Model):
     id = models.AutoField(primary_key=True)
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='cart_subject', db_column='subject_id')
     table = models.ForeignKey(
-        Table, on_delete=models.CASCADE,  related_name='cart_table', db_column='table_id')
+        Table, on_delete=models.CASCADE,  related_name='cart_table')
+
