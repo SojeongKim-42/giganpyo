@@ -7,3 +7,4 @@ class Table(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='table_user')
     name = models.CharField(max_length=100, default='시간표')
+    main=models.BooleanField(default=False)

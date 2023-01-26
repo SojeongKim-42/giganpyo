@@ -1,3 +1,4 @@
+from subjectapp.models import *
 from tableapp.models import Table
 from django.contrib.auth.models import User
 
@@ -33,27 +34,38 @@ class TableViewSets(viewsets.ModelViewSet):
         if table_id not in Table.objects.all().values_list('table_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         try:
-            instance = self.queryset.get(table_id=table_id, user_id=request.user.id)
+            table = self.queryset.get(table_id=table_id, user_id=request.user.id)
         except Exception:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
-        self.perform_destroy(instance)
+        if table.main:
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "main테이블은 지울 수 없습니다."})
+
+        self.perform_destroy(table)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, user_id, *args, **kwargs):
-        if request.user.id != int(request.data['user']):
-            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        if not (request.user.id == int(request.data['user']) == user_id):
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
+        if (not Table.objects.filter(user_id=user_id).exists()) and (request.data['main']==False):
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "첫 시간표는 main 시간표가 되어야 하므로 main=True로 설정하세요."})
+        if (Table.objects.filter(user_id=user_id).exists()) and (request.data['main'] == True):
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "이미 main 시간표가 존재하므로 main=False로 설정하세요."})
+
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
     def update(self, request, user_id, *args, **kwargs):
+        if request.user.id != user_id:
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         data={}
-        data['user']=user_id
-        data['name']=request.data['name']
+        data['user'] = instance.user
+        data['name'] = request.data['name']
+        data['main'] = instance.main
         serializer = self.get_serializer(instance, data=data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
