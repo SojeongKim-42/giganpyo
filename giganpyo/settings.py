@@ -137,7 +137,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 # Celery
 # rabbitmq wsl에서 안됨 ㅜㅜ 윈도우 유저는 웁니다...
 # CELERY_BROKER_URL = 'amqp://juchan:123456789a!@localhost/jc_host'  # 로컬 테스트용
-CELERY_BROKER_URL = 'redis://:1234@172.31.35.65:6379'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 # CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
