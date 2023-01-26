@@ -7,7 +7,8 @@ from rest_framework import viewsets, exceptions
 from rest_framework.response import Response
 from giganpyo import settings
 from subjectapp.models import *
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accountapp.models import User
 from subjectapp.serializers import *
 
 from rest_framework import status
