@@ -5,7 +5,11 @@
         "fields": {
             "day": "목",
             "start_time": "16:00",
-            "fin_time": "17:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:00",
+            "fin_h": 17,
+            "fin_m": 0
         }
     },
     {
@@ -14,7 +18,11 @@
         "fields": {
             "day": "화",
             "start_time": "10:30",
-            "fin_time": "12:00"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -23,7 +31,11 @@
         "fields": {
             "day": "목",
             "start_time": "10:30",
-            "fin_time": "12:00"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -32,7 +44,11 @@
         "fields": {
             "day": "화",
             "start_time": "13:00",
-            "fin_time": "15:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "15:30",
+            "fin_h": 15,
+            "fin_m": 30
         }
     },
     {
@@ -41,7 +57,11 @@
         "fields": {
             "day": "목",
             "start_time": "13:00",
-            "fin_time": "15:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "15:30",
+            "fin_h": 15,
+            "fin_m": 30
         }
     },
     {
@@ -50,7 +70,11 @@
         "fields": {
             "day": "월",
             "start_time": "10:30",
-            "fin_time": "12:00"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -59,7 +83,11 @@
         "fields": {
             "day": "수",
             "start_time": "10:30",
-            "fin_time": "12:00"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -68,7 +96,11 @@
         "fields": {
             "day": "화",
             "start_time": "13:00",
-            "fin_time": "18:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -77,7 +109,11 @@
         "fields": {
             "day": "금",
             "start_time": "13:00",
-            "fin_time": "18:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -86,7 +122,11 @@
         "fields": {
             "day": "월",
             "start_time": "14:30",
-            "fin_time": "16:00"
+            "start_h": 14,
+            "start_m": 30,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -95,7 +135,11 @@
         "fields": {
             "day": "수",
             "start_time": "14:30",
-            "fin_time": "16:00"
+            "start_h": 14,
+            "start_m": 30,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -104,7 +148,11 @@
         "fields": {
             "day": "화",
             "start_time": "09:00",
-            "fin_time": "10:30"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:30",
+            "fin_h": 10,
+            "fin_m": 30
         }
     },
     {
@@ -113,7 +161,11 @@
         "fields": {
             "day": "목",
             "start_time": "09:00",
-            "fin_time": "10:30"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:30",
+            "fin_h": 10,
+            "fin_m": 30
         }
     },
     {
@@ -122,7 +174,11 @@
         "fields": {
             "day": "월",
             "start_time": "16:00",
-            "fin_time": "17:30"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -131,7 +187,11 @@
         "fields": {
             "day": "수",
             "start_time": "16:00",
-            "fin_time": "17:30"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -140,7 +200,11 @@
         "fields": {
             "day": "월",
             "start_time": "09:00",
-            "fin_time": "10:30"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:30",
+            "fin_h": 10,
+            "fin_m": 30
         }
     },
     {
@@ -149,7 +213,11 @@
         "fields": {
             "day": "수",
             "start_time": "09:00",
-            "fin_time": "10:30"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:30",
+            "fin_h": 10,
+            "fin_m": 30
         }
     },
     {
@@ -158,7 +226,11 @@
         "fields": {
             "day": "목",
             "start_time": "14:30",
-            "fin_time": "16:00"
+            "start_h": 14,
+            "start_m": 30,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -167,7 +239,11 @@
         "fields": {
             "day": "월",
             "start_time": "17:30",
-            "fin_time": "19:00"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:00",
+            "fin_h": 19,
+            "fin_m": 0
         }
     },
     {
@@ -176,7 +252,11 @@
         "fields": {
             "day": "금",
             "start_time": "10:30",
-            "fin_time": "12:00"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -185,7 +265,11 @@
         "fields": {
             "day": "화",
             "start_time": "16:00",
-            "fin_time": "17:30"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -194,7 +278,11 @@
         "fields": {
             "day": "목",
             "start_time": "16:00",
-            "fin_time": "17:30"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -203,7 +291,11 @@
         "fields": {
             "day": "월",
             "start_time": "19:00",
-            "fin_time": "20:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "20:00",
+            "fin_h": 20,
+            "fin_m": 0
         }
     },
     {
@@ -212,7 +304,11 @@
         "fields": {
             "day": "화",
             "start_time": "13:00",
-            "fin_time": "17:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "17:00",
+            "fin_h": 17,
+            "fin_m": 0
         }
     },
     {
@@ -221,7 +317,11 @@
         "fields": {
             "day": "금",
             "start_time": "13:00",
-            "fin_time": "17:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "17:00",
+            "fin_h": 17,
+            "fin_m": 0
         }
     },
     {
@@ -230,7 +330,11 @@
         "fields": {
             "day": "월",
             "start_time": "13:00",
-            "fin_time": "14:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "14:30",
+            "fin_h": 14,
+            "fin_m": 30
         }
     },
     {
@@ -239,7 +343,11 @@
         "fields": {
             "day": "수",
             "start_time": "13:00",
-            "fin_time": "14:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "14:30",
+            "fin_h": 14,
+            "fin_m": 30
         }
     },
     {
@@ -248,7 +356,11 @@
         "fields": {
             "day": "금",
             "start_time": "09:00",
-            "fin_time": "12:00"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -257,7 +369,11 @@
         "fields": {
             "day": "화",
             "start_time": "13:00",
-            "fin_time": "14:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "14:30",
+            "fin_h": 14,
+            "fin_m": 30
         }
     },
     {
@@ -266,7 +382,11 @@
         "fields": {
             "day": "목",
             "start_time": "13:00",
-            "fin_time": "14:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "14:30",
+            "fin_h": 14,
+            "fin_m": 30
         }
     },
     {
@@ -275,7 +395,11 @@
         "fields": {
             "day": "화",
             "start_time": "14:30",
-            "fin_time": "16:00"
+            "start_h": 14,
+            "start_m": 30,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -284,7 +408,11 @@
         "fields": {
             "day": "화",
             "start_time": "10:30",
-            "fin_time": "11:30"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "11:30",
+            "fin_h": 11,
+            "fin_m": 30
         }
     },
     {
@@ -293,7 +421,11 @@
         "fields": {
             "day": "수",
             "start_time": "13:00",
-            "fin_time": "17:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "17:00",
+            "fin_h": 17,
+            "fin_m": 0
         }
     },
     {
@@ -302,7 +434,11 @@
         "fields": {
             "day": "목",
             "start_time": "17:00",
-            "fin_time": "18:00"
+            "start_h": 17,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -311,7 +447,11 @@
         "fields": {
             "day": "월",
             "start_time": "13:00",
-            "fin_time": "15:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "15:00",
+            "fin_h": 15,
+            "fin_m": 0
         }
     },
     {
@@ -320,7 +460,11 @@
         "fields": {
             "day": "수",
             "start_time": "13:00",
-            "fin_time": "15:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "15:00",
+            "fin_h": 15,
+            "fin_m": 0
         }
     },
     {
@@ -329,7 +473,11 @@
         "fields": {
             "day": "월",
             "start_time": "16:00",
-            "fin_time": "19:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "19:00",
+            "fin_h": 19,
+            "fin_m": 0
         }
     },
     {
@@ -338,7 +486,11 @@
         "fields": {
             "day": "금",
             "start_time": "13:00",
-            "fin_time": "17:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -347,7 +499,11 @@
         "fields": {
             "day": "수",
             "start_time": "14:30",
-            "fin_time": "17:30"
+            "start_h": 14,
+            "start_m": 30,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -356,7 +512,11 @@
         "fields": {
             "day": "목",
             "start_time": "13:00",
-            "fin_time": "16:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -365,7 +525,11 @@
         "fields": {
             "day": "수",
             "start_time": "14:30",
-            "fin_time": "18:30"
+            "start_h": 14,
+            "start_m": 30,
+            "fin_time": "18:30",
+            "fin_h": 18,
+            "fin_m": 30
         }
     },
     {
@@ -374,7 +538,11 @@
         "fields": {
             "day": "화",
             "start_time": "13:00",
-            "fin_time": "16:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -383,7 +551,11 @@
         "fields": {
             "day": "화",
             "start_time": "19:00",
-            "fin_time": "21:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "21:00",
+            "fin_h": 21,
+            "fin_m": 0
         }
     },
     {
@@ -392,7 +564,11 @@
         "fields": {
             "day": "월",
             "start_time": "17:30",
-            "fin_time": "19:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -401,7 +577,11 @@
         "fields": {
             "day": "월",
             "start_time": "19:00",
-            "fin_time": "21:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "21:00",
+            "fin_h": 21,
+            "fin_m": 0
         }
     },
     {
@@ -410,7 +590,11 @@
         "fields": {
             "day": "수",
             "start_time": "19:00",
-            "fin_time": "21:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "21:00",
+            "fin_h": 21,
+            "fin_m": 0
         }
     },
     {
@@ -419,7 +603,11 @@
         "fields": {
             "day": "목",
             "start_time": "19:00",
-            "fin_time": "21:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "21:00",
+            "fin_h": 21,
+            "fin_m": 0
         }
     },
     {
@@ -428,7 +616,11 @@
         "fields": {
             "day": "수",
             "start_time": "17:30",
-            "fin_time": "19:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -437,7 +629,11 @@
         "fields": {
             "day": "목",
             "start_time": "17:30",
-            "fin_time": "19:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -446,7 +642,11 @@
         "fields": {
             "day": "금",
             "start_time": "17:30",
-            "fin_time": "19:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -455,7 +655,11 @@
         "fields": {
             "day": "화",
             "start_time": "17:30",
-            "fin_time": "19:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -464,7 +668,11 @@
         "fields": {
             "day": "금",
             "start_time": "09:00",
-            "fin_time": "10:00"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:00",
+            "fin_h": 10,
+            "fin_m": 0
         }
     },
     {
@@ -473,7 +681,11 @@
         "fields": {
             "day": "화",
             "start_time": "19:00",
-            "fin_time": "20:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "20:00",
+            "fin_h": 20,
+            "fin_m": 0
         }
     },
     {
@@ -482,7 +694,11 @@
         "fields": {
             "day": "수",
             "start_time": "19:00",
-            "fin_time": "20:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "20:00",
+            "fin_h": 20,
+            "fin_m": 0
         }
     },
     {
@@ -491,7 +707,11 @@
         "fields": {
             "day": "목",
             "start_time": "19:00",
-            "fin_time": "20:00"
+            "start_h": 19,
+            "start_m": 0,
+            "fin_time": "20:00",
+            "fin_h": 20,
+            "fin_m": 0
         }
     },
     {
@@ -500,7 +720,11 @@
         "fields": {
             "day": "화",
             "start_time": "16:00",
-            "fin_time": "18:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -509,7 +733,11 @@
         "fields": {
             "day": "목",
             "start_time": "16:00",
-            "fin_time": "18:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -518,7 +746,11 @@
         "fields": {
             "day": "금",
             "start_time": "10:30",
-            "fin_time": "12:30"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:30",
+            "fin_h": 12,
+            "fin_m": 30
         }
     },
     {
@@ -527,7 +759,11 @@
         "fields": {
             "day": "금",
             "start_time": "13:00",
-            "fin_time": "15:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "15:00",
+            "fin_h": 15,
+            "fin_m": 0
         }
     },
     {
@@ -536,7 +772,11 @@
         "fields": {
             "day": "금",
             "start_time": "16:00",
-            "fin_time": "18:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -545,7 +785,11 @@
         "fields": {
             "day": "화",
             "start_time": "17:30",
-            "fin_time": "19:00"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "19:00",
+            "fin_h": 19,
+            "fin_m": 0
         }
     },
     {
@@ -554,7 +798,11 @@
         "fields": {
             "day": "화",
             "start_time": "10:30",
-            "fin_time": "12:30"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:30",
+            "fin_h": 12,
+            "fin_m": 30
         }
     },
     {
@@ -563,7 +811,11 @@
         "fields": {
             "day": "수",
             "start_time": "10:30",
-            "fin_time": "12:30"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:30",
+            "fin_h": 12,
+            "fin_m": 30
         }
     },
     {
@@ -572,7 +824,11 @@
         "fields": {
             "day": "수",
             "start_time": "16:00",
-            "fin_time": "18:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -581,7 +837,11 @@
         "fields": {
             "day": "금",
             "start_time": "10:00",
-            "fin_time": "12:00"
+            "start_h": 10,
+            "start_m": 0,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -590,7 +850,11 @@
         "fields": {
             "day": "목",
             "start_time": "10:30",
-            "fin_time": "12:30"
+            "start_h": 10,
+            "start_m": 30,
+            "fin_time": "12:30",
+            "fin_h": 12,
+            "fin_m": 30
         }
     },
     {
@@ -599,7 +863,11 @@
         "fields": {
             "day": "금",
             "start_time": "10:00",
-            "fin_time": "11:00"
+            "start_h": 10,
+            "start_m": 0,
+            "fin_time": "11:00",
+            "fin_h": 11,
+            "fin_m": 0
         }
     },
     {
@@ -608,7 +876,11 @@
         "fields": {
             "day": "금",
             "start_time": "11:00",
-            "fin_time": "12:00"
+            "start_h": 11,
+            "start_m": 0,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -617,7 +889,11 @@
         "fields": {
             "day": "금",
             "start_time": "13:00",
-            "fin_time": "14:00"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "14:00",
+            "fin_h": 14,
+            "fin_m": 0
         }
     },
     {
@@ -626,7 +902,11 @@
         "fields": {
             "day": "금",
             "start_time": "14:00",
-            "fin_time": "15:00"
+            "start_h": 14,
+            "start_m": 0,
+            "fin_time": "15:00",
+            "fin_h": 15,
+            "fin_m": 0
         }
     },
     {
@@ -635,7 +915,11 @@
         "fields": {
             "day": "금",
             "start_time": "15:00",
-            "fin_time": "16:00"
+            "start_h": 15,
+            "start_m": 0,
+            "fin_time": "16:00",
+            "fin_h": 16,
+            "fin_m": 0
         }
     },
     {
@@ -644,7 +928,11 @@
         "fields": {
             "day": "금",
             "start_time": "16:00",
-            "fin_time": "17:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:00",
+            "fin_h": 17,
+            "fin_m": 0
         }
     },
     {
@@ -653,7 +941,11 @@
         "fields": {
             "day": "수",
             "start_time": "09:00",
-            "fin_time": "12:00"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -662,7 +954,11 @@
         "fields": {
             "day": "월",
             "start_time": "17:30",
-            "fin_time": "18:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "18:30",
+            "fin_h": 18,
+            "fin_m": 30
         }
     },
     {
@@ -671,7 +967,11 @@
         "fields": {
             "day": "월",
             "start_time": "18:30",
-            "fin_time": "19:30"
+            "start_h": 18,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -680,7 +980,11 @@
         "fields": {
             "day": "화",
             "start_time": "17:30",
-            "fin_time": "18:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "18:30",
+            "fin_h": 18,
+            "fin_m": 30
         }
     },
     {
@@ -689,7 +993,11 @@
         "fields": {
             "day": "화",
             "start_time": "18:30",
-            "fin_time": "19:30"
+            "start_h": 18,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -698,7 +1006,11 @@
         "fields": {
             "day": "수",
             "start_time": "17:30",
-            "fin_time": "18:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "18:30",
+            "fin_h": 18,
+            "fin_m": 30
         }
     },
     {
@@ -707,7 +1019,11 @@
         "fields": {
             "day": "수",
             "start_time": "18:30",
-            "fin_time": "19:30"
+            "start_h": 18,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -716,7 +1032,11 @@
         "fields": {
             "day": "목",
             "start_time": "17:30",
-            "fin_time": "18:30"
+            "start_h": 17,
+            "start_m": 30,
+            "fin_time": "18:30",
+            "fin_h": 18,
+            "fin_m": 30
         }
     },
     {
@@ -725,7 +1045,11 @@
         "fields": {
             "day": "목",
             "start_time": "18:30",
-            "fin_time": "19:30"
+            "start_h": 18,
+            "start_m": 30,
+            "fin_time": "19:30",
+            "fin_h": 19,
+            "fin_m": 30
         }
     },
     {
@@ -734,7 +1058,11 @@
         "fields": {
             "day": "월",
             "start_time": "16:00",
-            "fin_time": "17:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "17:00",
+            "fin_h": 17,
+            "fin_m": 0
         }
     },
     {
@@ -743,7 +1071,11 @@
         "fields": {
             "day": "월",
             "start_time": "16:00",
-            "fin_time": "18:00"
+            "start_h": 16,
+            "start_m": 0,
+            "fin_time": "18:00",
+            "fin_h": 18,
+            "fin_m": 0
         }
     },
     {
@@ -752,7 +1084,11 @@
         "fields": {
             "day": "금",
             "start_time": "09:00",
-            "fin_time": "11:00"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "11:00",
+            "fin_h": 11,
+            "fin_m": 0
         }
     },
     {
@@ -761,7 +1097,11 @@
         "fields": {
             "day": "화",
             "start_time": "13:00",
-            "fin_time": "17:30"
+            "start_h": 13,
+            "start_m": 0,
+            "fin_time": "17:30",
+            "fin_h": 17,
+            "fin_m": 30
         }
     },
     {
@@ -770,7 +1110,11 @@
         "fields": {
             "day": "월",
             "start_time": "09:00",
-            "fin_time": "12:00"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "12:00",
+            "fin_h": 12,
+            "fin_m": 0
         }
     },
     {
@@ -779,7 +1123,11 @@
         "fields": {
             "day": "금",
             "start_time": "09:00",
-            "fin_time": "10:30"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:30",
+            "fin_h": 10,
+            "fin_m": 30
         }
     },
     {
@@ -788,7 +1136,11 @@
         "fields": {
             "day": "토",
             "start_time": "09:00",
-            "fin_time": "10:00"
+            "start_h": 9,
+            "start_m": 0,
+            "fin_time": "10:00",
+            "fin_h": 10,
+            "fin_m": 0
         }
     }
 ]
