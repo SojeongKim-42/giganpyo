@@ -11,13 +11,17 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ["email", "password1", "password2"]
+        fields = ["email", "password1", "password2", "student_ID", "major"]
 
     def create(self, validated_data):
         email = validated_data.get('email')
         password1 = validated_data.get('password1')
+        student_ID=validated_data.get('student_ID')
+        major=validated_data.get('major')
         user = User(
-            email=email
+            email=email,
+            student_ID=student_ID,
+            major=major,
         )
         
         user.set_password(password1)
@@ -47,6 +51,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         refresh = self.get_token(self.user)
         
         # response에 추가하고 싶은 key값들 추가
+        data['user_id'] = self.user.pk
         data['email'] = self.user.email
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
