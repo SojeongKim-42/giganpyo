@@ -37,6 +37,8 @@ class TableViewSets(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         try:
             table = self.queryset.get(table_id=table_id, user_id=request.user.id)
+        # TODO : 서버 열 때는 주석 다시 풀어줘 & Exception 정확하게!
+        # FIXME : Exception 고쳐줘
         except Exception:
             # return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
             pass
@@ -49,6 +51,7 @@ class TableViewSets(viewsets.ModelViewSet):
     def create(self, request, user_id, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        # TODO : 서버 열 때는 주석 다시 풀어줘
         # if not (request.user.id == int(request.data['user']) == user_id):
         #     return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         if (not Table.objects.filter(user_id=user_id).exists()) and (request.data['main']==False):
