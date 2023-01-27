@@ -7,7 +7,8 @@ from rest_framework import viewsets, exceptions
 from rest_framework.response import Response
 from giganpyo import settings
 from subjectapp.models import *
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accountapp.models import User
 from subjectapp.serializers import *
 
 from rest_framework import status
@@ -21,12 +22,12 @@ class SubjectViewSets(viewsets.ModelViewSet):
         return Subject.objects.all()
 
     def list(self, request, *args, **kwargs):
-        # queryset = self.get_queryset()
-        # serializer = self.get_serializer(queryset, many=True)
-        # subjects = cache.get_or_set('all_subjects', serializer.data, 60*60*24) 
-        with open(os.path.join(settings.BASE_DIR, 'static/subjects.json'), encoding='utf-8') as subjects_file:
-            subjects_file = json.load(subjects_file)   
-        return Response(subjects_file)
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+        # with open(os.path.join(settings.BASE_DIR, 'static/subjects.json'), encoding='utf-8') as subjects_file:
+        #     subjects_file = json.load(subjects_file)   
+        # return Response(subjects_file)
 
 
 class TableSubjectViewSets(viewsets.ModelViewSet):
