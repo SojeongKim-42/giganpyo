@@ -84,17 +84,17 @@ class Activate(APIView):
             if user.id == user_dic["user"]:
                 user.is_active = True
                 user.save()
-                # res = Response(
-                #     {
-                #         "user": user,
-                #         "message": "email_verify successs"
-                #     },
-                #     status=status.HTTP_200_OK,
-                # )
-                return redirect("http://127.0.0.1:8000/api/user/login")
+                res = Response(
+                    {
+                        "user": user,
+                        "message": "email_verify successs"
+                    },
+                    status=status.HTTP_200_OK,
+                )
+                return res
 
-            return Response({'message':'auth fail'}, status=400)
+            return Response({'message':'auth fail'}, status=status.HTTP_400_BAD_REQUEST)
         except ValidationError:
-            return Response({'message':'type_error'}, status=400)
+            return Response({'message':'type_error'}, status=status.HTTP_400_BAD_REQUEST)
         except KeyError:
-            return Response({'message':'INVALID_KEY'}, status=400)
+            return Response({'message':'INVALID_KEY'}, status=status.HTTP_400_BAD_REQUEST)
