@@ -12,22 +12,26 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from datetime import timedelta
 import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
+env = environ.Env(Debug=(bool, True),)  # set default values and casting
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env.dev')
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!f*-&*2j6i-hykj$oy_+#3#_#=au7f!$lt)j@)9^k76o^!h^9k'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ec2-54-180-104-168.ap-northeast-2.compute.amazonaws.com']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 # Application definition
 
@@ -82,9 +86,9 @@ AUTHENTICATION_BACKENDS = [
 # Email Setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' # 메일 호스트 서버
-EMAIL_PORT = '587' # gmail과 통신하는 포트
-EMAIL_HOST_USER = "giganpyo@gmail.com" # 발신할 이메일
-EMAIL_HOST_PASSWORD = "ujbsuobifsbaoymg" # 발신할 메일의 비밀번호
+EMAIL_PORT = env("EMAIL_PORT") # gmail과 통신하는 포트
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")# 발신할 이메일
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD") # 발신할 메일의 비밀번호
 EMAIL_USE_TLS = True # TLS 보안 방법
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # 사이트와 관련한 자동응답을 받을 이메일 주소
 
@@ -92,12 +96,10 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True # 유저가 받은 링크를 클릭하면 �
 ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-# ACCOUNT_EMAIL_VERIFICATION = "none"
-
 
 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
 
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 0.1
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Giganpyo]"
 
 SITE_ID = 1
@@ -136,11 +138,10 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 # Celery
 # rabbitmq wsl에서 안됨 ㅜㅜ 윈도우 유저는 웁니다...
-# CELERY_BROKER_URL = 'amqp://juchan:123456789a!@localhost/jc_host'  # 로컬 테스트용
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 # CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
+CELERY_CACHE_BACKEND = env("CELERY_CACHE_BACKEND")
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -201,11 +202,7 @@ DATABASES = {
     }
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://ec2-54-180-104-168.ap-northeast-2.compute.amazonaws.com',
-    'http://localhost:3000',
-    'http://192.168.45.68:3000'
-]
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
