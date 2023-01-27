@@ -50,7 +50,7 @@ services:
       - ${HOME_DIR}/giganpyo.conf:/etc/nginx/nginx.conf
       - static-volume:/data/static
       - media-volume:/data/media
-		ports:
+    ports:
       - 80:80
     depends_on:
       - django
