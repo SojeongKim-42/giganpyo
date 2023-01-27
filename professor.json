@@ -3,1197 +3,1239 @@
         "model": "subjectapp.professor",
         "pk": 1,
         "fields": {
-            "name": "김상륜"
+            "name": "조상용"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 2,
         "fields": {
-            "name": "김홍재"
+            "name": "김혜림"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 3,
         "fields": {
-            "name": "조상용"
+            "name": "이호재"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 4,
         "fields": {
-            "name": "김홍국"
+            "name": "송민경"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 5,
         "fields": {
-            "name": "김경택"
+            "name": "조병익"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 6,
         "fields": {
-            "name": "정의헌"
+            "name": "조병기"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 7,
         "fields": {
-            "name": "박정은"
+            "name": "조춘실"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 8,
         "fields": {
-            "name": "이용주"
+            "name": "최경환"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 9,
         "fields": {
-            "name": "김재관"
+            "name": "김현우"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 10,
         "fields": {
-            "name": "김태"
+            "name": "레베카배"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 11,
         "fields": {
-            "name": "이재형"
+            "name": "전문구"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 12,
         "fields": {
-            "name": "김근영"
+            "name": "김용철"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 13,
         "fields": {
-            "name": "최용호"
+            "name": "조준"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 14,
         "fields": {
-            "name": "김효정"
+            "name": "윤필상"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 15,
         "fields": {
-            "name": "손진희"
+            "name": "박대호"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 16,
         "fields": {
-            "name": "전해곤"
+            "name": "박창수"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 17,
         "fields": {
-            "name": "신진혜"
+            "name": "배영종"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 18,
         "fields": {
-            "name": "조계주"
+            "name": "정경운"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 19,
         "fields": {
-            "name": "김태영"
+            "name": "리스존랜달"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 20,
         "fields": {
-            "name": "이규빈"
+            "name": "유운종"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 21,
         "fields": {
-            "name": "이강택"
+            "name": "박한수"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 22,
         "fields": {
-            "name": "송철한"
+            "name": "정성호"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 23,
         "fields": {
-            "name": "신인환"
+            "name": "엘리스리"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 24,
         "fields": {
-            "name": "손성훈"
+            "name": "김준하"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 25,
         "fields": {
-            "name": "최한들"
+            "name": "김철민"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 26,
         "fields": {
-            "name": "김준하"
+            "name": "최성임"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 27,
         "fields": {
-            "name": "김상호"
+            "name": "유승준"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 28,
         "fields": {
-            "name": "정현호"
+            "name": "방윤수"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 29,
         "fields": {
-            "name": "조준"
+            "name": "이용주"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 30,
         "fields": {
-            "name": "장지승"
+            "name": "이일민"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 31,
         "fields": {
-            "name": "김의환"
+            "name": "주종훈"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 32,
         "fields": {
-            "name": "이현화"
+            "name": "방우석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 33,
         "fields": {
-            "name": "전창덕"
+            "name": "이상한"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 34,
         "fields": {
-            "name": "손향숙"
+            "name": "고광희"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 35,
         "fields": {
-            "name": "남정석"
+            "name": "남호정"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 36,
         "fields": {
-            "name": "김영준"
+            "name": "임현섭"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 37,
         "fields": {
-            "name": "김기용"
+            "name": "문보창"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 38,
         "fields": {
-            "name": "이선재"
+            "name": "김병돈"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 39,
         "fields": {
-            "name": "서지원"
+            "name": "김재길"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 40,
         "fields": {
-            "name": "조병익"
+            "name": "서준혁"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 41,
         "fields": {
-            "name": "레베카배"
+            "name": "양성"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 42,
         "fields": {
-            "name": "박소희"
+            "name": "민경은"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 43,
         "fields": {
-            "name": "허필원"
+            "name": "브라이언도리얼"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 44,
         "fields": {
-            "name": "배영종"
+            "name": "이복근"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 45,
         "fields": {
-            "name": "황치옥"
+            "name": "이종석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 46,
         "fields": {
-            "name": "지솔근"
+            "name": "제프리발드윈"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 47,
         "fields": {
-            "name": "서문학"
+            "name": "송미령"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 48,
         "fields": {
-            "name": "허윤현"
+            "name": "이승현"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 49,
         "fields": {
-            "name": "윤명한"
+            "name": "강지연"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 50,
         "fields": {
-            "name": "엘리스리"
+            "name": "황의석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 51,
         "fields": {
-            "name": "하대청"
+            "name": "허필원"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 52,
         "fields": {
-            "name": "김희숙"
+            "name": "이준"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 53,
         "fields": {
-            "name": "이준"
+            "name": "윤해옥"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 54,
         "fields": {
-            "name": "최준호"
+            "name": "윤정원"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 55,
         "fields": {
-            "name": "김강욱"
+            "name": "이수정"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 56,
         "fields": {
-            "name": "김재일"
+            "name": "유영준"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 57,
         "fields": {
-            "name": "이동선"
+            "name": "리자오지에"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 58,
         "fields": {
-            "name": "방우석"
+            "name": "장문영"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 59,
         "fields": {
-            "name": "박지웅"
+            "name": "최준호"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 60,
         "fields": {
-            "name": "김준영"
+            "name": "김희숙"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 61,
         "fields": {
-            "name": "이현주"
+            "name": "토마스터너"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 62,
         "fields": {
-            "name": "김정욱"
+            "name": "신진혜"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 63,
         "fields": {
-            "name": "이민재"
+            "name": "허윤현"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 64,
         "fields": {
-            "name": "김재길"
+            "name": "김인수"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 65,
         "fields": {
-            "name": "최서윤"
+            "name": "김홍종"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 66,
         "fields": {
-            "name": "토마스터너"
+            "name": "수만판데"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 67,
         "fields": {
-            "name": "양윤선"
+            "name": "김한아"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 68,
         "fields": {
-            "name": "정경렬"
+            "name": "문봉진"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 69,
         "fields": {
-            "name": "김진호"
+            "name": "정경렬"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 70,
         "fields": {
-            "name": "유영준"
+            "name": "김재관"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 71,
         "fields": {
-            "name": "권혁상"
+            "name": "손향숙"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 72,
         "fields": {
-            "name": "김민기"
+            "name": "김동혁"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 73,
         "fields": {
-            "name": "정원진"
+            "name": "김근영"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 74,
         "fields": {
-            "name": "이윤호"
+            "name": "최서윤"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 75,
         "fields": {
-            "name": "방윤수"
+            "name": "김봉중"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 76,
         "fields": {
-            "name": "이상윤"
+            "name": "박진주"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 77,
         "fields": {
-            "name": "장진호"
+            "name": "도용주"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 78,
         "fields": {
-            "name": "최성임"
+            "name": "김홍재"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 79,
         "fields": {
-            "name": "안혜선"
+            "name": "민춘기"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 80,
         "fields": {
-            "name": "제프리발드윈"
+            "name": "태기융"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 81,
         "fields": {
-            "name": "다런윌리엄스"
+            "name": "서문학"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 82,
         "fields": {
-            "name": "이병근"
+            "name": "임정선"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 83,
         "fields": {
-            "name": "엄수현"
+            "name": "김건우"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 84,
         "fields": {
-            "name": "브라이언도리얼"
+            "name": "장진호"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 85,
         "fields": {
-            "name": "박우진"
+            "name": "오용"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 86,
         "fields": {
-            "name": "공득조"
+            "name": "양현석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 87,
         "fields": {
-            "name": "김동혁"
+            "name": "하민정"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 88,
         "fields": {
-            "name": "박기환"
+            "name": "양윤선"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 89,
         "fields": {
-            "name": "이재호"
+            "name": "김민경"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 90,
         "fields": {
-            "name": "문승현"
+            "name": "이주형"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 91,
         "fields": {
-            "name": "권인찬"
+            "name": "김승준"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 92,
         "fields": {
-            "name": "김보라"
+            "name": "김영민"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 93,
         "fields": {
-            "name": "이재영"
+            "name": "송영민"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 94,
         "fields": {
-            "name": "강현석"
+            "name": "홍원석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 95,
         "fields": {
-            "name": "이선규"
+            "name": "김호범"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 96,
         "fields": {
-            "name": "양성"
+            "name": "임춘택"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 97,
         "fields": {
-            "name": "임현섭"
+            "name": "이현화"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 98,
         "fields": {
-            "name": "안진희"
+            "name": "심해홍"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 99,
         "fields": {
-            "name": "차미령"
+            "name": "박영준"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 100,
         "fields": {
-            "name": "다니엘존스"
+            "name": "이보름"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 101,
         "fields": {
-            "name": "기철식"
+            "name": "데이비드스튜어트윌스"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 102,
         "fields": {
-            "name": "최정옥"
+            "name": "송철한"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 103,
         "fields": {
-            "name": "알사드아프잘"
+            "name": "정원진"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 104,
         "fields": {
-            "name": "이재석"
+            "name": "최한들"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 105,
         "fields": {
-            "name": "전장수"
+            "name": "데이비드"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 106,
         "fields": {
-            "name": "박명규"
+            "name": "신인환"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 107,
         "fields": {
-            "name": "김희주"
+            "name": "최정옥"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 108,
         "fields": {
-            "name": "장문영"
+            "name": "안창욱"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 109,
         "fields": {
-            "name": "김형일"
+            "name": "황치옥"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 110,
         "fields": {
-            "name": "민경은"
+            "name": "이종호"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 111,
         "fields": {
-            "name": "이기정"
+            "name": "권혁상"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 112,
         "fields": {
-            "name": "김병돈"
+            "name": "안혜선"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 113,
         "fields": {
-            "name": "이시연"
+            "name": "연한울"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 114,
         "fields": {
-            "name": "김홍종"
+            "name": "김보라"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 115,
         "fields": {
-            "name": "남창희"
+            "name": "곽성조"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 116,
         "fields": {
-            "name": "정경운"
+            "name": "공득조"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 117,
         "fields": {
-            "name": "박철승"
+            "name": "박장진"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 118,
         "fields": {
-            "name": "민춘기"
+            "name": "박건혁"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 119,
         "fields": {
-            "name": "송민경"
+            "name": "박명규"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 120,
         "fields": {
-            "name": "김진수"
+            "name": "이은지"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 121,
         "fields": {
-            "name": "김창우"
+            "name": "존윌스"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 122,
         "fields": {
-            "name": "홍원석"
+            "name": "이흥노"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 123,
         "fields": {
-            "name": "이상한"
+            "name": "박래길"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 124,
         "fields": {
-            "name": "박장진"
+            "name": "알사드아프잘"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 125,
         "fields": {
-            "name": "유현주"
+            "name": "장지승"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 126,
         "fields": {
-            "name": "이은지"
+            "name": "박기환"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 127,
         "fields": {
-            "name": "오용"
+            "name": "진석원"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 128,
         "fields": {
-            "name": "리자오지에"
+            "name": "김준영"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 129,
         "fields": {
-            "name": "이선하"
+            "name": "함혜진"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 130,
         "fields": {
-            "name": "윤필상"
+            "name": "이기정"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 131,
         "fields": {
-            "name": "김건우"
+            "name": "손진희"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 132,
         "fields": {
-            "name": "서준혁"
+            "name": "이선규"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 133,
         "fields": {
-            "name": "송정민"
+            "name": "조정희"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 134,
         "fields": {
-            "name": "장진형"
+            "name": "박찬용"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 135,
         "fields": {
-            "name": "조춘실"
+            "name": "최원일"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 136,
         "fields": {
-            "name": "박영준"
+            "name": "이선하"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 137,
         "fields": {
-            "name": "김영민"
+            "name": "이상윤"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 138,
         "fields": {
-            "name": "조경래"
+            "name": "한근식"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 139,
         "fields": {
-            "name": "최원일"
+            "name": "원치욱"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 140,
         "fields": {
-            "name": "황희정"
+            "name": "김경택"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 141,
         "fields": {
-            "name": "데이비드"
+            "name": "김홍국"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 142,
         "fields": {
-            "name": "김인수"
+            "name": "장진형"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 143,
         "fields": {
-            "name": "진미선"
+            "name": "지솔근"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 144,
         "fields": {
-            "name": "김민곤"
+            "name": "전해곤"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 145,
         "fields": {
-            "name": "진석원"
+            "name": "서지원"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 146,
         "fields": {
-            "name": "박창수"
+            "name": "송은성"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 147,
         "fields": {
-            "name": "함혜진"
+            "name": "김상륜"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 148,
         "fields": {
-            "name": "강동호"
+            "name": "윤진호"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 149,
         "fields": {
-            "name": "홍석원"
+            "name": "김선동"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 150,
         "fields": {
-            "name": "양현석"
+            "name": "이광록"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 151,
         "fields": {
-            "name": "박지환"
+            "name": "박정은"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 152,
         "fields": {
-            "name": "한승희"
+            "name": "박용순"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 153,
         "fields": {
-            "name": "박찬용"
+            "name": "이종현"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 154,
         "fields": {
-            "name": "윤해옥"
+            "name": "수띠퐁스띠아노프카오"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 155,
         "fields": {
-            "name": "고흥조"
+            "name": "이규빈"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 156,
         "fields": {
-            "name": "김한아"
+            "name": "박소희"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 157,
         "fields": {
-            "name": "수띠퐁스띠아노프카오"
+            "name": "이재석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 158,
         "fields": {
-            "name": "이용구"
+            "name": "최진욱"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 159,
         "fields": {
-            "name": "이수정"
+            "name": "김동희"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 160,
         "fields": {
-            "name": "홍성민"
+            "name": "강현석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 161,
         "fields": {
-            "name": "이종호"
+            "name": "엄광섭"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 162,
         "fields": {
-            "name": "이복근"
+            "name": "최영재"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 163,
         "fields": {
-            "name": "김윤수"
+            "name": "송정민"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 164,
         "fields": {
-            "name": "임정선"
+            "name": "김민기"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 165,
         "fields": {
-            "name": "김은석"
+            "name": "남정석"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 166,
         "fields": {
-            "name": "김경중"
+            "name": "이재형"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 167,
         "fields": {
-            "name": "수만판데"
+            "name": "조계주"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 168,
         "fields": {
-            "name": "이보름"
+            "name": "한승희"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 169,
         "fields": {
-            "name": "송은성"
+            "name": "김형일"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 170,
         "fields": {
-            "name": "이봉욱"
+            "name": "하대청"
         }
     },
     {
         "model": "subjectapp.professor",
         "pk": 171,
         "fields": {
-            "name": "한근식"
+            "name": "김진수"
+        }
+    },
+    {
+        "model": "subjectapp.professor",
+        "pk": 172,
+        "fields": {
+            "name": "강운태"
+        }
+    },
+    {
+        "model": "subjectapp.professor",
+        "pk": 173,
+        "fields": {
+            "name": "김창우"
+        }
+    },
+    {
+        "model": "subjectapp.professor",
+        "pk": 174,
+        "fields": {
+            "name": "차미령"
+        }
+    },
+    {
+        "model": "subjectapp.professor",
+        "pk": 175,
+        "fields": {
+            "name": "김의환"
+        }
+    },
+    {
+        "model": "subjectapp.professor",
+        "pk": 176,
+        "fields": {
+            "name": "김효정"
+        }
+    },
+    {
+        "model": "subjectapp.professor",
+        "pk": 177,
+        "fields": {
+            "name": "김동유"
         }
     }
 ]
