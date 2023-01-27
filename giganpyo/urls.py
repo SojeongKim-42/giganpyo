@@ -34,19 +34,6 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,), 
 )
 
-schema_view = get_schema_view( 
-    openapi.Info( 
-        title="Giganpyo API", 
-        default_version="v1", 
-        description="Giganpyo 서비스를 위한 API 문서", 
-        terms_of_service="https://www.google.com/policies/terms/", 
-        contact=openapi.Contact(name="test", email="jclee0109@gist.ac.kr"), 
-        license=openapi.License(name="Test License"), 
-    ), 
-    public=True, 
-    permission_classes=(permissions.AllowAny,), 
-)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('data/', include('data.urls')),
