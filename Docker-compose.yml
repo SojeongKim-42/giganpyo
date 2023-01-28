@@ -17,6 +17,7 @@ services:
     volumes:
       - static-volume:/srv/giganpyo-server/static
       - media-volume:/srv/giganpyo-server/media
+      - /home/ubuntu/db_backup.sqlite3:/srv/giganpyo-server/db.sqlite3
     expose:
       - 8000
     networks:
@@ -33,6 +34,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    volumes:
+      - /home/ubuntu/db_backup.sqlite3:/srv/giganpyo-server/db.sqlite3
     networks:
       - network
     command: >
@@ -47,7 +50,7 @@ services:
     networks:
       - network
     volumes:
-      - ${HOME_DIR}/giganpyo.conf:/etc/nginx/nginx.conf
+      - /srv/giganpyo-server/giganpyo/nginx/giganpyo.conf:/etc/nginx/nginx.conf
       - static-volume:/data/static
       - media-volume:/data/media
     ports:
@@ -61,3 +64,4 @@ networks:
 volumes:
   static-volume:
   media-volume:
+  db-volume:

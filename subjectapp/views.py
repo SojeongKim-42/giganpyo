@@ -12,17 +12,48 @@ from accountapp.models import User
 from subjectapp.serializers import *
 
 from rest_framework import status
-
+from django.db.models import Q
 
 class SubjectViewSets(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     lookup_field = 'subject_id'
+    permission_classes = ['AllowAny']
+
+    def is_valid_queryparam(self, param):
+        return param != '' and param is not None
 
     def get_queryset(self):
         return Subject.objects.all()
 
+    # TODO : 정렬! 필터!
+    # 많이 담은 순
+    # 이름 순
     def list(self, request, *args, **kwargs):
+        # https://api.giganpyo.com/api/subjects?
+        name = request.GET.get('name')  # 과목이름
+        professor = request.GET.get('professor')
+        id = request.GET.get('id')  # 과목ID
+        code = request.GET.get('code')  # 과목코드
+        day = request.GET.get('day')  # 요일
+        time = request.GET.get('time')  # 시간
+        department = request.GET.get('department', '기초교육학부')  # 부서
+        order = request.GET.get('order')  # 정렬기준
+        # 담은사람 순, 이름 순
+        # TODO : 정렬기준에 따라 정렬하기
+        # so=1 ("select_person") : 담은사람 순
+        # so=2 : 이름 순
         queryset = self.get_queryset()
+
+        if self.is_valid_queryparam(name):
+            queryset = queryset.filter(name__icontains=name)
+        if self.is_valid_queryparam(professor):
+            queryset = queryset.filter(
+                professors__name__icontains=professor
+            )
+        # 10:30~12:00
+        # time=10:30~12:00
+        # time=10:30
+        
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
         # with open(os.path.join(settings.BASE_DIR, 'static/subjects.json'), encoding='utf-8') as subjects_file:
@@ -33,7 +64,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
 class TableSubjectViewSets(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     lookup_fields=('subject_id', 'table_id')
-    
+    permission_classes = ['isAuthenticated']
     
     def get_queryset(self):
         return Cart.objects.all()

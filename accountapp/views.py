@@ -76,11 +76,8 @@ class Activate(APIView):
     def get(self, request, uidb64, token):
         try:
             uid = uidb64
-            print(uid)
             user = User.objects.get(id=uid)
-            print(user)
             user_dic = jwt.decode(token, SECRET_KEY, algorithms='HS256')
-            print(user_dic)
             if user.id == user_dic["user"]:
                 user.is_active = True
                 user.save()
