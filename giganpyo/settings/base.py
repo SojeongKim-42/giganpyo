@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env(Debug=(bool, True),)  # set default values and casting
 environ.Env.read_env(
-    env_file=os.path.join(BASE_DIR, '.env.dev')
+    env_file=os.path.join(BASE_DIR, '.env')
 )
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -151,15 +151,15 @@ CELERY_TIMEZONE = 'Asia/Seoul'
 DJANGO_CELERY_RESULTS_TASK_ID_MAX_LENGTH = 191
 
 # Cache
-# CACHES = {  
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379/1", # 1번 DB
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
+CACHES = {  
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1", # 1번 DB
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 
 MIDDLEWARE = [
