@@ -22,6 +22,9 @@ class SubjectViewSets(viewsets.ModelViewSet):
     def is_valid_queryparam(self, param):
         return param != '' and param is not None
 
+    def is_valid_queryparam(self, param):
+        return param != '' and param is not None
+
     def get_queryset(self):
         return Subject.objects.all()
 
@@ -29,19 +32,16 @@ class SubjectViewSets(viewsets.ModelViewSet):
     # 많이 담은 순
     # 이름 순
     def list(self, request, *args, **kwargs):
-        # https://api.giganpyo.com/api/subjects?
+
         name = request.GET.get('name')  # 과목이름
         professor = request.GET.get('professor')
-        id = request.GET.get('id')  # 과목ID
         code = request.GET.get('code')  # 과목코드
         day = request.GET.get('day')  # 요일
         time = request.GET.get('time')  # 시간
         department = request.GET.get('department', '기초교육학부')  # 부서
-        order = request.GET.get('order')  # 정렬기준
-        # 담은사람 순, 이름 순
-        # TODO : 정렬기준에 따라 정렬하기
-        # so=1 ("select_person") : 담은사람 순
-        # so=2 : 이름 순
+        # TODO : 변수명 sort 대신 order로 변경?
+        sort = request.GET.get('sort')  # 정렬기준
+
         queryset = self.get_queryset()
 
         if self.is_valid_queryparam(name):
@@ -50,11 +50,26 @@ class SubjectViewSets(viewsets.ModelViewSet):
             queryset = queryset.filter(
                 professors__name__icontains=professor
             )
-        # 10:30~12:00
-        # time=10:30~12:00
-        # time=10:30
-        
+        if self.is_valid_queryparam(code):
+            queryset = queryset.filter(code__iexact=code)
+        if self.is_valid_queryparam(day):
+            queryset = queryset.filter(times__day__exact=day)
+        if self.is_valid_queryparam(time):
+            queryset = queryset.filter(
+                times__start_time__exact=time
+            )
+        if self.is_valid_queryparam(department):
+            queryset = queryset.filter(department__exact=department)
+
+        if sort == 'select':
+            queryset = queryset.order_by('-select_person', 'name')
+        elif sort == 'name':
+            queryset = queryset.order_by('name')
+        else:
+            queryset = queryset.all()
+
         serializer = self.get_serializer(queryset, many=True)
+
         return Response(serializer.data)
         # with open(os.path.join(settings.BASE_DIR, 'static/subjects.json'), encoding='utf-8') as subjects_file:
         #     subjects_file = json.load(subjects_file)   
