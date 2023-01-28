@@ -36,7 +36,7 @@ class TableViewSets(viewsets.ModelViewSet):
         if table_id not in Table.objects.all().values_list('table_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         try:
-            table = self.queryset.get(table_id=table_id, user_id=request.user.id)
+            table = self.queryset.get(table_id=table_id, user_id=user_id)
         # TODO : 서버 열 때는 주석 다시 풀어줘 & Exception 정확하게!
         # FIXME : Exception 고쳐줘
         except Exception:
