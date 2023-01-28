@@ -17,6 +17,7 @@ from django.db.models import Q
 class SubjectViewSets(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     lookup_field = 'subject_id'
+    permission_classes = ['AllowAny']
 
     def is_valid_queryparam(self, param):
         return param != '' and param is not None
@@ -63,7 +64,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
 class TableSubjectViewSets(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     lookup_fields=('subject_id', 'table_id')
-    
+    permission_classes = ['isAuthenticated']
     
     def get_queryset(self):
         return Cart.objects.all()
