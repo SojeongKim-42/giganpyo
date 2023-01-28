@@ -17,6 +17,10 @@ from django.db.models import Q
 class SubjectViewSets(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     lookup_field = 'subject_id'
+    permission_classes = ['AllowAny']
+
+    def is_valid_queryparam(self, param):
+        return param != '' and param is not None
 
     def is_valid_queryparam(self, param):
         return param != '' and param is not None
@@ -24,13 +28,18 @@ class SubjectViewSets(viewsets.ModelViewSet):
     def get_queryset(self):
         return Subject.objects.all()
 
+    # TODO : 정렬! 필터!
+    # 많이 담은 순
+    # 이름 순
     def list(self, request, *args, **kwargs):
+
         name = request.GET.get('name')  # 과목이름
         professor = request.GET.get('professor')
         code = request.GET.get('code')  # 과목코드
         day = request.GET.get('day')  # 요일
         time = request.GET.get('time')  # 시간
         department = request.GET.get('department', '기초교육학부')  # 부서
+        # TODO : 변수명 sort 대신 order로 변경?
         sort = request.GET.get('sort')  # 정렬기준
 
         queryset = self.get_queryset()
@@ -70,7 +79,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
 class TableSubjectViewSets(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     lookup_fields=('subject_id', 'table_id')
-    
+    permission_classes = ['isAuthenticated']
     
     def get_queryset(self):
         return Cart.objects.all()
