@@ -14,7 +14,6 @@ class TableViewSets(viewsets.ModelViewSet):
     queryset = Table.objects.all()
     serializer_class = TableSerializer
     lookup_field='table_id'
-    permission_classes = ['isAuthenticated']
     
     def list(self, request, user_id, *args, **kwargs):
         # if request.user.id != user_id:
