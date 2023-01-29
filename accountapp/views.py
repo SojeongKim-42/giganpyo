@@ -83,7 +83,6 @@ class Activate(APIView):
                 user.save()
                 res = Response(
                     {
-                        "user": user,
                         "message": "email_verify successs"
                     },
                     status=status.HTTP_200_OK,
