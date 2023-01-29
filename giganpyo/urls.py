@@ -35,13 +35,13 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('data/', include('data.urls')),
+    path('admin', admin.site.urls),
+    path('data', include('data.urls')),
     
-    path('api/user/', include('accountapp.urls')),
-    path('api/subjects/', SubjectViewSets.as_view({'get': 'list'})),
-    path("api/user/<int:user_id>/table/", include('tableapp.urls')),
-    path('api/user/<int:user_id>/table/<int:table_id>/subject/', include('subjectapp.urls')),
+    path('api/user', include('accountapp.urls')),
+    path('api/subjects', SubjectViewSets.as_view({'get': 'list'})),
+    path("api/user/<int:user_id>/table", include('tableapp.urls')),
+    path('api/user/<int:user_id>/table/<int:table_id>/subject', include('subjectapp.urls')),
     
     # re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     # # 유저가 클릭한 이메일(=링크) 확인
