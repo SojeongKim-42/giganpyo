@@ -17,7 +17,6 @@ from django.db.models import Q
 class SubjectViewSets(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     lookup_field = 'subject_id'
-    permission_classes = ['AllowAny']
 
     def is_valid_queryparam(self, param):
         return param != '' and param is not None
@@ -32,7 +31,6 @@ class SubjectViewSets(viewsets.ModelViewSet):
     # 많이 담은 순
     # 이름 순
     def list(self, request, *args, **kwargs):
-
         name = request.GET.get('name')  # 과목이름
         professor = request.GET.get('professor')
         code = request.GET.get('code')  # 과목코드
@@ -79,7 +77,6 @@ class SubjectViewSets(viewsets.ModelViewSet):
 class TableSubjectViewSets(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     lookup_fields=('subject_id', 'table_id')
-    permission_classes = ['isAuthenticated']
     
     def get_queryset(self):
         return Cart.objects.all()
