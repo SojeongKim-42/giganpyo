@@ -163,6 +163,8 @@ CACHES = {
     }
 }
 
+# CSRF ORIGIN
+CSRF_TRUSTED_ORIGINS = ["https://api.giganpyo.com", "http://api.giganpyo.com", "https://www.giganpyo.com", "http://www.giganpyo.com", "https://giganpyo.com", "http://giganpyo.com"]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
