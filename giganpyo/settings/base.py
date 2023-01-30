@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # TODO: env 제대로 분리!!
 env = environ.Env(Debug=(bool, True),)  # set default values and casting
 environ.Env.read_env(
-    env_file=os.path.join(BASE_DIR, '.env.dev')
+    env_file=os.path.join(BASE_DIR, '.env')
 )
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -125,7 +125,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # 인증된 사용자만 접근 가능
+        'rest_framework.permissions.AllowAny',  # 인증된 사용자만 접근 가능
 
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -140,6 +140,12 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer'
 }
 
+# Swagger
+SWAGGER_SETTINGS = {
+   'USE_SESSION_AUTH': False
+}
+
+APPEND_SLASH = False
 # Celery
 # rabbitmq wsl에서 안됨 ㅜㅜ 윈도우 유저는 웁니다...
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
@@ -164,7 +170,7 @@ CACHES = {
 }
 
 # CSRF ORIGIN
-CSRF_TRUSTED_ORIGINS = ["https://api.giganpyo.com", "http://api.giganpyo.com", "https://www.giganpyo.com", "http://www.giganpyo.com", "https://giganpyo.com", "http://giganpyo.com"]
+CSRF_TRUSTED_ORIGINS = ["https://api.giganpyo.com", "http://api.giganpyo.com", "https://www.giganpyo.com", "http://www.giganpyo.com", "https://giganpyo.com", "http://giganpyo.com", "http://localhost:3000"]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
