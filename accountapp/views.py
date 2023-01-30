@@ -2,6 +2,7 @@ from base64 import urlsafe_b64decode, urlsafe_b64encode
 from tokenize import TokenError
 from django.utils.encoding import force_str, force_bytes
 from django.shortcuts import redirect
+from django.db import transaction
 
 import jwt
 
@@ -22,6 +23,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from rest_framework import status
+
+from tableapp.models import Table
 
 #로그인
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -53,12 +56,12 @@ class RegisterAPIView(APIView):
         if serializer.is_valid():
             if not serializer.check_password(validated_data=serializer.validated_data):
                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "Passwords don't match"})
-            
-            user = serializer.save()
+            with transaction.atomic():
+                user = serializer.save()
+                Table.objects.create(user=user, main=True)
             
             current_site    = Site.objects.get_current()
             domain          = current_site.domain
-            print(user.pk)
             # uidb64          = urlsafe_b64encode(bytes(str(user.pk), 'UTF-8')).encode('UTF-8')
             uidb64          = user.id
 
