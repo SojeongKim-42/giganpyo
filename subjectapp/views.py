@@ -59,8 +59,12 @@ class SubjectViewSets(viewsets.ModelViewSet):
         if self.is_valid_queryparam(department):
             queryset = queryset.filter(department__exact=department)
 
-        if sort == 'select':
+        if sort == 'select_desc': #많이 담은 순
             queryset = queryset.order_by('-select_person', 'name')
+        elif sort == 'select_asc': #적게 담은 순
+            queryset = queryset.order_by('select_person', 'name')
+        elif sort == 'code':
+            queryset = queryset.order_by('code')
         elif sort == 'name':
             queryset = queryset.order_by('name')
         else:
