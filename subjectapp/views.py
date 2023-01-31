@@ -73,6 +73,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
             queryset = queryset.order_by('name')
         else:
             queryset = queryset.all()
+        queryset = queryset.distinct()
 
         serializer = self.get_serializer(queryset, many=True)
 
