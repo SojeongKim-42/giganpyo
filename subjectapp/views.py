@@ -16,11 +16,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 class SubjectViewSets(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     lookup_field = 'subject_id'
-    permissions_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     def is_valid_queryparam(self, param):
         return param != '' and param is not None
@@ -31,9 +32,6 @@ class SubjectViewSets(viewsets.ModelViewSet):
     def get_queryset(self):
         return Subject.objects.all()
 
-    # TODO : 정렬! 필터!
-    # 많이 담은 순
-    # 이름 순
     def list(self, request, *args, **kwargs):
         name = request.GET.get('name')  # 과목이름
         professor = request.GET.get('professor')
@@ -86,8 +84,9 @@ class SubjectViewSets(viewsets.ModelViewSet):
 class TableSubjectViewSets(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     lookup_fields=('subject_id', 'table_id')
-    permissions_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+
     def get_queryset(self):
         return Cart.objects.all()
 
@@ -105,8 +104,6 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
 
 
     def list(self, request, user_id, table_id, *args, **kwargs):
-        # if request.auth==None:
-            #     return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "유저 정보를 확인할 수 없습니다."})
         if user_id not in User.objects.all().values_list('id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
         if table_id not in Table.objects.all().values_list('table_id', flat=True):
@@ -115,7 +112,7 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 확인할 수 있습니다."})
         try:
             Table.objects.get(table_id=table_id, user_id=request.user.id)
-        except Exception:
+        except ObjectDoesNotExist:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "해당 유저에게 접근 권한이 없는 시간표입니다."})
         carts = Cart.objects.filter(table_id=table_id).values_list('subject_id', flat=True)
         queryset=Subject.objects.filter(subject_id__in=carts)
@@ -124,10 +121,16 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
     
     
     def create(self, request, user_id, table_id, subject_id, *args, **kwargs):
-        if request.user.id != user_id:
-            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
         if user_id not in User.objects.all().values_list('id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
+        if table_id not in Table.objects.all().values_list('table_id', flat=True):
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
+        if request.user.id != user_id:
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
+        try:
+            table= Table.objects.get(table_id=table_id, user_id=request.user.id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "해당 유저에게 접근 권한이 없는 시간표입니다."})
         carts = Cart.objects.filter(table_id=table_id)
         adding_subject = Subject.objects.get(subject_id=subject_id)
 
@@ -154,7 +157,7 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
                             return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "시간이 겹칩니다.", "old": old, "new": new})
 
         # 선택한 사람 추가하기: 메인테이블일 경우 +1
-        if Table.objects.get(table_id=table_id).main:
+        if table.main:
             adding_subject.select_person+=1
             adding_subject.save()
 
@@ -168,21 +171,24 @@ class TableSubjectViewSets(viewsets.ModelViewSet):
         serializer.save(subject_id=subject_id, table_id=table_id)
 
     def destroy(self, request, user_id, subject_id,table_id, *args, **kwargs):
-        # if request.auth == None:
-        #     return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "유저 정보를 확인할 수 없습니다."})
-        if request.user.id != user_id:
-            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
+
         if user_id not in User.objects.all().values_list('id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
         if table_id not in Table.objects.all().values_list('table_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 시간표입니다."})
         if subject_id not in Subject.objects.all().values_list('subject_id', flat=True):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 과목입니다."})
+        if request.user.id != user_id:
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
+        try:
+            table = Table.objects.get(table_id=table_id, user_id=request.user.id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "해당 유저에게 접근 권한이 없는 시간표입니다."})
         if subject_id not in Cart.objects.filter(table_id=table_id).values_list('subject_id', flat=True):
             return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "장바구니에 담기지 않은 과목입니다."})
 
         # 선택한 사람 삭제하기: 메인테이블에 담긴 subject면 -1
-        if Table.objects.get(table_id=table_id).main:
+        if table.main:
             deleting_subject = Subject.objects.get(subject_id=subject_id)
             deleting_subject.select_person -= 1
             deleting_subject.save()
