@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     
     # Rest frame work : djangorestframework-simplejwt
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
 
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     
     # celery
     'django_celery_beat',
@@ -120,6 +122,11 @@ SIMPLE_JWT = {
 
 JWT_AUTH_COOKIE = 'giganpyo-app-auth'
 
+# Social Login - Google
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = env("SOCIAL_AUTH_GOOGLE_CLIENT_ID")
+SOCIAL_AUTH_GOOGLE_SECRET = env("SOCIAL_AUTH_GOOGLE_SECRET")
+BASE_URL = "https://api.giganpyo.com"
+
 # REST
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -137,7 +144,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer'
+    'REGISTER_SERIALIZER': 'accountapp.serializers.RegisterSerializer'
 }
 
 # Swagger

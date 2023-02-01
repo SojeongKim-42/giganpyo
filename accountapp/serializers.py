@@ -4,6 +4,9 @@ from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import status
+from django.conf import settings
+from django.utils.module_loading import import_string
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)
@@ -58,3 +61,39 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['success'] = True
         
         return data
+
+class JWTCustomSerializer(serializers.Serializer):
+    """
+    Serializer for JWT authentication.
+    """
+    access = serializers.CharField()
+    refresh = serializers.CharField()
+    user = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        """
+        Required to allow using custom USER_DETAILS_SERIALIZER in
+        JWTSerializer. Defining it here to avoid circular imports
+        """
+        rest_auth_serializers = getattr(settings, 'REST_AUTH_SERIALIZERS', {})
+
+        JWTUserDetailsSerializer = import_string(
+            rest_auth_serializers.get(
+                'USER_DETAILS_SERIALIZER',
+                'dj_rest_auth.serializers.UserDetailsSerializer',
+            ),
+        )
+
+        user_data = JWTUserDetailsSerializer(obj['user'], context=self.context).data
+        return user_data
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["student_ID", "major"]
+
+    def update(self, instance, validated_data):
+        instance.student_ID = validated_data.get('student_ID', instance.student_ID)
+        instance.major = validated_data.get('major', instance.major)
+        instance.save()
+        return instance

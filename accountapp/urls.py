@@ -1,5 +1,5 @@
 from django.urls import path
-from accountapp.views import Activate, MyTokenObtainPairView, RegisterAPIView
+from accountapp.views import Activate, GoogleLogin, MyTokenObtainPairView, RegisterAPIView, UserViewSets, google_login, google_redirect
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -13,6 +13,10 @@ urlpatterns = [
     path('/login', MyTokenObtainPairView.as_view(), name='login'),
     path('/token/refresh', TokenRefreshView.as_view(), name='refresh'),
     path('/registration', RegisterAPIView.as_view(), name='register'),
+    path('/<int:user_id>', UserViewSets.as_view({'put': 'update'})),
     
-    path('/activate/<int:uidb64>/<str:token>', Activate.as_view())
+    path('/activate/<int:uidb64>/<str:token>', Activate.as_view()),
+    path('/google/redirect', google_redirect, name='google_redirect'),
+    path('/google/login', google_login, name='google_login'),
+    path('/google/login/finish', GoogleLogin.as_view(), name='google_login_finish')
 ]
