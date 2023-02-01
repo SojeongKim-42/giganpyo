@@ -74,10 +74,11 @@ class TableViewSets(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND, data={"message": "존재하지 않는 유저입니다."})
         if request.user.id != user_id:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 시간표만 수정할 수 있습니다."})
+        if ('user' in request.POST) or ('main' in request.POST):
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "name 외의 값은 변경할 수 없습니다."})
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
 
-        # TODO: name만 변경 가능하도록 바꾸기
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
