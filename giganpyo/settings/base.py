@@ -125,7 +125,7 @@ JWT_AUTH_COOKIE = 'giganpyo-app-auth'
 # Social Login - Google
 SOCIAL_AUTH_GOOGLE_CLIENT_ID = env("SOCIAL_AUTH_GOOGLE_CLIENT_ID")
 SOCIAL_AUTH_GOOGLE_SECRET = env("SOCIAL_AUTH_GOOGLE_SECRET")
-BASE_URL = "https://api.giganpyo.com"
+BASE_URL = "https://www.giganpyo.com"
 
 # REST
 REST_FRAMEWORK = {
