@@ -10,7 +10,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
-
+BASE_URL = "http://127.0.0.1:8000"
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 EMAIL_PORT = env("EMAIL_PORT") # gmail과 통신하는 포트
@@ -22,3 +22,5 @@ CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
 CELERY_CACHE_BACKEND = env("CELERY_CACHE_BACKEND")
 
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
+
+SITE_ID=1

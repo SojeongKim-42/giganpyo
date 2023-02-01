@@ -19,8 +19,9 @@ coreschema==0.0.4
 cryptography==39.0.0
 cssutils==2.6.0
 defusedxml==0.7.1
+dj-rest-auth==2.2.7
 Django==4.0.3
-django-allauth==0.52.0
+django-allauth==0.51.0
 django-celery-beat==2.4.0
 django-celery-results==2.4.0
 django-cors-headers==3.13.0
