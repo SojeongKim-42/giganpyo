@@ -51,7 +51,7 @@ class SubjectViewSets(viewsets.ModelViewSet):
                 professors__name__icontains=professor
             )
         if self.is_valid_queryparam(code):
-            queryset = queryset.filter(code__iexact=code)
+            queryset = queryset.filter(code__icontains=code)
         if self.is_valid_queryparam(day):
             queryset = queryset.filter(times__day__exact=day)
         if self.is_valid_queryparam(time):
