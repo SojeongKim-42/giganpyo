@@ -122,13 +122,13 @@ social_provider_translation = {"google": "구글", "kakao": "카카오"}
 BASE_URL = getattr(settings, "BASE_URL")
 GOOGLE_CALLBACK_URI = BASE_URL + '/api/user/google/login'
 
-def google_redirect(request):
-    """
-    Code Request
-    """
-    scope = "https://www.googleapis.com/auth/userinfo.email"
-    client_id = getattr(settings, "SOCIAL_AUTH_GOOGLE_CLIENT_ID")
-    return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
+# def google_redirect(request):
+#     """
+#     Code Request
+#     """
+#     scope = "https://www.googleapis.com/auth/userinfo.email"
+#     client_id = getattr(settings, "SOCIAL_AUTH_GOOGLE_CLIENT_ID")
+#     return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
 
 @api_view(['GET'])
 def google_login(request):
@@ -288,5 +288,3 @@ class UserViewSets(viewsets.ModelViewSet):
             instance._prefetched_objects_cache = {}
 
         return Response(serializer.data)
-
-    
