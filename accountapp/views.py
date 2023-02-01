@@ -70,8 +70,8 @@ class RegisterAPIView(APIView):
             mail_title      = "이메일 인증을 완료해주세요"
             
             send_verification_email.apply_async(args=(mail_title, message_data, request.data["email"]))
-            
-            return Response({"message": "register successs. Please"}, status=status.HTTP_200_OK)
+
+            return Response({"message": "register successs. Please check your email."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

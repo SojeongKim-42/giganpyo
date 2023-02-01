@@ -40,7 +40,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
     # response 커스텀 
     default_error_messages = {
-        'no_active_account': {'message':'username or password is incorrect!', 
+        'no_active_account': {'message':'username or password is incorrect. Or user may not be active - check email.', 
                               'success': False,
                               'status' : 401}
     }
