@@ -62,7 +62,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
             )
             # 배포할 때는 httponly=True, secure=True, samesite=Nonee
             # 크롬 정책
-            print(access_token)
             res.set_cookie("access", serializer.validated_data.get("access"), httponly=True, secure=True, samesite="None")
             res.set_cookie("refresh", serializer.validated_data.get("refresh"), httponly=True, secure=True, samesite="None")
             print(res.cookies.get("access"))
@@ -224,8 +223,8 @@ def google_login(request):
             return AccountErrors.SocialLoginFailed(email_req_status, social_provider="구글")
         accept_json = accept.json()
         print(accept_json)
-        user = accept_json.get('user')
-        user_instance = get_object_or_404(User, id=user['pk'])
+        user = accept_json.get('user_id')
+        user_instance = get_object_or_404(User, id=user_id)
         with transaction.atomic():
             user_instance.save()
             Table.objects.create(user_id=user["pk"], main=True)
@@ -300,7 +299,7 @@ class GoogleLogin(SocialLoginView):
 class UserViewSets(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-    lookup_field = 'user_id'
+    lookup_field = 'id'
     
     def update(self, request, user_id, *args, **kwargs):
         partial = True

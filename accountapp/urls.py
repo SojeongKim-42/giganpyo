@@ -13,7 +13,7 @@ urlpatterns = [
     path('/login', MyTokenObtainPairView.as_view(), name='login'),
     path('/token/refresh', TokenRefreshView.as_view(), name='refresh'),
     path('/registration', RegisterAPIView.as_view(), name='register'),
-    path('/<int:user_id>', UserViewSets.as_view({'put': 'update'})),
+    path('/<int:id>', UserViewSets.as_view({'put': 'update'})),
     path('/email/resend', EmailResend.as_view()),
     
     path('/activate/<int:uidb64>/<str:token>', Activate.as_view()),
