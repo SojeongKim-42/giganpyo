@@ -60,8 +60,11 @@ class MyTokenObtainPairView(TokenObtainPairView):
                 serializer.validated_data,
                 status=status.HTTP_200_OK,
             )
-            res.set_cookie("access", access_token, httponly=True)
-            res.set_cookie("refresh", refresh_token, httponly=True)
+            # 배포할 때는 httponly=True, secure=True, samesite=Nonee
+            # 크롬 정책
+            res.set_cookie("access", access_token, httponly=True, secure=True, samesite="None")
+            res.set_cookie("refresh", refresh_token, httponly=True, secure=True, samesite="None")
+            print(res.cookies.get("access"))
             return res
         except TokenError as e:
             raise jwt.InvalidTokenError(e.args[0])
@@ -77,8 +80,7 @@ class RegisterAPIView(APIView):
                 user = serializer.save(is_active=False)
                 Table.objects.create(user=user, main=True)
             
-            current_site    = Site.objects.get_current()
-            domain          = current_site.domain
+            domain = getattr(settings, "BASE_URL", "https://www.giganpyo.com")
             # uidb64          = urlsafe_b64encode(bytes(str(user.pk), 'UTF-8')).encode('UTF-8')
             uidb64          = user.id
 
@@ -88,7 +90,7 @@ class RegisterAPIView(APIView):
             
             send_verification_email.apply_async(args=(mail_title, message_data, request.data["email"]))
 
-            return Response({"message": "register successs. Please check your email."}, status=status.HTTP_200_OK)
+            return Response({"message": "register successs. Please check your email.", "user_id": user.id}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -115,6 +117,28 @@ class Activate(APIView):
         except KeyError:
             return Response({'message':'INVALID_KEY'}, status=status.HTTP_400_BAD_REQUEST)
         
+class EmailResend(APIView):
+    def post(self, request):
+        try:
+            email           = request.data["email"]
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                return Response({'message':'유효하지 않은 이메일입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+            if user.is_active:
+                return Response({'message':'이미 인증된 이메일입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+                
+            domain          = getattr(settings, "BASE_URL", "https://www.giganpyo.com")
+            # uidb64          = urlsafe_b64encode(bytes(str(user.pk), 'UTF-8')).encode('UTF-8')
+            uidb64          = user.id
+            token           = jwt.encode({'user':uidb64}, SECRET_KEY, algorithm='HS256')
+            message_data    = message(domain, uidb64, token)
+            mail_title      = "이메일 인증을 완료해주세요"
+        
+            send_verification_email.apply_async(args=(mail_title, message_data, email))
+            return Response({"message": "register successs. Please check your email.", "user_id": uidb64}, status=status.HTTP_200_OK)
+        except Exception:
+            return Response({"message": "email resend fail"}, status=status.HTTP_400_BAD_REQUEST)
 """
 Google Login
 """
@@ -201,7 +225,9 @@ def google_login(request):
         print(accept_json)
         user = accept_json.get('user')
         user_instance = get_object_or_404(User, id=user['pk'])
-        user_instance.save()
+        with transaction.atomic():
+            user_instance.save()
+            Table.objects.create(user_id=user["pk"], main=True)
         accept_json['user'] = user
 
         res = JsonResponse(accept_json, status=201)
@@ -265,6 +291,8 @@ class GoogleLogin(SocialLoginView):
         response = Response(serializer.data, status=status.HTTP_200_OK)
         if getattr(settings, 'REST_USE_JWT', False):
             set_jwt_cookies(response, self.access_token, self.refresh_token)
+        print(response.cookies.get("access"))
+
         return response
     
 
