@@ -223,13 +223,12 @@ def google_login(request):
             return AccountErrors.SocialLoginFailed(email_req_status, social_provider="구글")
         accept_json = accept.json()
         print(accept_json)
-        user = accept_json.get('user_id')
+        user_id = accept_json.get('user_id')
         user_instance = get_object_or_404(User, id=user_id)
         with transaction.atomic():
             user_instance.save()
-            Table.objects.create(user_id=user["pk"], main=True)
-        accept_json['user'] = user
-
+            Table.objects.create(user_id=user_id, main=True)
+        
         res = JsonResponse(accept_json, status=201)
         return res
     except SocialAccount.DoesNotExist:
