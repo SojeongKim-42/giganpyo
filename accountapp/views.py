@@ -62,8 +62,9 @@ class MyTokenObtainPairView(TokenObtainPairView):
             )
             # 배포할 때는 httponly=True, secure=True, samesite=Nonee
             # 크롬 정책
-            res.set_cookie("access", access_token, httponly=True, secure=True, samesite="None")
-            res.set_cookie("refresh", refresh_token, httponly=True, secure=True, samesite="None")
+            print(access_token)
+            res.set_cookie("access", serializer.validated_data.get("access"), httponly=True, secure=True, samesite="None")
+            res.set_cookie("refresh", serializer.validated_data.get("refresh"), httponly=True, secure=True, samesite="None")
             print(res.cookies.get("access"))
             return res
         except TokenError as e:
