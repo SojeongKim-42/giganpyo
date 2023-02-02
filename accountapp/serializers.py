@@ -68,9 +68,10 @@ class JWTCustomSerializer(serializers.Serializer):
     """
     access = serializers.CharField()
     refresh = serializers.CharField()
-    user = serializers.SerializerMethodField()
+    user_id = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
 
-    def get_user(self, obj):
+    def get_user_id(self, obj):
         """
         Required to allow using custom USER_DETAILS_SERIALIZER in
         JWTSerializer. Defining it here to avoid circular imports
@@ -85,7 +86,24 @@ class JWTCustomSerializer(serializers.Serializer):
         )
 
         user_data = JWTUserDetailsSerializer(obj['user'], context=self.context).data
-        return user_data
+        return user_data.pk
+    
+    def get_email(self, obj):
+        """
+        Required to allow using custom USER_DETAILS_SERIALIZER in
+        JWTSerializer. Defining it here to avoid circular imports
+        """
+        rest_auth_serializers = getattr(settings, 'REST_AUTH_SERIALIZERS', {})
+
+        JWTUserDetailsSerializer = import_string(
+            rest_auth_serializers.get(
+                'USER_DETAILS_SERIALIZER',
+                'dj_rest_auth.serializers.UserDetailsSerializer',
+            ),
+        )
+
+        user_data = JWTUserDetailsSerializer(obj['user'], context=self.context).data
+        return user_data.email
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
