@@ -86,7 +86,7 @@ class JWTCustomSerializer(serializers.Serializer):
         )
 
         user_data = JWTUserDetailsSerializer(obj['user'], context=self.context).data
-        return user_data.pk
+        return user_data.get("pk")
     
     def get_email(self, obj):
         """
@@ -103,7 +103,7 @@ class JWTCustomSerializer(serializers.Serializer):
         )
 
         user_data = JWTUserDetailsSerializer(obj['user'], context=self.context).data
-        return user_data.email
+        return user_data.get("email")
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
