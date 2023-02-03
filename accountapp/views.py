@@ -299,6 +299,7 @@ class GoogleLogin(SocialLoginView):
 
 class UserViewSets(viewsets.ModelViewSet):
     queryset = User.objects.all()
+    serializer_class=RegisterSerializer
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserUpdateSerializer
     lookup_field = 'id'
