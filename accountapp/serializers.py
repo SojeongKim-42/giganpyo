@@ -3,10 +3,14 @@ from rest_framework import serializers
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework import status
+from rest_framework import status, exceptions
+from rest_framework.exceptions import APIException
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import update_last_login
 from django.conf import settings
 from django.utils.module_loading import import_string
-
+from rest_framework_simplejwt.settings import api_settings
+from allauth.socialaccount.models import SocialAccount
 
 class RegisterSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)
@@ -38,18 +42,56 @@ class RegisterSerializer(serializers.ModelSerializer):
             return False
         return True
 
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    
     # response 커스텀 
     default_error_messages = {
-        'no_active_account': {'message':'username or password is incorrect. Or user may not be active - check email.', 
-                              'success': False,
-                              'status' : 401}
+        'no_account': {'message':'Email이 올바르지 않습니다. 다시 한 번 확인해주세요.', 'success': False, 'status' : 401},
+        'incorrect_password': {'message':'Password가 올바르지 않습니다. 다시 한 번 확인해주세요.', 'success': False, 'status' : 401},
+        'inactive_account': {'message':'Email 인증이 완료되지 않았습니다. Email 인증을 먼저 완료해주세요.', 'success': False, 'status' : 401},
+        'social_account': {'message':'소셜 로그인을 통해 가입하셨습니다. 소셜 로그인을 통해 로그인해주세요.', 'success': False, 'status' : 401},
     }
     # 유효성 검사
     def validate(self, attrs):
-        data = super().validate(attrs)
+        authenticate_kwargs = {
+            self.username_field: attrs[self.username_field],
+            "password": attrs["password"],
+        }
+        try:
+            authenticate_kwargs["request"] = self.context["request"]
+        except KeyError:
+            pass
+
+        self.user = authenticate(**authenticate_kwargs)
+        
+        if not api_settings.USER_AUTHENTICATION_RULE(self.user):
+            try:
+                user = User.objects.get(email=authenticate_kwargs[self.username_field])
+            except User.DoesNotExist:
+                raise exceptions.AuthenticationFailed(
+                    self.error_messages["no_account"],
+                    "no_account"
+                )
+            if user.is_active == False:
+                raise exceptions.AuthenticationFailed(
+                    self.error_messages["inactive_account"],
+                    "inactive_account",
+                )
+            elif SocialAccount.objects.filter(user=user).exists():
+                raise exceptions.AuthenticationFailed(
+                    self.error_messages["social_account"],
+                    "social_account",
+                )
+            else:
+                raise exceptions.AuthenticationFailed(
+                    self.error_messages["incorrect_password"],
+                    "incorrect_password",
+                )
+        
+        data = {}
+        # try:
+        #     data = super().validate(attrs)
+        # except exceptions.AuthenticationFailed as e:
+        #     raise exceptions.AuthenticationFailed(self.error_messages['no_active_account'])
         
         refresh = self.get_token(self.user)
         
@@ -59,6 +101,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
         data['success'] = True
+        
+        if api_settings.UPDATE_LAST_LOGIN:
+            update_last_login(None, self.user)
         
         return data
 

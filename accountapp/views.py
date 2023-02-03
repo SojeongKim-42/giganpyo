@@ -300,9 +300,9 @@ class UserViewSets(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'id'
     
-    def update(self, request, user_id, *args, **kwargs):
+    def update(self, request, id, *args, **kwargs):
         partial = True
-        if request.user.id != user_id:
+        if request.user.id != id:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "자신의 정보만 변경할 수 있습니다."})
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
