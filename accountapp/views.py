@@ -133,7 +133,7 @@ class EmailResend(APIView):
             uidb64          = user.id
             token           = jwt.encode({'user':uidb64}, SECRET_KEY, algorithm='HS256')
             message_data    = message(domain, uidb64, token)
-            mail_title      = "이메일 인증을 완료해주세요"
+            mail_title      = "이메일 인증 메일입니다."
         
             send_verification_email.apply_async(args=(mail_title, message_data, email))
             return Response({"message": "register successs. Please check your email.", "user_id": uidb64}, status=status.HTTP_200_OK)
