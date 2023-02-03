@@ -1,128 +1,112 @@
 <!-- email.html -->
 <!DOCTYPE html>
 <html lang="kr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }}</title>
-    </head>
-    <body>
-        <div style="margin: 0 auto;
-		width: 90%;">
-            <div style="position: absolute;
-			width: 455px;
-			height: 100px;
-			left: 100px;
-			top: 172px;
-	
-			font-family: 'Inter';
-			font-style: normal;
-			font-weight: 600;
-			font-size: 70px;
-			
-			background: linear-gradient(271.43deg, #54819B 40.14%, rgba(215, 46, 46, 0.75)79.93%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			text-fill-color: transparent;
-	
-			text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">GIGANPYO</div>
-            <div style="
-			position: absolute;
-			width: 600px;
-			height: 83px;
-			left: 100px;
-			top: 261px;
-	
-			font-family: 'Inter';
-			font-style: normal;
-			font-weight: 600;
-			font-size: 60px;
-			line-height: 73px;
-			color: #54819B;">메일 인증 안내입니다.</div>
-            <div style="position: absolute;
-			width: 1378px;
-			height: 0px;
-			left: 67px;
-			top: 150px;
-		
-			border: 3px solid #54819B;
-			transform: rotate(0.12deg);"> </div>
-            <div style="position: absolute;
-			width: 830px;
-			height: 259px;
-			left: 100px;
-			top: 365px;
-		
-			font-family: 'Inter';
-			font-style: normal;
-			font-weight: 400;
-			font-size: 30px;
-			line-height: 36px;
-		
-			color: #000000;">
-				<p>안녕하세요.</p>
+  </head>
+  <body>
+    <div
+      style="
+        width: 1200px;
+        height: 0px;
 
-				<p>지간표를 이용해주셔서 진심으로 감사드립니다.</p>
+        border: 3px solid #54819b;
+      "
+    ></div>
+    <div style="padding: 60px 60px">
+      <div
+        style="
+          width: 455px;
+          height: 80px;
 
-				<p>아래 ‘메일 인증' 버튼을 클릭하여 회원가입을 완료해주세요.</p>
+          font-weight: 600;
+          font-size: 70px;
 
-				<p>감사합니다.</p>
-			</div>
-            <div style="position: absolute;
-			width: 347px;
-			height: 99px;
-			left: 100px;
-			top: 658px;
-		
-			background: #54819B;
-			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-			border-radius: 4px;"> </div>
-            <a
-			href="{{ link }}"
-			style="
-			position: absolute;
-			width: 347px;
-			height: 90px;
-			left: 100px;
-			top: 682.2px;
-			text-decoration: none;
-	
-			font-weight: 500;
-			font-size: 45px;
-			line-height: 54px;
-			text-align: center;
-	
-			color: #ffffff;
-			"
-			>
-				메일 인증
-			</a>
-	
-            <div style="position: absolute;
-			width: 1378px;
-			height: 0px;
-			left: 67px;
-			top: 787px;
-		
-			border: 3px solid #54819B;
-			transform: rotate(0.12deg);"> </div>
-            <div style="position: absolute;
-			width: 559px;
-			height: 80px;
-			left: 100px;
-			top: 828px;
-		
-			font-family: 'Inter';
-			font-style: normal;
-			font-weight: 400;
-			font-size: 30px;
-			line-height: 36px;
-		
-			color: #000000;">
-            </div>
-        </div>
-    </body>
+          background: linear-gradient(
+            271.43deg,
+            #54819b 40.14%,
+            rgba(215, 46, 46, 0.75) 79.93%
+          );
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-fill-color: transparent;
 
+          text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        "
+      >
+        GIGANPYO
+      </div>
+      <img src="지간표 로고 들어갈 자리" alt="" />
+      <div
+        style="
+          width: 600px;
+          height: 83px;
+
+          font-weight: 600;
+          font-size: 60px;
+          line-height: 73px;
+          color: #54819b;
+        "
+      >
+        메일 인증 안내입니다.
+      </div>
+
+      <div
+        style="
+          width: 830px;
+          height: 259px;
+
+          font-weight: 400;
+          font-size: 30px;
+          line-height: 36px;
+
+          color: #000000;
+        "
+      >
+        <p>안녕하세요.</p>
+
+        <p>지간표를 이용해주셔서 진심으로 감사드립니다.</p>
+
+        <p>아래 ‘메일 인증' 버튼을 클릭하여 회원가입을 완료해주세요.</p>
+
+        <p>감사합니다.</p>
+      </div>
+
+      <button
+        href="{{ link }}"
+        style="
+          width: 347px;
+          height: 90px;
+
+          text-decoration: none;
+
+          font-weight: 500;
+          font-size: 45px;
+          line-height: 54px;
+          text-align: center;
+
+          background: #54819b;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 4px;
+          border: none;
+
+          color: #ffffff;
+        "
+      >
+        메일 인증
+      </button>
+    </div>
+    <div
+      style="
+        width: 1200px;
+        height: 0px;
+
+        border: 3px solid #54819b;
+      "
+    ></div>
+  </body>
 </html>
