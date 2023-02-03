@@ -22,7 +22,7 @@ from giganpyo.settings import base as settings
 
 from giganpyo.settings.base import SECRET_KEY
 from accountapp.models import User
-from accountapp.serializers import JWTCustomSerializer, MyTokenObtainPairSerializer, RegisterSerializer
+from accountapp.serializers import JWTCustomSerializer, MyTokenObtainPairSerializer, RegisterSerializer, UserUpdateSerializer
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -300,6 +300,7 @@ class GoogleLogin(SocialLoginView):
 class UserViewSets(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserUpdateSerializer
     lookup_field = 'id'
     
     def update(self, request, id, *args, **kwargs):
