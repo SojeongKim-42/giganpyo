@@ -77,7 +77,9 @@ class RegisterAPIView(APIView):
             if not serializer.check_password(validated_data=serializer.validated_data):
                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "Passwords don't match"})
             with transaction.atomic():
-                user = serializer.save(is_active=False)
+                user = serializer.save()
+                user.is_active = False
+                user.save()
                 Table.objects.create(user=user, main=True)
             
             domain = getattr(settings, "BASE_URL", "https://www.giganpyo.com")
