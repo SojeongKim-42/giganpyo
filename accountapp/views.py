@@ -77,7 +77,9 @@ class RegisterAPIView(APIView):
             if not serializer.check_password(validated_data=serializer.validated_data):
                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "Passwords don't match"})
             with transaction.atomic():
-                user = serializer.save(is_active=False)
+                user = serializer.save()
+                user.is_active = False
+                user.save()
                 Table.objects.create(user=user, main=True)
             
             domain = getattr(settings, "BASE_URL", "https://www.giganpyo.com")
@@ -133,7 +135,7 @@ class EmailResend(APIView):
             uidb64          = user.id
             token           = jwt.encode({'user':uidb64}, SECRET_KEY, algorithm='HS256')
             message_data    = message(domain, uidb64, token)
-            mail_title      = "이메일 인증을 완료해주세요"
+            mail_title      = "이메일 인증 메일입니다."
         
             send_verification_email.apply_async(args=(mail_title, message_data, email))
             return Response({"message": "register successs. Please check your email.", "user_id": uidb64}, status=status.HTTP_200_OK)

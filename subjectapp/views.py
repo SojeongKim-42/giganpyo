@@ -60,6 +60,8 @@ class SubjectViewSets(viewsets.ModelViewSet):
             )
         if self.is_valid_queryparam(department):
             queryset = queryset.filter(department__exact=department)
+        else:
+            queryset = queryset.filter(department__exact="기초교육학부")
 
         if sort == 'select_desc': #많이 담은 순
             queryset = queryset.order_by('-select_person', 'name')

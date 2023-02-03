@@ -10,7 +10,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
-BASE_URL = "https://api.giganpyo.com"
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 

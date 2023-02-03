@@ -45,7 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     # response 커스텀 
     default_error_messages = {
-        'no_account': {'message':'Email이 올바르지 않습니다. 다시 한 번 확인해주세요.', 'success': False, 'status' : 401},
+        'no_account': {'message':'등록된 Email이 없습니다. 다시 한 번 확인해주세요.', 'success': False, 'status' : 401},
         'incorrect_password': {'message':'Password가 올바르지 않습니다. 다시 한 번 확인해주세요.', 'success': False, 'status' : 401},
         'inactive_account': {'message':'Email 인증이 완료되지 않았습니다. Email 인증을 먼저 완료해주세요.', 'success': False, 'status' : 401},
         'social_account': {'message':'소셜 로그인을 통해 가입하셨습니다. 소셜 로그인을 통해 로그인해주세요.', 'success': False, 'status' : 401},
