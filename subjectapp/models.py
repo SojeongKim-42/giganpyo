@@ -38,8 +38,8 @@ class Subject(models.Model):
     is_offline = models.CharField(max_length=100, null=True)
     location = models.CharField(max_length=100, null=True)
     max_person = models.PositiveSmallIntegerField(null=True)
-    times = models.ManyToManyField(Time)
-    professors = models.ManyToManyField(Professor)
+    times = models.ManyToManyField(Time, blank=True)
+    professors = models.ManyToManyField(Professor, blank=True)
 
     year = models.PositiveSmallIntegerField()
     session = models.CharField(max_length=100)

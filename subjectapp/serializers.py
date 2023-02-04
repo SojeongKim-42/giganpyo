@@ -10,7 +10,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ['subject_id', 'name', 'code', 'credit', 'department', 'is_required', 'is_major', 'location', 'times', 'professors', 'select_person', 'max_person']
+        fields = ['subject_id', 'name', 'code', 'credit', 'department', 'location', 'times', 'professors', 'select_person', 'max_person']
 
     def get_times(self, obj):
         return obj.times.values('day', 'start_h', 'start_m', 'fin_h', 'fin_m')
