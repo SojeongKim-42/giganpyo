@@ -1,5 +1,5 @@
 from django.contrib import admin
-from subjectapp.models import Subject, Cart
+from subjectapp.models import *
 
 class SubjectAdmin(admin.ModelAdmin):
     search_fields = ['name', 'code']
